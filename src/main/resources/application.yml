@@ -1,0 +1,17 @@
+spring:
+  jpa:
+    database: POSTGRESQL
+    hibernate.ddl-auto: create
+    show-sql: true
+
+  datasource:
+    platform: postgres
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://ec2-52-87-58-157.compute-1.amazonaws.com:5432/d3a9nc2vv077kl?user=ygmfurlunobgmc&password=a23f12974620e6cbbb8e502136e7ffc3e62cc1fa67bfc11d7cff7ab6ef0462d9
+    username: ygmfurlunobgmc
+    password: a23f12974620e6cbbb8e502136e7ffc3e62cc1fa67bfc11d7cff7ab6ef0462d9
+
+server:
+  port: 8080
+  servlet:
+    context-path: "/annuum-api"
