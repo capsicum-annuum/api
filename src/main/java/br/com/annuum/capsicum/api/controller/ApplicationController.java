@@ -9,6 +9,6 @@ public class ApplicationController {
 
     @GetMapping
     public ResponseEntity verify() {
-        return ResponseEntity.ok().body("ok!");
+        return ResponseEntity.ok().body("OK!");
     }
 }
