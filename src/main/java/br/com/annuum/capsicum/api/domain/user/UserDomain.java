@@ -1,9 +1,12 @@
 package br.com.annuum.capsicum.api.domain.user;
 
 import lombok.Data;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 @Data
 @MappedSuperclass
@@ -19,4 +22,7 @@ public abstract class UserDomain {
 
     @NotBlank
     private String password;
+
+    @NotNull
+    private LocalDateTime createdAt;
 }
