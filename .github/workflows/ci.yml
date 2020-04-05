@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - develop
-
 jobs:
   build:
 
@@ -21,7 +20,7 @@ jobs:
         run: mvn -B package --file pom.xml
 
       - name: Analyze with SonarCloud
-        run: ./mvnw -B verify sonar:sonar -Dsonar.projectKey=capsicum-annuum_api -Dsonar.organization=capsicum-annuum-1 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN_API
+        run: mvn sonar:sonar -Dsonar.projectKey=capsicum-annuum_api -Dsonar.organization=capsicum-annuum-1 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN_API
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_API }}
