@@ -1,7 +1,6 @@
 package br.com.annuum.capsicum.api.domain.user;
 
 import lombok.Data;
-import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
