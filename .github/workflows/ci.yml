@@ -43,4 +43,4 @@ jobs:
         run: git fetch --unshallow origin
       
       - name: Deploy to Heroku
-        run: git push heroku HEAD:${GITHUB_REF##*/} -f
+        run: git push heroku ${GITHUB_REF##*/}:master -f
