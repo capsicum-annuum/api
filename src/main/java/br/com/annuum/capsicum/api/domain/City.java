@@ -10,8 +10,7 @@ import javax.validation.constraints.NotBlank;
 @Accessors(chain = true)
 @Entity
 @SequenceGenerator(name = "city_sequence", sequenceName = "city_sequence")
-@Table(name = "city")
-public class CityDomain {
+public class City {
 
     @Id
     @GeneratedValue(generator = "city_sequence", strategy = GenerationType.SEQUENCE)
@@ -20,7 +19,7 @@ public class CityDomain {
     @NotBlank
     private String name;
 
-    @ManyToOne(targetEntity = StateDomain.class)
+    @ManyToOne(targetEntity = State.class)
     @JoinColumn(name = "state_id")
-    private StateDomain state;
+    private State state;
 }

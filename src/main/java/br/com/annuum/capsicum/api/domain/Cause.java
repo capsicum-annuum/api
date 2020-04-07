@@ -12,9 +12,8 @@ import javax.validation.constraints.NotBlank;
 @Data
 @Accessors(chain = true)
 @Entity
-@SequenceGenerator(name = "causes_sequence", sequenceName = "causes_sequence")
-@Table(name = "causes")
-public class CausesDomain {
+@SequenceGenerator(name = "cause_sequence", sequenceName = "cause_sequence")
+public class Cause {
 
     @Id
     private Long id;

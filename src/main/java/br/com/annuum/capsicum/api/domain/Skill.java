@@ -1,4 +1,4 @@
-package br.com.annuum.capsicum.api.domain.user;
+package br.com.annuum.capsicum.api.domain;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -11,7 +11,7 @@ import javax.validation.constraints.NotBlank;
 @Entity
 @Table(name = "skill")
 @SequenceGenerator(name = "skill_sequence", sequenceName = "skill_sequence")
-public class SkillDomain {
+public class Skill {
 
     @Id
     @GeneratedValue(generator = "skill_sequence", strategy = GenerationType.SEQUENCE)
