@@ -8,4 +8,7 @@ import java.util.Optional;
 public interface CauseRepository extends CrudRepository<Cause, Long> {
 
     Optional<Cause> findByDescription(String description);
+
+    boolean existsByDescriptionIgnoringCase(final String cause);
+    
 }

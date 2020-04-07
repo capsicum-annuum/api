@@ -73,6 +73,7 @@ local.properties
 
 ### Intellij ###
 .idea
+*.iml
 
 # CMake
 cmake-build-*/
