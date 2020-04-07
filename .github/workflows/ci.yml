@@ -3,26 +3,44 @@ on:
   push:
     branches:
       - develop
+      - master 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      
+      - name: Set env to staging 
+        if: endsWith(github.ref, '/develop')
+        run:
+          echo "::set-env name=HEROKU_APP_NAME::annuum-api-homolog"
+          
+      - name: Set env to production 
+        if: endsWith(github.ref, '/master')
+        run:
+          echo "::set-env name=HEROKU_APP_NAME::annuum-api"
+      
       - uses: actions/checkout@v2
+      
       - name: Set up JDK 1.8
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
+      
       - name: Build with Maven
         run: mvn -B package --file pom.xml
+      
       - name: Analyze with SonarCloud
         run: mvn sonar:sonar -Dsonar.projectKey=capsicum-annuum_api -Dsonar.organization=capsicum-annuum-1 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN_API
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_API }}
+      
       - name: Add remote origin
         run:
-          git remote add heroku https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git
+          git remote add heroku https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/$HEROKU_APP_NAME.git
+
       - name: Unshallow
         run: git fetch --unshallow origin
+      
       - name: Deploy to Heroku
-        run: git push heroku HEAD:develop -f
+        run: git push heroku ${GITHUB_REF##*/}:master -f
