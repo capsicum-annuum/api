@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Data
 @Accessors(chain = true)
@@ -16,7 +18,10 @@ public class StateDomain {
     @GeneratedValue(generator = "state_sequence", strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @NotBlank
     private String name;
 
+    @NotBlank
+    @Size(min = 2, max = 2)
     private String ufCode;
 }

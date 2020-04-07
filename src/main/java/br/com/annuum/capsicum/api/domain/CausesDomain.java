@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 @Data
 @Accessors(chain = true)
@@ -18,5 +19,6 @@ public class CausesDomain {
     @Id
     private Long id;
 
+    @NotBlank
     private String description;
 }

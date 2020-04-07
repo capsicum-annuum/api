@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Data
 @Accessors(chain = true)
@@ -16,6 +17,7 @@ public class CityDomain {
     @GeneratedValue(generator = "city_sequence", strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @NotBlank
     private String name;
 
     @ManyToOne(targetEntity = StateDomain.class)
