@@ -16,7 +16,7 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <sonar.skip>true</sonar.skip>
+        <sonar.skip>false</sonar.skip>
     </properties>
 
     <dependencies>
