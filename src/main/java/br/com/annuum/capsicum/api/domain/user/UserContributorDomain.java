@@ -1,6 +1,7 @@
 package br.com.annuum.capsicum.api.domain.user;
 
 import br.com.annuum.capsicum.api.domain.CausesDomain;
+import br.com.annuum.capsicum.api.domain.SkillDomain;
 import br.com.annuum.capsicum.api.domain.UserAddressDomain;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
