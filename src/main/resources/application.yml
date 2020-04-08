@@ -1,4 +1,8 @@
 spring:
+  application:
+    name: capsicum-anuumm-api
+  profiles:
+    active: @activatedProperties@
   jpa:
     database: POSTGRESQL
     hibernate:
@@ -12,9 +16,9 @@ spring:
   datasource:
     platform: postgres
     driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://ec2-18-215-99-63.compute-1.amazonaws.com:5432/d7malmvd5vlhot?user=qfsjzsfjnnwswl&password=9cb4ca8a36393002e254d356539c1cf3961e8b683f74877b2c85387b0adb1641
-    username: ${{ secrets.DB_USERNAME }}
-    password: ${{ secrets.DB_PASSWORD }}
+    url: jdbc:postgresql://${CAPSICUM_DB_HOST:ec2-23-20-129-146.compute-1.amazonaws.com}:5432/d7teblgjmk304n?useTimezone=true&serverTimezone=America/Belem&createDatabaseIfNotExist=true
+    username: ${secrets.DB_USERNAME:dgzlbwrxvloomc}
+    password: ${secrets.DB_PASSWORD:a8157c9ca06b962d04d4c0c31a468f7936511ac030d860489507d74f4d134ace}
 
 server:
   port: 8080

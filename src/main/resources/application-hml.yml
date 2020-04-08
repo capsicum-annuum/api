@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://${CAPSICUM_DB_HOST:ec2-3-91-112-166.compute-1.amazonaws.com}:5432/d6jllvaoktthlh?useTimezone=true&serverTimezone=America/Belem&createDatabaseIfNotExist=true
+    username: ${secrets.DB_USERNAME:lgojsslzazmmwk}
+    password: ${secrets.DB_PASSWORD:7adebaa1cf1291c9a2f257c00533cbbbd87876dc9f69c2080191348135f3feb0}
