@@ -3,22 +3,20 @@ package br.com.annuum.capsicum.api.domain;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotBlank;
 
 @Data
 @Accessors(chain = true)
 @Entity
-@Table(name = "skill")
-@SequenceGenerator(name = "skill_sequence", sequenceName = "skill_sequence")
-public class SkillDomain {
+@SequenceGenerator(name = "cause_sequence", sequenceName = "cause_sequence")
+public class Cause {
 
     @Id
-    @GeneratedValue(generator = "skill_sequence", strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @NotBlank
-    private String name;
-
     private String description;
 }

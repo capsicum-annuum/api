@@ -11,8 +11,7 @@ import javax.validation.constraints.Size;
 @Accessors(chain = true)
 @Entity
 @SequenceGenerator(name = "state_sequence", sequenceName = "state_sequence")
-@Table(name = "state")
-public class StateDomain {
+public class State {
 
     @Id
     @GeneratedValue(generator = "state_sequence", strategy = GenerationType.SEQUENCE)

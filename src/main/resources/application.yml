@@ -19,7 +19,7 @@ spring:
     url: jdbc:postgresql://${CAPSICUM_DB_HOST}:5432/${CAPSICUM_DB}?useTimezone=true&serverTimezone=America/Belem&createDatabaseIfNotExist=true
     username: ${secrets.DB_USERNAME}
     password: ${secrets.DB_PASSWORD}
-
+    
 server:
   port: 8080
   servlet:
