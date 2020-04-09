@@ -14,11 +14,8 @@ public class LocationCoordinatesMapper {
 
     public LocationCoordinates map(LocationCoordinatesRequest locationCoordinatesRequest) {
 
-        LocationCoordinates locationCoordinates = new LocationCoordinates();
-
-        locationCoordinates.setLatitude(locationCoordinatesRequest.getLatitude());
-        locationCoordinates.setLongitude(locationCoordinatesRequest.getLongitude());
-
-        return locationCoordinates;
+        return new LocationCoordinates()
+                .setLatitude(locationCoordinatesRequest.getLatitude())
+                .setLongitude(locationCoordinatesRequest.getLongitude());
     }
 }

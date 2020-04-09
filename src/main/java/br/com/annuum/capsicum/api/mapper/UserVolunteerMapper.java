@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
@@ -57,7 +58,7 @@ public class UserVolunteerMapper {
         userVolunteer.setAllowsBeContactedByOrganization(userVolunteerRequest.getAllowsBeContactedByOrganization());
         userVolunteer.setHasCnh(userVolunteerRequest.getHasCnh());
 
-        if (userVolunteerRequest.getLocationCoordinatesRequest() != null) {
+        if (Objects.nonNull(userVolunteerRequest.getLocationCoordinatesRequest())) {
             userVolunteer.setLocationCoordinates(locationCoordinatesMapper.map(userVolunteerRequest.getLocationCoordinatesRequest()));
         }
 

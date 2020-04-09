@@ -14,14 +14,11 @@ public class AdressMapper {
 
     public Address map(AddressRequest addressRequest) {
 
-        Address address = new Address();
-
-        address.setCity(findCityByIdService.find(addressRequest.getIdCity()));
-        address.setDistrict(addressRequest.getDistrict());
-        address.setStreetName(addressRequest.getStreetName());
-        address.setAddressNumber(addressRequest.getAddressNumber());
-        address.setComplement(addressRequest.getComplement());
-
-        return address;
+        return new Address()
+                .setCity(findCityByIdService.find(addressRequest.getIdCity()))
+                .setDistrict(addressRequest.getDistrict())
+                .setStreetName(addressRequest.getStreetName())
+                .setAddressNumber(addressRequest.getAddressNumber())
+                .setComplement(addressRequest.getComplement());
     }
 }
