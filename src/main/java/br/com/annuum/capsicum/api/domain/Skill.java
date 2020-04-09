@@ -9,7 +9,6 @@ import javax.validation.constraints.NotBlank;
 @Data
 @Accessors(chain = true)
 @Entity
-@Table(name = "skill")
 @SequenceGenerator(name = "skill_sequence", sequenceName = "skill_sequence")
 public class Skill {
 

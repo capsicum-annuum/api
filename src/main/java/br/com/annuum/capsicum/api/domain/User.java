@@ -1,6 +1,8 @@
 package br.com.annuum.capsicum.api.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -11,6 +13,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @MappedSuperclass
 @SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence")
 public abstract class User {
@@ -32,7 +36,7 @@ public abstract class User {
     private String phone;
 
     @OneToOne
-    private UserAddress userAddress;
+    private Address address;
 
     @Embedded
     private LocationCoordinates locationCoordinates;
@@ -48,6 +52,4 @@ public abstract class User {
     @NotNull
     private LocalDateTime createdAt;
 
-    protected User() {
-    }
 }

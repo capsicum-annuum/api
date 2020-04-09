@@ -10,11 +10,11 @@ import javax.validation.constraints.NotNull;
 @Data
 @Accessors(chain = true)
 @Entity
-@SequenceGenerator(name = "user_address_sequence", sequenceName = "user_address_sequence")
-public class UserAddress {
+@SequenceGenerator(name = "address_sequence", sequenceName = "address_sequence")
+public class Address {
 
     @Id
-    @GeneratedValue(generator = "user_address_sequence", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(generator = "address_sequence", strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @NotBlank
@@ -30,7 +30,4 @@ public class UserAddress {
     @NotNull
     @ManyToOne
     private City city;
-
-    @NotNull
-    private String cep;
 }

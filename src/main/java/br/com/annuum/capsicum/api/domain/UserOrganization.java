@@ -5,11 +5,8 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.hibernate.validator.constraints.br.CNPJ;
 
-import javax.persistence.*;
-import javax.validation.constraints.Email;
+import javax.persistence.Entity;
 import javax.validation.constraints.NotBlank;
-import java.sql.Blob;
-import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)

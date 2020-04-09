@@ -4,11 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import java.sql.Blob;
-import java.util.List;
+import javax.persistence.Entity;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
