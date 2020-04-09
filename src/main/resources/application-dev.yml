@@ -1,5 +1,5 @@
 spring:
   datasource:
-    url: jdbc:postgresql://${CAPSICUM_DB_HOST:localhost}:5432/
-    username: ${secrets.DB_USERNAME:postgres}
-    password: ${secrets.DB_PASSWORD:postgres}
+    url: jdbc:postgresql://${CAPSICUM_DB_HOST}:5432/
+    username: ${secrets.DB_USERNAME}
+    password: ${secrets.DB_PASSWORD}
