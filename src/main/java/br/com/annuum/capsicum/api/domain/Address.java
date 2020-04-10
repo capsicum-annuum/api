@@ -5,7 +5,6 @@ import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 @Data
 @Accessors(chain = true)
@@ -17,19 +16,17 @@ public class Address {
     @GeneratedValue(generator = "address_sequence", strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @NotBlank
-    private Long googlePlaceAddressId;
+    private String googlePlaceAddressId;
 
     @Embedded
     private LocationCoordinates LocationCoordinates;
 
-    @NotNull
+    @NotBlank
     @ManyToOne
     private City city;
 
     private String district;
 
-    @NotBlank
     private String streetName;
 
     private String addressNumber;

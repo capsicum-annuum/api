@@ -7,11 +7,12 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.ColumnDefault;
 
-import javax.persistence.*;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.sql.Blob;
 import java.util.List;
 
 @Data
@@ -34,8 +35,8 @@ public class UserVolunteer extends User {
 
     private String phone;
 
-    @OneToOne
     @NotBlank
+    @OneToOne
     private Address address;
 
     @Embedded
@@ -45,13 +46,15 @@ public class UserVolunteer extends User {
 
     private String description;
 
+    @NotBlank
     @ManyToMany
     private List<Cause> causeThatSupport;
 
-    @NotNull
-    @ColumnDefault("false")
-    private Boolean hasCnh;
-
+    @NotBlank
     @ManyToMany
     private List<Skill> userSkills;
+
+    @NotBlank
+    @ColumnDefault("false")
+    private Boolean hasCnh;
 }

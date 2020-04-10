@@ -17,10 +17,7 @@ public class City {
     private Long id;
 
     @NotBlank
-    private Long googlePlaceCityId;
-
-    @Embedded
-    private LocationCoordinates LocationCoordinates;
+    private String googlePlaceCityId;
 
     @NotBlank
     private String name;

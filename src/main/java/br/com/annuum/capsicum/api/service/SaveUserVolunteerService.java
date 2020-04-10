@@ -18,7 +18,7 @@ public class SaveUserVolunteerService {
     private UserVolunteerRepository userVolunteerRepository;
 
     @Autowired
-    private FindCityByIdService findCityByIdService;
+    private FindCityByGooglePlaceIdService findCityByGooglePlaceIdService;
 
     @Autowired
     private FindCauseByDescriptionService findCauseByDescriptionService;
@@ -31,7 +31,7 @@ public class SaveUserVolunteerService {
 
     public void save(UserVolunteerRequest userVolunteerRequest) {
 
-        City city = findCityByIdService.find(userVolunteerRequest.getAddressRequest().getGooglePlaceCityId());
+        City city = findCityByGooglePlaceIdService.find(userVolunteerRequest.getAddressRequest().getGooglePlaceCityId());
 
         Address address = modelMapper.map(userVolunteerRequest.getAddressRequest(), Address.class)
                 .setCity(city);

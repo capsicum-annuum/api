@@ -8,11 +8,14 @@ import javax.validation.constraints.NotBlank;
 @Getter
 public class AddressRequest {
 
-    @NotBlank(message = "The Address GooglePlaceId must not be null or empty.")
-    private Long googlePlaceAddressId;
+    @NotBlank(message = "O identificador GooglePlaceId não pode estar em branco para a cidade.")
+    private String googlePlaceCityId;
 
-    @NotBlank(message = "The City GooglePlaceId must not be null or empty.")
-    private Long googlePlaceCityId;
+    @NotBlank(message = "As coordenadas mais precisas do endereço precisam ser informadas.")
+    private LocationCoordinatesRequest locationCoordinatesRequest;
+
+    @Nullable
+    private String googlePlaceAddressId;
 
     @Nullable
     private String district;

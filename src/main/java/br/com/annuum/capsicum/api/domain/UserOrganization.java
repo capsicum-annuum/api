@@ -5,10 +5,12 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.hibernate.validator.constraints.br.CNPJ;
 
-import javax.persistence.*;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import java.sql.Blob;
 import java.util.List;
 
 @Data
@@ -35,8 +37,8 @@ public class UserOrganization extends User {
 
     private String phone;
 
-    @OneToOne
     @NotBlank
+    @OneToOne
     private Address address;
 
     @Embedded
@@ -46,6 +48,7 @@ public class UserOrganization extends User {
 
     private String description;
 
+    @NotBlank
     @ManyToMany
     private List<Cause> causeThatSupport;
 }

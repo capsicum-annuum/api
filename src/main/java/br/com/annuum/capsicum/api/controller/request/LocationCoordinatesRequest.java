@@ -7,9 +7,9 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class LocationCoordinatesRequest {
 
-    @NotBlank
+    @NotBlank(message = "A latitude não pode estar em branco.")
     private Double latitude;
 
-    @NotBlank
+    @NotBlank(message = "A longitude não pode estar em branco.")
     private Double longitude;
 }
