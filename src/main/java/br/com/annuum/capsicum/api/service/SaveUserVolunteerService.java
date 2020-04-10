@@ -31,7 +31,7 @@ public class SaveUserVolunteerService {
 
     public void save(UserVolunteerRequest userVolunteerRequest) {
 
-        City city = findCityByGooglePlaceIdService.find(userVolunteerRequest.getAddressRequest().getGooglePlaceCityId());
+        City city = findCityByGooglePlaceIdService.find(userVolunteerRequest.getAddressRequest().getGooglePlaceAddressId());
 
         Address address = modelMapper.map(userVolunteerRequest.getAddressRequest(), Address.class)
                 .setCity(city);
