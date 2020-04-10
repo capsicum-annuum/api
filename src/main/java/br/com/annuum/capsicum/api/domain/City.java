@@ -17,6 +17,12 @@ public class City {
     private Long id;
 
     @NotBlank
+    private Long googlePlaceCityId;
+
+    @Embedded
+    private LocationCoordinates LocationCoordinates;
+
+    @NotBlank
     private String name;
 
     @ManyToOne(targetEntity = State.class)

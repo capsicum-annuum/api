@@ -18,6 +18,9 @@ public class State {
     private Long id;
 
     @NotBlank
+    private Long googlePlaceStateId;
+
+    @NotBlank
     private String name;
 
     @NotBlank

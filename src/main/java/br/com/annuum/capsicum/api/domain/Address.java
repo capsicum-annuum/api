@@ -18,16 +18,21 @@ public class Address {
     private Long id;
 
     @NotBlank
-    private String streetName;
+    private Long googlePlaceAddressId;
 
-    @NotBlank
-    private String district;
-
-    private String addressNumber;
-
-    private String complement;
+    @Embedded
+    private LocationCoordinates LocationCoordinates;
 
     @NotNull
     @ManyToOne
     private City city;
+
+    private String district;
+
+    @NotBlank
+    private String streetName;
+
+    private String addressNumber;
+
+    private String complement;
 }

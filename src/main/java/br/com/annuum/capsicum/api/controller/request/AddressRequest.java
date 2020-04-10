@@ -8,10 +8,13 @@ import javax.validation.constraints.NotBlank;
 @Getter
 public class AddressRequest {
 
-    @NotBlank(message = "User name must not be null or empty.")
-    private Long idCity;
+    @NotBlank(message = "The Address GooglePlaceId must not be null or empty.")
+    private Long googlePlaceAddressId;
 
-    @NotBlank(message = "User name must not be null or empty.")
+    @NotBlank(message = "The City GooglePlaceId must not be null or empty.")
+    private Long googlePlaceCityId;
+
+    @Nullable
     private String district;
 
     @Nullable

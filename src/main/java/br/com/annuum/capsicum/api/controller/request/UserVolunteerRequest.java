@@ -5,20 +5,19 @@ import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import java.sql.Blob;
 import java.util.List;
 
 @Getter
 public class UserVolunteerRequest {
 
     @NotBlank(message = "User name must not be null or empty.")
-    private String userName;
+    private String name;
 
-    @NotBlank(message = "Email must not be or empty.")
+    @NotBlank(message = "Email must not be null or empty.")
     @Email(message = "Email invalid.")
     private String email;
 
-    @NotBlank(message = "Password must not be or empty.")
+    @NotBlank(message = "Password must not be null or empty.")
     private String password;
 
     @Nullable
@@ -28,19 +27,16 @@ public class UserVolunteerRequest {
     private AddressRequest addressRequest;
 
     @Nullable
-    private LocationCoordinatesRequest locationCoordinatesRequest;
+    private LocationCoordinatesRequest actualLocationCoordinatesRequest;
 
     @Nullable
-    private Blob profilePicture;
+    private Long profilePictureId;
 
     @Nullable
     private String description;
 
     @NotBlank(message = "Causes must not be null or empty.")
     private List<String> causeThatSupport;
-
-    @NotBlank(message = "AllowsBeContactedByOrganization must not be null or empty.")
-    private Boolean allowsBeContactedByOrganization;
 
     @NotBlank(message = "HasCNH must not be null or empty.")
     private Boolean hasCnh;
