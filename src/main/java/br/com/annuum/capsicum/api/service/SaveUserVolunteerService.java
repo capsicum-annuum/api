@@ -7,34 +7,35 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
+
+import static java.util.Objects.nonNull;
 
 @Service
 public class SaveUserVolunteerService {
 
-    @Autowired
-    private UserVolunteerRepository userVolunteerRepository;
-
-    @Autowired
-    private FindCityByGooglePlaceIdService findCityByGooglePlaceIdService;
-
-    @Autowired
-    private FindCauseByDescriptionService findCauseByDescriptionService;
 
     @Autowired
     private FindSkillByDescriptionService findSkillByDescriptionService;
 
     @Autowired
+    private FindCauseByDescriptionService findCauseByDescriptionService;
+
+    @Autowired
+    private UserVolunteerRepository userVolunteerRepository;
+
+    @Autowired
+    private SaveAddressService saveAddressService;
+
+    @Autowired
     private ModelMapper modelMapper;
 
+    @Transactional
     public void save(UserVolunteerRequest userVolunteerRequest) {
-
-        City city = findCityByGooglePlaceIdService.find(userVolunteerRequest.getAddressRequest().getGooglePlaceAddressId());
-
-        Address address = modelMapper.map(userVolunteerRequest.getAddressRequest(), Address.class)
-                .setCity(city);
+        Address address = saveAddressService.saveAddress(userVolunteerRequest.getAddressRequest());
 
         List<Cause> causesThatSupport = userVolunteerRequest.getCauseThatSupport()
                 .stream()
@@ -51,7 +52,9 @@ public class SaveUserVolunteerService {
                 .setCauseThatSupport(causesThatSupport)
                 .setUserSkills(userSkills);
 
-        if (Objects.nonNull(userVolunteerRequest.getActualLocationCoordinatesRequest())) {
+        userVolunteer.setCreatedAt(LocalDateTime.now());
+
+        if (nonNull(userVolunteerRequest.getActualLocationCoordinatesRequest())) {
             userVolunteer.setActualLocationCoordinates(modelMapper.map(userVolunteerRequest.getActualLocationCoordinatesRequest(), LocationCoordinates.class));
         }
 

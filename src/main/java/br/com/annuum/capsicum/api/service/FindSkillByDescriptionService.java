@@ -13,6 +13,7 @@ public class FindSkillByDescriptionService {
     private SkillRepository skillRepository;
 
     public Skill find(String description) {
-        return skillRepository.findByDescription(description).orElseThrow(RegisterNotFoundException::new);
+        return skillRepository.findByDescription(description)
+                .orElseThrow(() -> new RegisterNotFoundException("Skill não encontrada!"));
     }
 }

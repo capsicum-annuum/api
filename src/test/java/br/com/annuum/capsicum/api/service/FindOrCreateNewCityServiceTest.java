@@ -1,0 +1,83 @@
+package br.com.annuum.capsicum.api.service;
+
+import br.com.annuum.capsicum.api.controller.request.CityRequest;
+import br.com.annuum.capsicum.api.domain.City;
+import br.com.annuum.capsicum.api.repository.CityRepository;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.modelmapper.ModelMapper;
+
+import java.util.Optional;
+
+import static br.com.annuum.capsicum.api.domain.enums.State.RS;
+
+@ExtendWith(MockitoExtension.class)
+class FindOrCreateNewCityServiceTest {
+
+    @InjectMocks
+    FindOrCreateNewCityService findOrCreateNewCityService;
+
+    @Mock
+    private CityRepository cityRepository;
+
+    @Mock
+    private ModelMapper modelMapper;
+
+    @Test
+    public void mustFindAndReturnCityThatWasRegistered_withSuccess() {
+        // Arrange
+        final CityRequest cityRequest = new CityRequest()
+                .setGooglePlaceCityId("someId")
+                .setName("someName")
+                .setState(RS);
+
+        final City expectedCity = new City()
+                .setId(1L)
+                .setGooglePlaceCityId("someId")
+                .setName("someName")
+                .setState(RS);
+
+        Mockito.when(cityRepository.findByGooglePlaceCityId(cityRequest.getGooglePlaceCityId()))
+                .thenReturn(Optional.of(expectedCity));
+
+        // Act
+        City returnedCity = findOrCreateNewCityService.findOrCreateNewCity(cityRequest);
+
+        // Assert
+        Assertions.assertEquals(expectedCity, returnedCity);
+    }
+
+    @Test
+    public void mustCreateAndReturnANewCityWhenItIsNotRegisteredYet_withSuccess() {
+        // Arrange
+        final CityRequest cityRequest = new CityRequest()
+                .setGooglePlaceCityId("someId")
+                .setName("someName")
+                .setState(RS);
+
+        final City expectedCity = new City()
+                .setId(1L)
+                .setGooglePlaceCityId("someId")
+                .setName("someName")
+                .setState(RS);
+
+        Mockito.when(cityRepository.findByGooglePlaceCityId(cityRequest.getGooglePlaceCityId()))
+                .thenReturn(Optional.empty());
+        Mockito.when(modelMapper.map(cityRequest, City.class))
+                .thenReturn(expectedCity);
+        Mockito.when(cityRepository.save(expectedCity))
+                .thenReturn(expectedCity);
+
+        // Act
+        City returnedCity = findOrCreateNewCityService.findOrCreateNewCity(cityRequest);
+
+        // Assert
+        Assertions.assertEquals(expectedCity, returnedCity);
+    }
+
+}
