@@ -3,15 +3,21 @@ package br.com.annuum.capsicum.api.controller.request;
 import lombok.Getter;
 import org.springframework.lang.Nullable;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Getter
 public class AddressRequest {
 
-    @NotBlank(message = "User name must not be null or empty.")
-    private Long idCity;
+    @NotNull(message = "O objeto cidade não pode estar em branco.")
+    private CityRequest cityRequest;
 
-    @NotBlank(message = "User name must not be null or empty.")
+    @NotNull(message = "As coordenadas mais precisas do endereço precisam ser informadas.")
+    private LocationCoordinatesRequest locationCoordinatesRequest;
+
+    @Nullable
+    private String googlePlaceAddressId;
+
+    @Nullable
     private String district;
 
     @Nullable

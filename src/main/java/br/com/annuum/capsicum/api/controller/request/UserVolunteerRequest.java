@@ -5,46 +5,45 @@ import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import java.sql.Blob;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Getter
 public class UserVolunteerRequest {
 
-    @NotBlank(message = "User name must not be null or empty.")
-    private String userName;
+    @NotBlank(message = "O nome do usuário não pode estar em branco.")
+    private String name;
 
-    @NotBlank(message = "Email must not be or empty.")
-    @Email(message = "Email invalid.")
+    @NotBlank(message = "O email não pode estar em branco.")
+    @Email(message = "O email informado é inválido.")
     private String email;
 
-    @NotBlank(message = "Password must not be or empty.")
+    @NotBlank(message = "A senha não pode estar em branco.")
     private String password;
+
+    @NotEmpty(message = "A lista de Causas não pode estar vazia.")
+    private List<String> causeThatSupport;
+
+    @NotEmpty(message = "A lista de Habilidades não pode estar vazia.")
+    private List<String> userSkills;
+
+    @NotNull(message = "O objeto Endereço não pode ser nulo.")
+    private AddressRequest addressRequest;
+
+    @NotNull(message = "É preciso informar se usuário possui CNH.")
+    private Boolean hasCnh;
+
+    @Nullable
+    private LocationCoordinatesRequest actualLocationCoordinatesRequest;
 
     @Nullable
     private String phone;
 
-    @NotBlank(message = "Address must not be null or empty.")
-    private AddressRequest addressRequest;
-
     @Nullable
-    private LocationCoordinatesRequest locationCoordinatesRequest;
-
-    @Nullable
-    private Blob profilePicture;
+    private Long profilePictureId;
 
     @Nullable
     private String description;
 
-    @NotBlank(message = "Causes must not be null or empty.")
-    private List<String> causeThatSupport;
-
-    @NotBlank(message = "AllowsBeContactedByOrganization must not be null or empty.")
-    private Boolean allowsBeContactedByOrganization;
-
-    @NotBlank(message = "HasCNH must not be null or empty.")
-    private Boolean hasCnh;
-
-    @NotBlank(message = "User skills must not be null or empty.")
-    private List<String> userSkills;
 }

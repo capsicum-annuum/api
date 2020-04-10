@@ -7,12 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class FindCityByIdService {
+public class FindCityByGooglePlaceIdService {
 
     @Autowired
     private CityRepository cityRepository;
 
-    public City find(Long id) {
-        return cityRepository.findById(id).orElseThrow(RegisterNotFoundException::new);
+    public City find(String googlePlaceId) {
+
+        return cityRepository.findByGooglePlaceCityId(googlePlaceId).orElseThrow(RegisterNotFoundException::new);
     }
 }

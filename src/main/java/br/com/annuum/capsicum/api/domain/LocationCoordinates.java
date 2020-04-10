@@ -5,15 +5,16 @@ import lombok.experimental.Accessors;
 
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Accessors(chain = true)
 @Embeddable
 public class LocationCoordinates {
 
-    @NotBlank
+    @NotNull
     private Double latitude;
 
-    @NotBlank
+    @NotNull
     private Double longitude;
 }
