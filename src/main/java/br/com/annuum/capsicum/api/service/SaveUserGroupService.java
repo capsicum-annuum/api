@@ -37,6 +37,7 @@ public class SaveUserGroupService {
     public UserGroupResponse save(UserGroupRequest userGroupRequest) {
 
         final Address address = saveAddressService.saveAddress(userGroupRequest.getAddressRequest());
+
         final List<Cause> causesThatSupport = userGroupRequest.getCauseThatSupport().stream()
                 .map(cause -> findCauseByDescriptionService.find(cause))
                 .collect(Collectors.toList());

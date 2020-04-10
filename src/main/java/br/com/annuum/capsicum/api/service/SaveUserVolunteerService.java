@@ -1,6 +1,7 @@
 package br.com.annuum.capsicum.api.service;
 
 import br.com.annuum.capsicum.api.controller.request.UserVolunteerRequest;
+import br.com.annuum.capsicum.api.controller.response.UserVolunteerResponse;
 import br.com.annuum.capsicum.api.domain.*;
 import br.com.annuum.capsicum.api.repository.UserVolunteerRepository;
 import org.modelmapper.ModelMapper;
@@ -34,15 +35,16 @@ public class SaveUserVolunteerService {
     private ModelMapper modelMapper;
 
     @Transactional
-    public void save(UserVolunteerRequest userVolunteerRequest) {
-        Address address = saveAddressService.saveAddress(userVolunteerRequest.getAddressRequest());
+    public UserVolunteerResponse save(UserVolunteerRequest userVolunteerRequest) {
 
-        List<Cause> causesThatSupport = userVolunteerRequest.getCauseThatSupport()
+        final Address address = saveAddressService.saveAddress(userVolunteerRequest.getAddressRequest());
+
+        final List<Cause> causesThatSupport = userVolunteerRequest.getCauseThatSupport()
                 .stream()
                 .map(cause -> findCauseByDescriptionService.find(cause))
                 .collect(Collectors.toList());
 
-        List<Skill> userSkills = userVolunteerRequest.getUserSkills()
+        final List<Skill> userSkills = userVolunteerRequest.getUserSkills()
                 .stream()
                 .map(skill -> findSkillByDescriptionService.find(skill))
                 .collect(Collectors.toList());
@@ -58,6 +60,6 @@ public class SaveUserVolunteerService {
             userVolunteer.setActualLocationCoordinates(modelMapper.map(userVolunteerRequest.getActualLocationCoordinatesRequest(), LocationCoordinates.class));
         }
 
-        userVolunteerRepository.save(userVolunteer);
+        return modelMapper.map(userVolunteerRepository.save(userVolunteer), UserVolunteerResponse.class);
     }
 }
