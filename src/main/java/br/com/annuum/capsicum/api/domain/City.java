@@ -1,5 +1,6 @@
 package br.com.annuum.capsicum.api.domain;
 
+import br.com.annuum.capsicum.api.domain.enums.State;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -22,7 +23,7 @@ public class City {
     @NotBlank
     private String name;
 
-    @ManyToOne(targetEntity = State.class)
-    @JoinColumn(name = "state_id")
+    @NotBlank
+    @Enumerated(EnumType.STRING)
     private State state;
 }
