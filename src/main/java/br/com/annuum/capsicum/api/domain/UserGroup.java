@@ -10,6 +10,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Data
@@ -32,8 +34,8 @@ public class UserGroup extends User {
 
     private String phone;
 
+    @NotNull
     @OneToOne
-    @NotBlank
     private Address address;
 
     @Embedded
@@ -43,7 +45,7 @@ public class UserGroup extends User {
 
     private String description;
 
-    @NotBlank
+    @NotEmpty
     @ManyToMany
     private List<Cause> causeThatSupport;
 }

@@ -13,6 +13,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Data
@@ -35,7 +37,7 @@ public class UserVolunteer extends User {
 
     private String phone;
 
-    @NotBlank
+    @NotNull
     @OneToOne
     private Address address;
 
@@ -46,15 +48,15 @@ public class UserVolunteer extends User {
 
     private String description;
 
-    @NotBlank
+    @NotEmpty
     @ManyToMany
     private List<Cause> causeThatSupport;
 
-    @NotBlank
+    @NotEmpty
     @ManyToMany
     private List<Skill> userSkills;
 
-    @NotBlank
+    @NotNull
     @ColumnDefault("false")
     private Boolean hasCnh;
 }

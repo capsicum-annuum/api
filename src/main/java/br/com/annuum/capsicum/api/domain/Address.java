@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Accessors(chain = true)
@@ -21,7 +21,7 @@ public class Address {
     @Embedded
     private LocationCoordinates LocationCoordinates;
 
-    @NotBlank
+    @NotNull
     @ManyToOne
     private City city;
 

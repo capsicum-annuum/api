@@ -5,6 +5,8 @@ import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Getter
@@ -20,17 +22,17 @@ public class UserVolunteerRequest {
     @NotBlank(message = "A senha não pode estar em branco.")
     private String password;
 
-    @NotBlank(message = "A lista de Causas não pode estar em branco.")
+    @NotEmpty(message = "A lista de Causas não pode estar vazia.")
     private List<String> causeThatSupport;
 
-    @NotBlank(message = "A lista de Habilidades não pode estar em branco.")
+    @NotEmpty(message = "A lista de Habilidades não pode estar vazia.")
     private List<String> userSkills;
 
-    @NotBlank(message = "É preciso informar se usuário possui CNH.")
-    private Boolean hasCnh;
-
-    @NotBlank(message = "O objeto Endereço não pode estar em branco.")
+    @NotNull(message = "O objeto Endereço não pode ser nulo.")
     private AddressRequest addressRequest;
+
+    @NotNull(message = "É preciso informar se usuário possui CNH.")
+    private Boolean hasCnh;
 
     @Nullable
     private LocationCoordinatesRequest actualLocationCoordinatesRequest;
