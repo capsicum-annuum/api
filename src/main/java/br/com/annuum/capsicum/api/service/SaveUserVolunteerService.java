@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,28 +17,25 @@ import static java.util.Objects.nonNull;
 @Service
 public class SaveUserVolunteerService {
 
-    @Autowired
-    private UserVolunteerRepository userVolunteerRepository;
 
     @Autowired
-    private FindOrCreateNewCityService findOrCreateNewCityService;
+    private FindSkillByDescriptionService findSkillByDescriptionService;
 
     @Autowired
     private FindCauseByDescriptionService findCauseByDescriptionService;
 
     @Autowired
-    private FindSkillByDescriptionService findSkillByDescriptionService;
+    private UserVolunteerRepository userVolunteerRepository;
+
+    @Autowired
+    private SaveAddressService saveAddressService;
 
     @Autowired
     private ModelMapper modelMapper;
 
     @Transactional
     public void save(UserVolunteerRequest userVolunteerRequest) {
-
-        City city = findOrCreateNewCityService.findOrCreateNewCity(userVolunteerRequest.getAddressRequest().getCityRequest());
-
-        Address address = modelMapper.map(userVolunteerRequest.getAddressRequest(), Address.class)
-                .setCity(city);
+        Address address = saveAddressService.saveAddress(userVolunteerRequest.getAddressRequest());
 
         List<Cause> causesThatSupport = userVolunteerRequest.getCauseThatSupport()
                 .stream()
@@ -53,6 +51,8 @@ public class SaveUserVolunteerService {
                 .setAddress(address)
                 .setCauseThatSupport(causesThatSupport)
                 .setUserSkills(userSkills);
+
+        userVolunteer.setCreatedAt(LocalDateTime.now());
 
         if (nonNull(userVolunteerRequest.getActualLocationCoordinatesRequest())) {
             userVolunteer.setActualLocationCoordinates(modelMapper.map(userVolunteerRequest.getActualLocationCoordinatesRequest(), LocationCoordinates.class));

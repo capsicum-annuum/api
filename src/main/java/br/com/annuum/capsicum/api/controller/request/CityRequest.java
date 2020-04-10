@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Accessors(chain = true)
@@ -16,6 +17,6 @@ public class CityRequest {
     @NotBlank(message = "O nome da cidade não pode estar em branco.")
     private String name;
 
-    @NotBlank(message = "O nome do estado não pode estar em branco.")
+    @NotNull(message = "O Estado deve ser informado")
     private State state;
 }

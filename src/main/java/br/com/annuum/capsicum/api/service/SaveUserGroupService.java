@@ -2,13 +2,17 @@ package br.com.annuum.capsicum.api.service;
 
 import br.com.annuum.capsicum.api.controller.request.UserGroupRequest;
 import br.com.annuum.capsicum.api.controller.response.UserGroupResponse;
-import br.com.annuum.capsicum.api.domain.*;
+import br.com.annuum.capsicum.api.domain.Address;
+import br.com.annuum.capsicum.api.domain.Cause;
+import br.com.annuum.capsicum.api.domain.LocationCoordinates;
+import br.com.annuum.capsicum.api.domain.UserGroup;
 import br.com.annuum.capsicum.api.repository.UserGroupRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,19 +25,18 @@ public class SaveUserGroupService {
     private FindCauseByDescriptionService findCauseByDescriptionService;
 
     @Autowired
-    private FindOrCreateNewCityService findOrCreateNewCityService;
+    private UserGroupRepository userGroupRepository;
 
     @Autowired
-    private UserGroupRepository userGroupRepository;
+    private SaveAddressService saveAddressService;
 
     @Autowired
     private ModelMapper modelMapper;
 
     @Transactional
     public UserGroupResponse save(UserGroupRequest userGroupRequest) {
-        final City city = findOrCreateNewCityService.findOrCreateNewCity(userGroupRequest.getAddressRequest().getCityRequest());
-        final Address address = modelMapper.map(userGroupRequest.getAddressRequest(), Address.class)
-                .setCity(city);
+
+        final Address address = saveAddressService.saveAddress(userGroupRequest.getAddressRequest());
         final List<Cause> causesThatSupport = userGroupRequest.getCauseThatSupport().stream()
                 .map(cause -> findCauseByDescriptionService.find(cause))
                 .collect(Collectors.toList());
@@ -41,6 +44,8 @@ public class SaveUserGroupService {
         final UserGroup userGroup = modelMapper.map(userGroupRequest, UserGroup.class)
                 .setAddress(address)
                 .setCauseThatSupport(causesThatSupport);
+
+        userGroup.setCreatedAt(LocalDateTime.now());
 
         if (nonNull(userGroupRequest.getActualLocationCoordinatesRequest())) {
             userGroup.setActualLocationCoordinates(modelMapper.map(userGroupRequest.getActualLocationCoordinatesRequest(), LocationCoordinates.class));
