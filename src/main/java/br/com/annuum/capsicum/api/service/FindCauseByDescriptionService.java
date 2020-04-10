@@ -13,6 +13,7 @@ public class FindCauseByDescriptionService {
     private CauseRepository causeRepository;
 
     public Cause find(String description) {
-        return causeRepository.findByDescription(description).orElseThrow(RegisterNotFoundException::new);
+        return causeRepository.findByDescription(description)
+                .orElseThrow(() -> new RegisterNotFoundException("Causa não encontrada!"));
     }
 }

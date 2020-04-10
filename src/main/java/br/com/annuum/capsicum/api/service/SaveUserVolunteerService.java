@@ -7,9 +7,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
+
+import static java.util.Objects.nonNull;
 
 @Service
 public class SaveUserVolunteerService {
@@ -18,7 +20,7 @@ public class SaveUserVolunteerService {
     private UserVolunteerRepository userVolunteerRepository;
 
     @Autowired
-    private FindCityByGooglePlaceIdService findCityByGooglePlaceIdService;
+    private FindOrCreateNewCityService findOrCreateNewCityService;
 
     @Autowired
     private FindCauseByDescriptionService findCauseByDescriptionService;
@@ -29,9 +31,10 @@ public class SaveUserVolunteerService {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Transactional
     public void save(UserVolunteerRequest userVolunteerRequest) {
 
-        City city = findCityByGooglePlaceIdService.find(userVolunteerRequest.getAddressRequest().getGooglePlaceAddressId());
+        City city = findOrCreateNewCityService.findOrCreateNewCity(userVolunteerRequest.getAddressRequest().getCityRequest());
 
         Address address = modelMapper.map(userVolunteerRequest.getAddressRequest(), Address.class)
                 .setCity(city);
@@ -51,7 +54,7 @@ public class SaveUserVolunteerService {
                 .setCauseThatSupport(causesThatSupport)
                 .setUserSkills(userSkills);
 
-        if (Objects.nonNull(userVolunteerRequest.getActualLocationCoordinatesRequest())) {
+        if (nonNull(userVolunteerRequest.getActualLocationCoordinatesRequest())) {
             userVolunteer.setActualLocationCoordinates(modelMapper.map(userVolunteerRequest.getActualLocationCoordinatesRequest(), LocationCoordinates.class));
         }
 
