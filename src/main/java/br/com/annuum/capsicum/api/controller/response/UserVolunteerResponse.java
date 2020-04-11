@@ -5,7 +5,7 @@ import lombok.experimental.Accessors;
 
 @Data
 @Accessors(chain = true)
-public class UserGroupResponse {
+public class UserVolunteerResponse {
 
     private String email;
 

@@ -2,13 +2,13 @@ package br.com.annuum.capsicum.api.service;
 
 import br.com.annuum.capsicum.api.controller.request.AddressRequest;
 import br.com.annuum.capsicum.api.controller.request.LocationCoordinatesRequest;
-import br.com.annuum.capsicum.api.controller.request.UserGroupRequest;
-import br.com.annuum.capsicum.api.controller.response.UserGroupResponse;
+import br.com.annuum.capsicum.api.controller.request.UserOrganizationRequest;
+import br.com.annuum.capsicum.api.controller.response.UserOrganizationResponse;
 import br.com.annuum.capsicum.api.domain.Address;
 import br.com.annuum.capsicum.api.domain.Cause;
 import br.com.annuum.capsicum.api.domain.LocationCoordinates;
-import br.com.annuum.capsicum.api.domain.UserGroup;
-import br.com.annuum.capsicum.api.repository.UserGroupRepository;
+import br.com.annuum.capsicum.api.domain.UserOrganization;
+import br.com.annuum.capsicum.api.repository.UserOrganizationRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -24,16 +24,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.times;
 
 @ExtendWith(MockitoExtension.class)
-class SaveUserGroupServiceTest {
+class SaveUserOrganizationServiceTest {
 
     @InjectMocks
-    private SaveUserGroupService saveUserGroupService;
+    private SaveUserOrganizationService saveUserOrganizationService;
 
     @Mock
     private FindCauseByDescriptionService findCauseByDescriptionService;
 
     @Mock
-    private UserGroupRepository userGroupRepository;
+    private UserOrganizationRepository userOrganizationRepository;
 
     @Mock
     private SaveAddressService saveAddressService;
@@ -42,7 +42,7 @@ class SaveUserGroupServiceTest {
     private ModelMapper modelMapper;
 
     @Test
-    public void mustSaveAndReturnNewUserGroup_withSuccess() {
+    public void mustSaveAndReturnNewUserOrganization_withSuccess() {
         // Arrange
         final LocationCoordinates locationCoordinates = new LocationCoordinates()
                 .setLatitude(1D)
@@ -51,38 +51,38 @@ class SaveUserGroupServiceTest {
         final Cause cause = new Cause()
                 .setId(1L)
                 .setDescription("someCause");
-        final UserGroup userGroup = new UserGroup()
+        final UserOrganization userOrganization = new UserOrganization()
                 .setAddress(address)
                 .setCauseThatSupport(Collections.singletonList(cause));
-        userGroup.setCreatedAt(LocalDateTime.now());
-        final UserGroupResponse expectedUserGroupResponse = new UserGroupResponse()
+        userOrganization.setCreatedAt(LocalDateTime.now());
+        final UserOrganizationResponse expectedUserOrganizationResponse = new UserOrganizationResponse()
                 .setName("someUserName")
                 .setDescription("someDescription")
                 .setEmail("someEmail");
-        final UserGroupRequest userGroupRequest = new UserGroupRequest()
+        final UserOrganizationRequest userOrganizationRequest = new UserOrganizationRequest()
                 .setAddressRequest(Mockito.mock(AddressRequest.class))
                 .setCauseThatSupport(Collections.singletonList("someCause"))
                 .setActualLocationCoordinatesRequest(Mockito.mock(LocationCoordinatesRequest.class));
 
         Mockito.when(findCauseByDescriptionService.find(cause.getDescription()))
                 .thenReturn(cause);
-        Mockito.when(saveAddressService.saveAddress(userGroupRequest.getAddressRequest()))
+        Mockito.when(saveAddressService.saveAddress(userOrganizationRequest.getAddressRequest()))
                 .thenReturn(address);
-        Mockito.when(modelMapper.map(userGroupRequest, UserGroup.class))
-                .thenReturn(userGroup);
-        Mockito.when(modelMapper.map(userGroupRequest.getActualLocationCoordinatesRequest(), LocationCoordinates.class))
+        Mockito.when(modelMapper.map(userOrganizationRequest, UserOrganization.class))
+                .thenReturn(userOrganization);
+        Mockito.when(modelMapper.map(userOrganizationRequest.getActualLocationCoordinatesRequest(), LocationCoordinates.class))
                 .thenReturn(locationCoordinates);
-        Mockito.when(userGroupRepository.save(userGroup))
-                .thenReturn(userGroup);
-        Mockito.when(modelMapper.map(userGroup, UserGroupResponse.class))
-                .thenReturn(expectedUserGroupResponse);
+        Mockito.when(userOrganizationRepository.save(userOrganization))
+                .thenReturn(userOrganization);
+        Mockito.when(modelMapper.map(userOrganization, UserOrganizationResponse.class))
+                .thenReturn(expectedUserOrganizationResponse);
 
         // Act
-        UserGroupResponse returnedUserGroupResponse = saveUserGroupService.save(userGroupRequest);
+        UserOrganizationResponse returnedUserOrganizationResponse = saveUserOrganizationService.save(userOrganizationRequest);
 
         // Assert
-        assertEquals(expectedUserGroupResponse, returnedUserGroupResponse);
-        Mockito.verify(userGroupRepository, times(1)).save(userGroup);
+        assertEquals(expectedUserOrganizationResponse, returnedUserOrganizationResponse);
+        Mockito.verify(userOrganizationRepository, times(1)).save(userOrganization);
     }
 
 }

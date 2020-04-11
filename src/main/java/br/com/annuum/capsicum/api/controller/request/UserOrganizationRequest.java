@@ -1,8 +1,8 @@
 package br.com.annuum.capsicum.api.controller.request;
 
 import lombok.Data;
-import lombok.Getter;
 import lombok.experimental.Accessors;
+import org.hibernate.validator.constraints.br.CNPJ;
 import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.Email;
@@ -13,7 +13,7 @@ import java.util.List;
 
 @Data
 @Accessors(chain = true)
-public class UserVolunteerRequest {
+public class UserOrganizationRequest {
 
     @NotBlank(message = "O nome do usuário não pode estar em branco.")
     private String name;
@@ -25,17 +25,17 @@ public class UserVolunteerRequest {
     @NotBlank(message = "A senha não pode estar em branco.")
     private String password;
 
+    @NotBlank(message = "O CNPJ não pode estar em branco.")
+    @CNPJ(message = "É preciso informar um CNPJ válido.")
+    private String cnpj;
+
+    private String mission;
+
     @NotEmpty(message = "A lista de Causas não pode estar vazia.")
     private List<String> causeThatSupport;
 
-    @NotEmpty(message = "A lista de Habilidades não pode estar vazia.")
-    private List<String> userSkills;
-
     @NotNull(message = "O objeto Endereço não pode ser nulo.")
     private AddressRequest addressRequest;
-
-    @NotNull(message = "É preciso informar se usuário possui CNH.")
-    private Boolean hasCnh;
 
     @Nullable
     private LocationCoordinatesRequest actualLocationCoordinatesRequest;
@@ -48,5 +48,4 @@ public class UserVolunteerRequest {
 
     @Nullable
     private String description;
-
 }
