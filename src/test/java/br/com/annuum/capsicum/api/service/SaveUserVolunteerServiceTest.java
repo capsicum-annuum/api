@@ -86,7 +86,7 @@ class SaveUserVolunteerServiceTest {
                 .thenReturn(expectedUserVolunteerResponse);
 
         // Act
-        UserVolunteerResponse returnedUserVolunteerResponse = saveUserVolunteerService.save(userVolunteerRequest);
+        final UserVolunteerResponse returnedUserVolunteerResponse = saveUserVolunteerService.save(userVolunteerRequest);
 
         // Assert
         assertEquals(expectedUserVolunteerResponse, returnedUserVolunteerResponse);

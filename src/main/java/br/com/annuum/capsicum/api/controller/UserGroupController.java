@@ -18,7 +18,7 @@ public class UserGroupController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UserGroupResponse saveUserGroup(@RequestBody @Valid UserGroupRequest userGroupRequest) {
+    public UserGroupResponse saveUserGroup(@RequestBody @Valid final UserGroupRequest userGroupRequest) {
         return saveUserGroupService.save(userGroupRequest);
     }
 }

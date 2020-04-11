@@ -78,7 +78,7 @@ class SaveUserOrganizationServiceTest {
                 .thenReturn(expectedUserOrganizationResponse);
 
         // Act
-        UserOrganizationResponse returnedUserOrganizationResponse = saveUserOrganizationService.save(userOrganizationRequest);
+        final UserOrganizationResponse returnedUserOrganizationResponse = saveUserOrganizationService.save(userOrganizationRequest);
 
         // Assert
         assertEquals(expectedUserOrganizationResponse, returnedUserOrganizationResponse);

@@ -18,7 +18,7 @@ public class UserOrganizationController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UserOrganizationResponse saveUserOrganization(@RequestBody @Valid UserOrganizationRequest userOrganizationRequest) {
+    public UserOrganizationResponse saveUserOrganization(@RequestBody @Valid final UserOrganizationRequest userOrganizationRequest) {
         return saveUserOrganizationService.save(userOrganizationRequest);
     }
 }

@@ -11,7 +11,5 @@ public interface CauseRepository extends CrudRepository<Cause, Long> {
     List<Cause> findAll();
 
     Optional<Cause> findByDescription(String description);
-
-    boolean existsByDescriptionIgnoringCase(final String cause);
     
 }

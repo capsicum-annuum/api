@@ -1,23 +1,22 @@
 package br.com.annuum.capsicum.api.service;
 
+import static java.util.Objects.nonNull;
+
 import br.com.annuum.capsicum.api.controller.request.UserVolunteerRequest;
 import br.com.annuum.capsicum.api.controller.response.UserVolunteerResponse;
 import br.com.annuum.capsicum.api.domain.*;
 import br.com.annuum.capsicum.api.repository.UserVolunteerRepository;
+import java.util.List;
+import java.util.stream.Collectors;
+import javax.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static java.util.Objects.nonNull;
-
 @Service
+@Slf4j
 public class SaveUserVolunteerService {
-
 
     @Autowired
     private FindSkillByDescriptionService findSkillByDescriptionService;
@@ -35,8 +34,9 @@ public class SaveUserVolunteerService {
     private ModelMapper modelMapper;
 
     @Transactional
-    public UserVolunteerResponse save(UserVolunteerRequest userVolunteerRequest) {
+    public UserVolunteerResponse save(final UserVolunteerRequest userVolunteerRequest) {
 
+        log.info("Start to create an UserVolunteer for: '{}'", userVolunteerRequest);
         final Address address = saveAddressService.saveAddress(userVolunteerRequest.getAddressRequest());
 
         final List<Cause> causesThatSupport = userVolunteerRequest.getCauseThatSupport()
@@ -49,17 +49,18 @@ public class SaveUserVolunteerService {
                 .map(skill -> findSkillByDescriptionService.find(skill))
                 .collect(Collectors.toList());
 
-        UserVolunteer userVolunteer = modelMapper.map(userVolunteerRequest, UserVolunteer.class)
+        log.info("Building UserVolunteer to persist");
+        final UserVolunteer userVolunteer = modelMapper.map(userVolunteerRequest, UserVolunteer.class)
                 .setAddress(address)
                 .setCauseThatSupport(causesThatSupport)
                 .setUserSkills(userSkills);
 
-        userVolunteer.setCreatedAt(LocalDateTime.now());
-
         if (nonNull(userVolunteerRequest.getActualLocationCoordinatesRequest())) {
+            log.info("Getting LocationCoordinates from user");
             userVolunteer.setActualLocationCoordinates(modelMapper.map(userVolunteerRequest.getActualLocationCoordinatesRequest(), LocationCoordinates.class));
         }
 
+        log.info("Creating a new UserVolunteer: '{}'", userVolunteer);
         return modelMapper.map(userVolunteerRepository.save(userVolunteer), UserVolunteerResponse.class);
     }
 }

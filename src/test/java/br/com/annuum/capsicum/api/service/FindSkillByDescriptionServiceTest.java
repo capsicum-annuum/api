@@ -36,7 +36,7 @@ class FindSkillByDescriptionServiceTest {
                 .thenReturn(Optional.of(expectedSkill));
 
         // Act
-        Skill returnedSkill = findSkillByDescriptionService.find(skillDescription);
+        final Skill returnedSkill = findSkillByDescriptionService.find(skillDescription);
 
         // Assert
         assertEquals(expectedSkill, returnedSkill);
