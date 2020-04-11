@@ -1,20 +1,17 @@
 package br.com.annuum.capsicum.api;
 
+import br.com.annuum.capsicum.api.domain.Cause;
+import br.com.annuum.capsicum.api.repository.CauseRepository;
+import br.com.annuum.capsicum.api.service.CauseService;
 import javax.annotation.Resource;
-
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-
-import br.com.annuum.capsicum.api.domain.CausesDomain;
-import br.com.annuum.capsicum.api.repository.CauseRepository;
-import br.com.annuum.capsicum.api.service.CauseService;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -40,8 +37,8 @@ class CauseServiceIntegrationTest {
     @BeforeEach
     public void setup() {
         System.out.println("SETUP EACH");
-        CausesDomain pets = new CausesDomain().setId(1L).setDescription("Pets");
-        CausesDomain kids = new CausesDomain().setId(2L).setDescription("Kids");
+        final Cause pets = new Cause().setDescription("Pets");
+        final Cause kids = new Cause().setDescription("Kids");
 
         repository.save(pets);
         repository.save(kids);
@@ -55,7 +52,7 @@ class CauseServiceIntegrationTest {
 
     @Test
     public void shouldNotSaveWhenDescriptionIsDuplicated() {
-        CausesDomain pets = new CausesDomain().setId(3L).setDescription("pets");
+        final Cause pets = new Cause().setDescription("pets");
 
         service.save(pets);
 
@@ -64,7 +61,7 @@ class CauseServiceIntegrationTest {
 
     @Test
     public void shouldSaveWhenDescriptionIsNotDuplicated() {
-        CausesDomain velhos = new CausesDomain().setId(3L).setDescription("Velhos");
+        final Cause velhos = new Cause().setDescription("Velhos");
 
         service.save(velhos);
 

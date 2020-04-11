@@ -1,5 +1,7 @@
 package br.com.annuum.capsicum.api.domain;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -15,6 +17,7 @@ import javax.validation.constraints.NotBlank;
 public class Cause {
 
     @Id
+    @GeneratedValue(generator = "cause_sequence", strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @NotBlank
