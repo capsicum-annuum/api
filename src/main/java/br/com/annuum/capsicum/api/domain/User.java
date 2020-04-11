@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import org.springframework.data.annotation.CreatedDate;
 
 @Data
 @NoArgsConstructor
@@ -20,5 +21,6 @@ public abstract class User {
     private Long id;
 
     @NotNull
+    @CreatedDate
     private LocalDateTime createdAt;
 }

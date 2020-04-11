@@ -1,7 +1,6 @@
 package br.com.annuum.capsicum.api.service;
 
 import br.com.annuum.capsicum.api.controller.request.AddressRequest;
-import br.com.annuum.capsicum.api.controller.request.CityRequest;
 import br.com.annuum.capsicum.api.domain.Address;
 import br.com.annuum.capsicum.api.domain.City;
 import br.com.annuum.capsicum.api.repository.AddressRepository;

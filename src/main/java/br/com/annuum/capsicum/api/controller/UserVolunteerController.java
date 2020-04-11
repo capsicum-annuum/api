@@ -16,7 +16,7 @@ public class UserVolunteerController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UserVolunteerResponse saveUserVolunteer(@RequestBody UserVolunteerRequest userVolunteerRequest) {
+    public UserVolunteerResponse saveUserVolunteer(@RequestBody final UserVolunteerRequest userVolunteerRequest) {
         return saveUserVolunteerService.save(userVolunteerRequest);
     }
 }

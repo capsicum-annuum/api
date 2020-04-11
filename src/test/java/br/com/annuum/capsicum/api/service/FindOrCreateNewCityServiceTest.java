@@ -47,7 +47,7 @@ class FindOrCreateNewCityServiceTest {
                 .thenReturn(Optional.of(expectedCity));
 
         // Act
-        City returnedCity = findOrCreateNewCityService.findOrCreateNewCity(cityRequest);
+        final City returnedCity = findOrCreateNewCityService.findOrCreateNewCity(cityRequest);
 
         // Assert
         Assertions.assertEquals(expectedCity, returnedCity);
@@ -75,7 +75,7 @@ class FindOrCreateNewCityServiceTest {
                 .thenReturn(expectedCity);
 
         // Act
-        City returnedCity = findOrCreateNewCityService.findOrCreateNewCity(cityRequest);
+        final City returnedCity = findOrCreateNewCityService.findOrCreateNewCity(cityRequest);
 
         // Assert
         Assertions.assertEquals(expectedCity, returnedCity);

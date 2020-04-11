@@ -4,22 +4,21 @@ spring:
   profiles:
     active: @activatedProperties@
   jpa:
-    database: POSTGRESQL
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: validate
     show-sql: true
     properties:
       hibernate:
-        globally_quoted_identifiers: true
         format_sql: true
-
   datasource:
     platform: postgres
     driverClassName: org.postgresql.Driver
     url: jdbc:postgresql://${CAPSICUM_DB_HOST}:5432/${CAPSICUM_DB}?useTimezone=true&serverTimezone=America/Belem&createDatabaseIfNotExist=true
     username: ${secrets.DB_USERNAME}
     password: ${secrets.DB_PASSWORD}
-
+    hikari:
+      maximum-pool-size: 2
 server:
   port: 8080
   servlet:

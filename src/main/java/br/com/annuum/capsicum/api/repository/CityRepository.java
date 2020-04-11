@@ -9,5 +9,4 @@ public interface CityRepository extends PagingAndSortingRepository<City, Long> {
 
     Optional<City> findByGooglePlaceCityId(String googlePlaceId);
 
-    Boolean existsByGooglePlaceCityId(String googlePlaceId);
 }

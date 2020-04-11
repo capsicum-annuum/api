@@ -36,7 +36,7 @@ class FindCauseByDescriptionServiceTest {
                 .thenReturn(Optional.of(expectedCause));
 
         // Act
-        Cause returnedCause = findCauseByDescriptionService.find(causeDescription);
+        final Cause returnedCause = findCauseByDescriptionService.find(causeDescription);
 
         // Assert
         assertEquals(expectedCause, returnedCause);

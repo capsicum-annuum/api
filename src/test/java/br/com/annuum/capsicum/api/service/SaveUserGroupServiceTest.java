@@ -78,7 +78,7 @@ class SaveUserGroupServiceTest {
                 .thenReturn(expectedUserGroupResponse);
 
         // Act
-        UserGroupResponse returnedUserGroupResponse = saveUserGroupService.save(userGroupRequest);
+        final UserGroupResponse returnedUserGroupResponse = saveUserGroupService.save(userGroupRequest);
 
         // Assert
         assertEquals(expectedUserGroupResponse, returnedUserGroupResponse);
