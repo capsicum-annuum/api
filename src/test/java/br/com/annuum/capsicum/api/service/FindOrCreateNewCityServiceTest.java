@@ -15,6 +15,7 @@ import org.modelmapper.ModelMapper;
 import java.util.Optional;
 
 import static br.com.annuum.capsicum.api.domain.enums.State.RS;
+import static org.mockito.Mockito.times;
 
 @ExtendWith(MockitoExtension.class)
 class FindOrCreateNewCityServiceTest {
@@ -78,6 +79,7 @@ class FindOrCreateNewCityServiceTest {
 
         // Assert
         Assertions.assertEquals(expectedCity, returnedCity);
+        Mockito.verify(cityRepository, times(1)).save(returnedCity);
     }
 
 }
