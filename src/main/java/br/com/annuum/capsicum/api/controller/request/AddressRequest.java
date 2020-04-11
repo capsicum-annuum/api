@@ -1,11 +1,14 @@
 package br.com.annuum.capsicum.api.controller.request;
 
+import lombok.Data;
 import lombok.Getter;
+import lombok.experimental.Accessors;
 import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.NotNull;
 
-@Getter
+@Data
+@Accessors(chain = true)
 public class AddressRequest {
 
     @NotNull(message = "O objeto cidade não pode estar em branco.")

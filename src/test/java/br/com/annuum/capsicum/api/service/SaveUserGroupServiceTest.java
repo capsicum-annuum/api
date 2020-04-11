@@ -56,7 +56,7 @@ class SaveUserGroupServiceTest {
                 .setCauseThatSupport(Collections.singletonList(cause));
         userGroup.setCreatedAt(LocalDateTime.now());
         final UserGroupResponse expectedUserGroupResponse = new UserGroupResponse()
-                .setUserName("someUserName")
+                .setName("someUserName")
                 .setDescription("someDescription")
                 .setEmail("someEmail");
         final UserGroupRequest userGroupRequest = new UserGroupRequest()

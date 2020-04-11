@@ -1,6 +1,8 @@
 package br.com.annuum.capsicum.api.controller.request;
 
+import lombok.Data;
 import lombok.Getter;
+import lombok.experimental.Accessors;
 import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.Email;
@@ -9,7 +11,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-@Getter
+@Data
+@Accessors(chain = true)
 public class UserVolunteerRequest {
 
     @NotBlank(message = "O nome do usuário não pode estar em branco.")
