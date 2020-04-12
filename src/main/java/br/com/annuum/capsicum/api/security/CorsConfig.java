@@ -1,4 +1,4 @@
-package br.com.annuum.capsicum.api.config;
+package br.com.annuum.capsicum.api.security;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;

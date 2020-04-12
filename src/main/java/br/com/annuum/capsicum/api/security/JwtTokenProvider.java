@@ -66,12 +66,12 @@ public class JwtTokenProvider {
 
   public Optional<UserPrincipal> getUser(final String jwt) {
 
-    log.info("Parsing JWT Token: {}", jwt);
-
     if (isBlank(jwt)) {
       log.info("JWT Token not provided");
       return empty();
     }
+
+    log.info("Parsing JWT Token: {}", jwt);
 
     try {
       final Claims claims = parse(jwt).getBody();

@@ -3,7 +3,7 @@ annuum:
     cors:
       allowed-origins: "*"
     jwt:
-      secret: "123456"
+      secret: "MTIzNDU2"
       expiration: 43200 # 30 dias em minutos
 spring:
   application:

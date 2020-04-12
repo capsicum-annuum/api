@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Data
 @Accessors(chain = true)
 @EqualsAndHashCode(of = "id")
-@ToString(exclude = "password")
+@ToString(of = {"id", "profile"})
 public class UserPrincipal implements UserDetails, User {
 
     private Long id;
