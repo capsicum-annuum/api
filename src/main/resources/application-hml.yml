@@ -1,3 +1,10 @@
+annuum:
+  security:
+    cors:
+      allowed-origins: "*"
+    jwt:
+      secret: ${secrets.JWT_PRIVATE_KEY}
+      expiration: 43200 # 30 dias em minutos
 spring:
   datasource:
     url: jdbc:postgresql://${CAPSICUM_DB_HOST}:5432/${CAPSICUM_DB}?useTimezone=true&serverTimezone=America/Belem&createDatabaseIfNotExist=true
