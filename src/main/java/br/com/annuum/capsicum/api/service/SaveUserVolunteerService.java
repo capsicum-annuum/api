@@ -1,18 +1,20 @@
 package br.com.annuum.capsicum.api.service;
 
-import static java.util.Objects.nonNull;
-
 import br.com.annuum.capsicum.api.controller.request.UserVolunteerRequest;
 import br.com.annuum.capsicum.api.controller.response.UserVolunteerResponse;
 import br.com.annuum.capsicum.api.domain.*;
 import br.com.annuum.capsicum.api.repository.UserVolunteerRepository;
-import java.util.List;
-import java.util.stream.Collectors;
-import javax.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.util.Objects.nonNull;
 
 @Service
 @Slf4j
@@ -29,6 +31,9 @@ public class SaveUserVolunteerService {
 
     @Autowired
     private SaveAddressService saveAddressService;
+
+    @Autowired
+    private CodifiyCauseAndSkillAndTimeAvailability codifiyCauseAndSkillAndTimeAvailability;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -54,6 +59,9 @@ public class SaveUserVolunteerService {
                 .setAddress(address)
                 .setCauseThatSupport(causesThatSupport)
                 .setUserSkills(userSkills);
+
+        userVolunteer.setBinaryMatch(codifiyCauseAndSkillAndTimeAvailability.getCodification(userSkills, causesThatSupport));
+        userVolunteer.setCreatedAt(LocalDateTime.now());
 
         if (nonNull(userVolunteerRequest.getActualLocationCoordinatesRequest())) {
             log.info("Getting LocationCoordinates from user");

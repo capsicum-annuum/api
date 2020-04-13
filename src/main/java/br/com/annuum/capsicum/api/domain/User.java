@@ -3,11 +3,11 @@ package br.com.annuum.capsicum.api.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import org.springframework.data.annotation.CreatedDate;
 
 @Data
 @NoArgsConstructor
@@ -23,4 +23,7 @@ public abstract class User {
     @NotNull
     @CreatedDate
     private LocalDateTime createdAt;
+
+    @NotNull
+    private String binaryMatch;
 }
