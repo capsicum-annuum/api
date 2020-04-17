@@ -1,18 +1,24 @@
 package br.com.annuum.capsicum.api.service;
 
-import static java.util.Objects.nonNull;
-
+import br.com.annuum.capsicum.api.controller.request.LocationCoordinatesRequest;
 import br.com.annuum.capsicum.api.controller.request.UserVolunteerRequest;
 import br.com.annuum.capsicum.api.controller.response.UserVolunteerResponse;
 import br.com.annuum.capsicum.api.domain.*;
 import br.com.annuum.capsicum.api.repository.UserVolunteerRepository;
-import java.util.List;
-import java.util.stream.Collectors;
-import javax.transaction.Transactional;
+import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.geom.GeometryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.util.Objects.nonNull;
 
 @Service
 @Slf4j
@@ -32,6 +38,9 @@ public class SaveUserVolunteerService {
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private GeometryFactory geometryFactory;
 
     @Transactional
     public UserVolunteerResponse save(final UserVolunteerRequest userVolunteerRequest) {
@@ -57,8 +66,16 @@ public class SaveUserVolunteerService {
 
         if (nonNull(userVolunteerRequest.getActualLocationCoordinatesRequest())) {
             log.info("Getting LocationCoordinates from user");
-            userVolunteer.setActualLocationCoordinates(modelMapper.map(userVolunteerRequest.getActualLocationCoordinatesRequest(), LocationCoordinates.class));
+            final LocationCoordinatesRequest actualLocationCoordinatesRequest = userVolunteerRequest.getActualLocationCoordinatesRequest();
+
+            final Geometry geography = geometryFactory.createPoint(new Coordinate(actualLocationCoordinatesRequest.getLatitude(),
+                    actualLocationCoordinatesRequest.getLongitude()));
+
+            userVolunteer.setActualLocationCoordinates(modelMapper.map(actualLocationCoordinatesRequest, LocationCoordinates.class));
+            userVolunteer.setGeography(geography);
         }
+
+        userVolunteer.setCreatedAt(LocalDateTime.now());
 
         log.info("Creating a new UserVolunteer: '{}'", userVolunteer);
         return modelMapper.map(userVolunteerRepository.save(userVolunteer), UserVolunteerResponse.class);

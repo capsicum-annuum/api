@@ -1,5 +1,6 @@
 package br.com.annuum.capsicum.api.domain;
 
+import com.vividsolutions.jts.geom.Geometry;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -20,6 +21,9 @@ public class Address {
 
     @Embedded
     private LocationCoordinates LocationCoordinates;
+
+    @Column(columnDefinition = "geography(POINT, 4326)")
+    private Geometry geography;
 
     @NotNull
     @ManyToOne

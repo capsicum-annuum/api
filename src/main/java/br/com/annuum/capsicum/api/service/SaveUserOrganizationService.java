@@ -1,7 +1,6 @@
 package br.com.annuum.capsicum.api.service;
 
-import static java.util.Objects.nonNull;
-
+import br.com.annuum.capsicum.api.controller.request.LocationCoordinatesRequest;
 import br.com.annuum.capsicum.api.controller.request.UserOrganizationRequest;
 import br.com.annuum.capsicum.api.controller.response.UserOrganizationResponse;
 import br.com.annuum.capsicum.api.domain.Address;
@@ -9,13 +8,20 @@ import br.com.annuum.capsicum.api.domain.Cause;
 import br.com.annuum.capsicum.api.domain.LocationCoordinates;
 import br.com.annuum.capsicum.api.domain.UserOrganization;
 import br.com.annuum.capsicum.api.repository.UserOrganizationRepository;
-import java.util.List;
-import java.util.stream.Collectors;
-import javax.transaction.Transactional;
+import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.geom.GeometryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.util.Objects.nonNull;
 
 @Service
 @Slf4j
@@ -32,6 +38,9 @@ public class SaveUserOrganizationService {
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private GeometryFactory geometryFactory;
 
     @Transactional
     public UserOrganizationResponse save(final UserOrganizationRequest userOrganizationRequest) {
@@ -50,8 +59,16 @@ public class SaveUserOrganizationService {
 
         if (nonNull(userOrganizationRequest.getActualLocationCoordinatesRequest())) {
             log.info("Getting LocationCoordinates from user");
-            userOrganization.setActualLocationCoordinates(modelMapper.map(userOrganizationRequest.getActualLocationCoordinatesRequest(), LocationCoordinates.class));
+            final LocationCoordinatesRequest actualLocationCoordinatesRequest = userOrganizationRequest.getActualLocationCoordinatesRequest();
+
+            final Geometry geography = geometryFactory.createPoint(new Coordinate(actualLocationCoordinatesRequest.getLatitude(),
+                    actualLocationCoordinatesRequest.getLongitude()));
+
+            userOrganization.setActualLocationCoordinates(modelMapper.map(actualLocationCoordinatesRequest, LocationCoordinates.class));
+            userOrganization.setGeography(geography);
         }
+
+        userOrganization.setCreatedAt(LocalDateTime.now());
 
         log.info("Creating a new UserOrganization: '{}'", userOrganization);
         return modelMapper.map(userOrganizationRepository.save(userOrganization), UserOrganizationResponse.class);
