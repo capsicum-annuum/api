@@ -1,26 +1,17 @@
 package br.com.annuum.capsicum.api.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import br.com.annuum.capsicum.api.domain.enums.Profile;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
-import org.springframework.data.annotation.CreatedDate;
+public interface User {
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@MappedSuperclass
-@SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence")
-public abstract class User {
+  Long getId();
 
-    @Id
-    @GeneratedValue(generator = "user_sequence", strategy = GenerationType.SEQUENCE)
-    private Long id;
+  String getName();
 
-    @NotNull
-    @CreatedDate
-    private LocalDateTime createdAt;
+  String getEmail();
+
+  String getPassword();
+
+  Profile getProfile();
+
 }

@@ -1,5 +1,6 @@
 package br.com.annuum.capsicum.api.domain;
 
+import br.com.annuum.capsicum.api.domain.enums.Profile;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -8,27 +9,17 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+
+import static br.com.annuum.capsicum.api.domain.enums.Profile.GROUP;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @Entity
-public class UserGroup extends User {
-
-    @NotBlank
-    private String name;
-
-    @NotBlank
-    @Email
-    private String email;
-
-    @NotBlank
-    private String password;
+public class UserGroup extends AbstractUser {
 
     private String mission;
 
@@ -48,4 +39,9 @@ public class UserGroup extends User {
     @NotEmpty
     @ManyToMany
     private List<Cause> causeThatSupport;
+
+    @Override
+    public Profile getProfile() {
+        return GROUP;
+    }
 }
