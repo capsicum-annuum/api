@@ -40,7 +40,6 @@ public abstract class AbstractUser implements User {
     @NotBlank
     private String password;
 
-    @NotNull
     @CreatedDate
     private LocalDateTime createdAt;
 }

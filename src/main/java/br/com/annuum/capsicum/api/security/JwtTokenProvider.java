@@ -45,7 +45,7 @@ public class JwtTokenProvider {
     return generate(userPrincipal);
   }
 
-  public String generate(final User user) {
+  private String generate(final User user) {
 
     log.info("Generating JWT Token... ");
     final LocalDateTime expiration = now().plusMinutes(jwtExpiration);
