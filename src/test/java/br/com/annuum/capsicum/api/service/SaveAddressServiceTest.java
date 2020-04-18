@@ -4,6 +4,9 @@ import br.com.annuum.capsicum.api.controller.request.AddressRequest;
 import br.com.annuum.capsicum.api.domain.Address;
 import br.com.annuum.capsicum.api.domain.City;
 import br.com.annuum.capsicum.api.repository.AddressRepository;
+import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.GeometryFactory;
+import com.vividsolutions.jts.geom.Point;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,23 +34,33 @@ class SaveAddressServiceTest {
     @Mock
     private ModelMapper modelMapper;
 
+    @Mock
+    private GeometryFactory geometryFactory;
+
     @Test
     public void mustSaveAndReturnPersistedAddress_withSuccess() {
         // Arrange
-        final AddressRequest addressRequest = Mockito.mock(AddressRequest.class);
         final City city = new City()
                 .setId(1L)
                 .setName("someCityName")
                 .setState(RS);
+        final Point geolocation = Mockito.mock(Point.class);
         final Address expectedAddress = new Address()
                 .setId(1L)
                 .setCity(city)
-                .setStreetName("someStreet");
+                .setStreetName("someStreet")
+                .setGeolocation(geolocation)
+                .setLatitude(1D)
+                .setLongitude(1D);
+        final AddressRequest addressRequest = Mockito.mock(AddressRequest.class);
+        final Coordinate coordinate = new Coordinate(addressRequest.getLatitude(), addressRequest.getLongitude());
 
         Mockito.when(findOrCreateNewCityService.findOrCreateNewCity(addressRequest.getCityRequest()))
                 .thenReturn(city);
         Mockito.when(modelMapper.map(addressRequest, Address.class))
                 .thenReturn(expectedAddress);
+        Mockito.when(geometryFactory.createPoint(coordinate))
+                .thenReturn(geolocation);
         Mockito.when(addressRepository.save(expectedAddress))
                 .thenReturn(expectedAddress);
 

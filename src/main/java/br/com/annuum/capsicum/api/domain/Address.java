@@ -1,6 +1,6 @@
 package br.com.annuum.capsicum.api.domain;
 
-import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.geom.Point;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -17,17 +17,21 @@ public class Address {
     @GeneratedValue(generator = "address_sequence", strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    private String googlePlaceAddressId;
-
-    @Embedded
-    private LocationCoordinates LocationCoordinates;
-
+    @NotNull
     @Column(columnDefinition = "geography(POINT, 4326)")
-    private Geometry geography;
+    private Point geolocation;
+
+    @NotNull
+    private Double latitude;
+
+    @NotNull
+    private Double longitude;
 
     @NotNull
     @ManyToOne
     private City city;
+
+    private String googlePlaceAddressId;
 
     private String district;
 

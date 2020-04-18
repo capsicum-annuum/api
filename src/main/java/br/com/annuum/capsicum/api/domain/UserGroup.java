@@ -1,11 +1,13 @@
 package br.com.annuum.capsicum.api.domain;
 
-import com.vividsolutions.jts.geom.Geometry;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import javax.persistence.*;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -37,10 +39,7 @@ public class UserGroup extends User {
     private Address address;
 
     @Embedded
-    private LocationCoordinates actualLocationCoordinates;
-
-    @Column(columnDefinition = "geography(POINT, 4326)")
-    private Geometry geography;
+    private ActualLocation actualLocation;
 
     private Long profilePictureId;
 

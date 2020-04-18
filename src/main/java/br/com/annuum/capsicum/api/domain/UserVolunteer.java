@@ -1,6 +1,6 @@
 package br.com.annuum.capsicum.api.domain;
 
-import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.geom.Point;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -40,10 +40,7 @@ public class UserVolunteer extends User {
     private Address address;
 
     @Embedded
-    private LocationCoordinates actualLocationCoordinates;
-
-    @Column(columnDefinition = "geography(POINT, 4326)")
-    private Geometry geography;
+    private ActualLocation actualLocation;
 
     private Long profilePictureId;
 

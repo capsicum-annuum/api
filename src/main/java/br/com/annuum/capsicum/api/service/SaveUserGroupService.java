@@ -1,15 +1,13 @@
 package br.com.annuum.capsicum.api.service;
 
-import br.com.annuum.capsicum.api.controller.request.LocationCoordinatesRequest;
 import br.com.annuum.capsicum.api.controller.request.UserGroupRequest;
 import br.com.annuum.capsicum.api.controller.response.UserGroupResponse;
+import br.com.annuum.capsicum.api.domain.ActualLocation;
 import br.com.annuum.capsicum.api.domain.Address;
 import br.com.annuum.capsicum.api.domain.Cause;
-import br.com.annuum.capsicum.api.domain.LocationCoordinates;
 import br.com.annuum.capsicum.api.domain.UserGroup;
 import br.com.annuum.capsicum.api.repository.UserGroupRepository;
 import com.vividsolutions.jts.geom.Coordinate;
-import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -57,15 +55,12 @@ public class SaveUserGroupService {
                 .setAddress(address)
                 .setCauseThatSupport(causesThatSupport);
 
-        if (nonNull(userGroupRequest.getActualLocationCoordinatesRequest())) {
-            log.info("Getting LocationCoordinates from user");
-            final LocationCoordinatesRequest actualLocationCoordinatesRequest = userGroupRequest.getActualLocationCoordinatesRequest();
-
-            final Geometry geography = geometryFactory.createPoint(new Coordinate(actualLocationCoordinatesRequest.getLatitude(),
-                    actualLocationCoordinatesRequest.getLongitude()));
-
-            userGroup.setActualLocationCoordinates(modelMapper.map(actualLocationCoordinatesRequest, LocationCoordinates.class));
-            userGroup.setGeography(geography);
+        if (nonNull(userGroupRequest.getActualLocationRequest())) {
+            log.info("Getting ActualLocation from user");
+            final ActualLocation actualLocation = modelMapper.map(userGroupRequest.getActualLocationRequest(), ActualLocation.class);
+            final Coordinate coordinate = new Coordinate(actualLocation.getActualLatitude(), actualLocation.getActualLongitude());
+            actualLocation.setActualGeolocation(geometryFactory.createPoint(coordinate));
+            userGroup.setActualLocation(actualLocation);
         }
 
         userGroup.setCreatedAt(LocalDateTime.now());

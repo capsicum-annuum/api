@@ -38,7 +38,7 @@ public class UserOrganizationRequest {
     private AddressRequest addressRequest;
 
     @Nullable
-    private LocationCoordinatesRequest actualLocationCoordinatesRequest;
+    private ActualLocationRequest actualLocationRequest;
 
     @Nullable
     private String phone;

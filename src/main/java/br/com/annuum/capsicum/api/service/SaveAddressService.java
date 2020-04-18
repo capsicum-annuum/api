@@ -1,13 +1,12 @@
 package br.com.annuum.capsicum.api.service;
 
 import br.com.annuum.capsicum.api.controller.request.AddressRequest;
-import br.com.annuum.capsicum.api.controller.request.LocationCoordinatesRequest;
 import br.com.annuum.capsicum.api.domain.Address;
 import br.com.annuum.capsicum.api.domain.City;
 import br.com.annuum.capsicum.api.repository.AddressRepository;
 import com.vividsolutions.jts.geom.Coordinate;
-import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
+import com.vividsolutions.jts.geom.Point;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,14 +35,13 @@ public class SaveAddressService {
 
         final City city = findOrCreateNewCityService.findOrCreateNewCity(addressRequest.getCityRequest());
 
-        final LocationCoordinatesRequest locationCoordinatesRequest = addressRequest.getLocationCoordinatesRequest();
+        final Coordinate coordinate = new Coordinate(addressRequest.getLatitude(), addressRequest.getLongitude());
 
-        final Geometry geography = geometryFactory.createPoint(new Coordinate(locationCoordinatesRequest.getLatitude(),
-                locationCoordinatesRequest.getLongitude()));
+        final Point geolocation = geometryFactory.createPoint(coordinate);
 
         final Address addressToPersist = modelMapper.map(addressRequest, Address.class)
                 .setCity(city)
-                .setGeography(geography);
+                .setGeolocation(geolocation);
 
         log.info("Creating a new Address: '{}'", addressToPersist);
         return addressRepository.save(addressToPersist);

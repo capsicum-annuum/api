@@ -13,8 +13,11 @@ public class AddressRequest {
     @NotNull(message = "O objeto cidade não pode estar em branco.")
     private CityRequest cityRequest;
 
-    @NotNull(message = "As coordenadas mais precisas do endereço precisam ser informadas.")
-    private LocationCoordinatesRequest locationCoordinatesRequest;
+    @NotNull(message = "A latitude do endereço precisa ser informada.")
+    private Double latitude;
+
+    @NotNull(message = "A longitude do endereço precisa ser informado.")
+    private Double longitude;
 
     @Nullable
     private String googlePlaceAddressId;

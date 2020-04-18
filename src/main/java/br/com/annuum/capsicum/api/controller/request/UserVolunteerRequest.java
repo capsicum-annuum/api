@@ -37,7 +37,7 @@ public class UserVolunteerRequest {
     private Boolean hasCnh;
 
     @Nullable
-    private LocationCoordinatesRequest actualLocationCoordinatesRequest;
+    private ActualLocationRequest actualLocationRequest;
 
     @Nullable
     private String phone;

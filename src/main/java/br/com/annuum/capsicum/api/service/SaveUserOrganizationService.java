@@ -1,16 +1,16 @@
 package br.com.annuum.capsicum.api.service;
 
-import br.com.annuum.capsicum.api.controller.request.LocationCoordinatesRequest;
+import br.com.annuum.capsicum.api.controller.request.ActualLocationRequest;
 import br.com.annuum.capsicum.api.controller.request.UserOrganizationRequest;
 import br.com.annuum.capsicum.api.controller.response.UserOrganizationResponse;
+import br.com.annuum.capsicum.api.domain.ActualLocation;
 import br.com.annuum.capsicum.api.domain.Address;
 import br.com.annuum.capsicum.api.domain.Cause;
-import br.com.annuum.capsicum.api.domain.LocationCoordinates;
 import br.com.annuum.capsicum.api.domain.UserOrganization;
 import br.com.annuum.capsicum.api.repository.UserOrganizationRepository;
 import com.vividsolutions.jts.geom.Coordinate;
-import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
+import com.vividsolutions.jts.geom.Point;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,15 +57,12 @@ public class SaveUserOrganizationService {
                 .setAddress(address)
                 .setCauseThatSupport(causesThatSupport);
 
-        if (nonNull(userOrganizationRequest.getActualLocationCoordinatesRequest())) {
-            log.info("Getting LocationCoordinates from user");
-            final LocationCoordinatesRequest actualLocationCoordinatesRequest = userOrganizationRequest.getActualLocationCoordinatesRequest();
-
-            final Geometry geography = geometryFactory.createPoint(new Coordinate(actualLocationCoordinatesRequest.getLatitude(),
-                    actualLocationCoordinatesRequest.getLongitude()));
-
-            userOrganization.setActualLocationCoordinates(modelMapper.map(actualLocationCoordinatesRequest, LocationCoordinates.class));
-            userOrganization.setGeography(geography);
+        if (nonNull(userOrganizationRequest.getActualLocationRequest())) {
+            log.info("Getting ActualLocation from user");
+            final ActualLocation actualLocation = modelMapper.map(userOrganizationRequest.getActualLocationRequest(), ActualLocation.class);
+            final Coordinate coordinate = new Coordinate(actualLocation.getActualLatitude(), actualLocation.getActualLongitude());
+            actualLocation.setActualGeolocation(geometryFactory.createPoint(coordinate));
+            userOrganization.setActualLocation(actualLocation);
         }
 
         userOrganization.setCreatedAt(LocalDateTime.now());

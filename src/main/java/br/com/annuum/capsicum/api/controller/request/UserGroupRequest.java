@@ -33,7 +33,7 @@ public class UserGroupRequest {
     private AddressRequest addressRequest;
 
     @Nullable
-    private LocationCoordinatesRequest actualLocationCoordinatesRequest;
+    private ActualLocationRequest actualLocationRequest;
 
     @Nullable
     private String phone;

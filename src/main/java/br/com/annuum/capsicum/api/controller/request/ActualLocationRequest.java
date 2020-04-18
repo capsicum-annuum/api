@@ -5,11 +5,11 @@ import lombok.Data;
 import javax.validation.constraints.NotNull;
 
 @Data
-public class LocationCoordinatesRequest {
+public class ActualLocationRequest {
 
     @NotNull(message = "A latitude não pode estar em branco.")
-    private Double latitude;
+    private Double actualLatitude;
 
     @NotNull(message = "A longitude não pode estar em branco.")
-    private Double longitude;
+    private Double actualLongitude;
 }

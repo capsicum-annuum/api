@@ -1,12 +1,10 @@
 package br.com.annuum.capsicum.api.service;
 
-import br.com.annuum.capsicum.api.controller.request.LocationCoordinatesRequest;
 import br.com.annuum.capsicum.api.controller.request.UserVolunteerRequest;
 import br.com.annuum.capsicum.api.controller.response.UserVolunteerResponse;
 import br.com.annuum.capsicum.api.domain.*;
 import br.com.annuum.capsicum.api.repository.UserVolunteerRepository;
 import com.vividsolutions.jts.geom.Coordinate;
-import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -64,16 +62,14 @@ public class SaveUserVolunteerService {
                 .setCauseThatSupport(causesThatSupport)
                 .setUserSkills(userSkills);
 
-        if (nonNull(userVolunteerRequest.getActualLocationCoordinatesRequest())) {
-            log.info("Getting LocationCoordinates from user");
-            final LocationCoordinatesRequest actualLocationCoordinatesRequest = userVolunteerRequest.getActualLocationCoordinatesRequest();
-
-            final Geometry geography = geometryFactory.createPoint(new Coordinate(actualLocationCoordinatesRequest.getLatitude(),
-                    actualLocationCoordinatesRequest.getLongitude()));
-
-            userVolunteer.setActualLocationCoordinates(modelMapper.map(actualLocationCoordinatesRequest, LocationCoordinates.class));
-            userVolunteer.setGeography(geography);
+        if (nonNull(userVolunteerRequest.getActualLocationRequest())) {
+            log.info("Getting ActualLocation from user");
+            final ActualLocation actualLocation = modelMapper.map(userVolunteerRequest.getActualLocationRequest(), ActualLocation.class);
+            final Coordinate coordinate = new Coordinate(actualLocation.getActualLatitude(), actualLocation.getActualLongitude());
+            actualLocation.setActualGeolocation(geometryFactory.createPoint(coordinate));
+            userVolunteer.setActualLocation(actualLocation);
         }
+
 
         userVolunteer.setCreatedAt(LocalDateTime.now());
 
