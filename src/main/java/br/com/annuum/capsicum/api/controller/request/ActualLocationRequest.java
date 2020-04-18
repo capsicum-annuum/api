@@ -7,9 +7,9 @@ import javax.validation.constraints.NotNull;
 @Data
 public class ActualLocationRequest {
 
-    @NotNull(message = "A latitude não pode estar em branco.")
+    @NotNull(message = "A latitude não pode ser nula.")
     private Double actualLatitude;
 
-    @NotNull(message = "A longitude não pode estar em branco.")
+    @NotNull(message = "A longitude não pode ser nula.")
     private Double actualLongitude;
 }
