@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class GeometryFactoryConfig {
 
+    //Spatial Resource Identifier (SRID)
+    //The value 4326 indicates the World Geodetic System of 1984 (WGS 84)
     private static final int SRID = 4326;
 
     @Bean
