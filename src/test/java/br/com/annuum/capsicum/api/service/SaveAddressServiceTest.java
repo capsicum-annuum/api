@@ -1,8 +1,10 @@
 package br.com.annuum.capsicum.api.service;
 
+import br.com.annuum.capsicum.api.component.PointFactory;
 import br.com.annuum.capsicum.api.controller.request.AddressRequest;
 import br.com.annuum.capsicum.api.domain.Address;
 import br.com.annuum.capsicum.api.domain.City;
+import br.com.annuum.capsicum.api.domain.SpatialLocation;
 import br.com.annuum.capsicum.api.repository.AddressRepository;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;
@@ -15,6 +17,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import static br.com.annuum.capsicum.api.domain.enums.State.RS;
 import static org.mockito.Mockito.times;
@@ -35,7 +38,7 @@ class SaveAddressServiceTest {
     private ModelMapper modelMapper;
 
     @Mock
-    private GeometryFactory geometryFactory;
+    private PointFactory pointFactory;
 
     @Test
     public void mustSaveAndReturnPersistedAddress_withSuccess() {
@@ -44,23 +47,22 @@ class SaveAddressServiceTest {
                 .setId(1L)
                 .setName("someCityName")
                 .setState(RS);
-        final Point geolocation = Mockito.mock(Point.class);
+        final SpatialLocation spatialLocation = new SpatialLocation()
+                .setLatitude(1D)
+                .setLongitude(1D);
         final Address expectedAddress = new Address()
                 .setId(1L)
                 .setCity(city)
                 .setStreetName("someStreet")
-                .setGeolocation(geolocation)
-                .setLatitude(1D)
-                .setLongitude(1D);
+                .setSpatialLocation(spatialLocation);
         final AddressRequest addressRequest = Mockito.mock(AddressRequest.class);
-        final Coordinate coordinate = new Coordinate(addressRequest.getLatitude(), addressRequest.getLongitude());
 
         Mockito.when(findOrCreateNewCityService.findOrCreateNewCity(addressRequest.getCityRequest()))
                 .thenReturn(city);
         Mockito.when(modelMapper.map(addressRequest, Address.class))
                 .thenReturn(expectedAddress);
-        Mockito.when(geometryFactory.createPoint(coordinate))
-                .thenReturn(geolocation);
+        Mockito.when(modelMapper.map(addressRequest.getSpatialLocationRequest(), SpatialLocation.class))
+                .thenReturn(spatialLocation);
         Mockito.when(addressRepository.save(expectedAddress))
                 .thenReturn(expectedAddress);
 

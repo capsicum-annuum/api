@@ -1,6 +1,6 @@
 package br.com.annuum.capsicum.api.domain;
 
-import com.vividsolutions.jts.geom.Point;
+import br.com.annuum.capsicum.api.converter.PointConverter;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -17,15 +17,9 @@ public class Address {
     @GeneratedValue(generator = "address_sequence", strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @NotNull
+    @Convert(converter = PointConverter.class)
     @Column(columnDefinition = "geography(POINT, 4326)")
-    private Point geolocation;
-
-    @NotNull
-    private Double latitude;
-
-    @NotNull
-    private Double longitude;
+    private SpatialLocation spatialLocation;
 
     @NotNull
     @ManyToOne

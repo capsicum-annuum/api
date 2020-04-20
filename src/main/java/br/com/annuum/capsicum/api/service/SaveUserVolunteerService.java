@@ -1,11 +1,10 @@
 package br.com.annuum.capsicum.api.service;
 
+import br.com.annuum.capsicum.api.component.PointFactory;
 import br.com.annuum.capsicum.api.controller.request.UserVolunteerRequest;
 import br.com.annuum.capsicum.api.controller.response.UserVolunteerResponse;
 import br.com.annuum.capsicum.api.domain.*;
 import br.com.annuum.capsicum.api.repository.UserVolunteerRepository;
-import com.vividsolutions.jts.geom.Coordinate;
-import com.vividsolutions.jts.geom.GeometryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +14,6 @@ import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static java.util.Objects.nonNull;
 
 @Service
 @Slf4j
@@ -38,7 +35,7 @@ public class SaveUserVolunteerService {
     private ModelMapper modelMapper;
 
     @Autowired
-    private GeometryFactory geometryFactory;
+    private PointFactory pointFactory;
 
     @Transactional
     public UserVolunteerResponse save(final UserVolunteerRequest userVolunteerRequest) {
@@ -61,15 +58,6 @@ public class SaveUserVolunteerService {
                 .setAddress(address)
                 .setCauseThatSupport(causesThatSupport)
                 .setUserSkills(userSkills);
-
-        if (nonNull(userVolunteerRequest.getActualLocationRequest())) {
-            log.info("Getting ActualLocation from user");
-            final ActualLocation actualLocation = modelMapper.map(userVolunteerRequest.getActualLocationRequest(), ActualLocation.class);
-            final Coordinate coordinate = new Coordinate(actualLocation.getActualLatitude(), actualLocation.getActualLongitude());
-            actualLocation.setActualGeolocation(geometryFactory.createPoint(coordinate));
-            userVolunteer.setActualLocation(actualLocation);
-        }
-
 
         userVolunteer.setCreatedAt(LocalDateTime.now());
 

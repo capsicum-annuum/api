@@ -1,7 +1,7 @@
 package br.com.annuum.capsicum.api.service;
 
+import br.com.annuum.capsicum.api.controller.request.SpatialLocationRequest;
 import br.com.annuum.capsicum.api.controller.request.AddressRequest;
-import br.com.annuum.capsicum.api.controller.request.ActualLocationRequest;
 import br.com.annuum.capsicum.api.controller.request.UserVolunteerRequest;
 import br.com.annuum.capsicum.api.controller.response.UserVolunteerResponse;
 import br.com.annuum.capsicum.api.domain.*;
@@ -50,12 +50,6 @@ class SaveUserVolunteerServiceTest {
     @Test
     public void mustSaveAndReturnNewUserVolunteer_withSuccess() {
         // Arrange
-        final Point geolocation = Mockito.mock(Point.class);
-        final ActualLocation actualLocation = new ActualLocation()
-                .setActualGeolocation(geolocation)
-                .setActualLatitude(1D)
-                .setActualLongitude(1D);
-        final Coordinate coordinate = new Coordinate(actualLocation.getActualLatitude(), actualLocation.getActualLongitude());
         final Address address = Mockito.mock(Address.class);
         final Cause cause = new Cause()
                 .setId(1L)
@@ -64,17 +58,14 @@ class SaveUserVolunteerServiceTest {
                 .setId(1L)
                 .setDescription("someSkill");
         final UserVolunteer userVolunteer = new UserVolunteer()
-                .setActualLocation(actualLocation)
                 .setAddress(address)
                 .setCauseThatSupport(Collections.singletonList(cause))
-                .setUserSkills(Collections.singletonList(skill))
-                .setActualLocation(actualLocation);
+                .setUserSkills(Collections.singletonList(skill));
         userVolunteer.setCreatedAt(LocalDateTime.now());
         final UserVolunteerRequest userVolunteerRequest = new UserVolunteerRequest()
                 .setAddressRequest(Mockito.mock(AddressRequest.class))
                 .setCauseThatSupport(Collections.singletonList("someCause"))
-                .setUserSkills(Collections.singletonList("someSkill"))
-                .setActualLocationRequest(Mockito.mock(ActualLocationRequest.class));
+                .setUserSkills(Collections.singletonList("someSkill"));
         final UserVolunteerResponse expectedUserVolunteerResponse = new UserVolunteerResponse()
                 .setName("someUserName")
                 .setDescription("someDescription")
@@ -88,10 +79,6 @@ class SaveUserVolunteerServiceTest {
                 .thenReturn(address);
         Mockito.when(modelMapper.map(userVolunteerRequest, UserVolunteer.class))
                 .thenReturn(userVolunteer);
-        Mockito.when(geometryFactory.createPoint(coordinate))
-                .thenReturn(geolocation);
-        Mockito.when(modelMapper.map(userVolunteerRequest.getActualLocationRequest(), ActualLocation.class))
-                .thenReturn(actualLocation);
         Mockito.when(userVolunteerRepository.save(userVolunteer))
                 .thenReturn(userVolunteer);
         Mockito.when(modelMapper.map(userVolunteer, UserVolunteerResponse.class))

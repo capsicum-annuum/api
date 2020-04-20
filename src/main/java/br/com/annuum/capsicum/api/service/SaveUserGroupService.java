@@ -1,14 +1,12 @@
 package br.com.annuum.capsicum.api.service;
 
+import br.com.annuum.capsicum.api.component.PointFactory;
 import br.com.annuum.capsicum.api.controller.request.UserGroupRequest;
 import br.com.annuum.capsicum.api.controller.response.UserGroupResponse;
-import br.com.annuum.capsicum.api.domain.ActualLocation;
 import br.com.annuum.capsicum.api.domain.Address;
 import br.com.annuum.capsicum.api.domain.Cause;
 import br.com.annuum.capsicum.api.domain.UserGroup;
 import br.com.annuum.capsicum.api.repository.UserGroupRepository;
-import com.vividsolutions.jts.geom.Coordinate;
-import com.vividsolutions.jts.geom.GeometryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +16,6 @@ import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static java.util.Objects.nonNull;
 
 @Service
 @Slf4j
@@ -38,7 +34,7 @@ public class SaveUserGroupService {
     private ModelMapper modelMapper;
 
     @Autowired
-    private GeometryFactory geometryFactory;
+    private PointFactory pointFactory;
 
     @Transactional
     public UserGroupResponse save(final UserGroupRequest userGroupRequest) {
@@ -54,14 +50,6 @@ public class SaveUserGroupService {
         final UserGroup userGroup = modelMapper.map(userGroupRequest, UserGroup.class)
                 .setAddress(address)
                 .setCauseThatSupport(causesThatSupport);
-
-        if (nonNull(userGroupRequest.getActualLocationRequest())) {
-            log.info("Getting ActualLocation from user");
-            final ActualLocation actualLocation = modelMapper.map(userGroupRequest.getActualLocationRequest(), ActualLocation.class);
-            final Coordinate coordinate = new Coordinate(actualLocation.getActualLatitude(), actualLocation.getActualLongitude());
-            actualLocation.setActualGeolocation(geometryFactory.createPoint(coordinate));
-            userGroup.setActualLocation(actualLocation);
-        }
 
         userGroup.setCreatedAt(LocalDateTime.now());
 

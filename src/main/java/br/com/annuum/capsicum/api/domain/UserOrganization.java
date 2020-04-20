@@ -6,7 +6,6 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.hibernate.validator.constraints.br.CNPJ;
 
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
@@ -34,9 +33,6 @@ public class UserOrganization extends AbstractUser {
     @NotNull
     @OneToOne
     private Address address;
-
-    @Embedded
-    private ActualLocation actualLocation;
 
     private Long profilePictureId;
 

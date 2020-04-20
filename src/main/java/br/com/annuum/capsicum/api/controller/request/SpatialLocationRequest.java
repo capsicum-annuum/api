@@ -5,11 +5,11 @@ import lombok.Data;
 import javax.validation.constraints.NotNull;
 
 @Data
-public class ActualLocationRequest {
+public class SpatialLocationRequest {
 
     @NotNull(message = "A latitude não pode ser nula.")
-    private Double actualLatitude;
+    private Double latitude;
 
     @NotNull(message = "A longitude não pode ser nula.")
-    private Double actualLongitude;
+    private Double longitude;
 }

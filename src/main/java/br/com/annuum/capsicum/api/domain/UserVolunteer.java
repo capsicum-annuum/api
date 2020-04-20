@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.ColumnDefault;
 
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
@@ -31,9 +30,6 @@ public class UserVolunteer extends AbstractUser {
     @NotNull
     @OneToOne
     private Address address;
-
-    @Embedded
-    private ActualLocation actualLocation;
 
     private Long profilePictureId;
 

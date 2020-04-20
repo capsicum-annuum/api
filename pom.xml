@@ -124,6 +124,12 @@
             <artifactId>hibernate-spatial</artifactId>
             <version>5.3.16.Final</version>
         </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
 
     </dependencies>
 
