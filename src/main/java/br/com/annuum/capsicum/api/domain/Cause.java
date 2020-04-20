@@ -1,13 +1,9 @@
 package br.com.annuum.capsicum.api.domain;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Data
@@ -22,4 +18,6 @@ public class Cause {
 
     @NotBlank
     private String description;
+
+    private Integer binaryIdentifier;
 }

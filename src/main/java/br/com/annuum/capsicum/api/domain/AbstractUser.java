@@ -1,21 +1,15 @@
 package br.com.annuum.capsicum.api.domain;
 
-import java.time.LocalDateTime;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.SequenceGenerator;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import br.com.annuum.capsicum.api.listener.UserListener;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
-import org.springframework.data.annotation.CreatedDate;
+
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Entity
@@ -24,6 +18,7 @@ import org.springframework.data.annotation.CreatedDate;
 @Accessors(chain = true)
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence")
+@EntityListeners({UserListener.class})
 public abstract class AbstractUser implements User {
 
     @Id
@@ -41,6 +36,5 @@ public abstract class AbstractUser implements User {
     private String password;
 
     @NotNull
-    @CreatedDate
-    private LocalDateTime createdAt;
+    private String matchCode;
 }

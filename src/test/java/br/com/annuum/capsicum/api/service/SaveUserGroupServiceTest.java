@@ -54,7 +54,6 @@ class SaveUserGroupServiceTest {
         final UserGroup userGroup = new UserGroup()
                 .setAddress(address)
                 .setCauseThatSupport(Collections.singletonList(cause));
-        userGroup.setCreatedAt(LocalDateTime.now());
         final UserGroupResponse expectedUserGroupResponse = new UserGroupResponse()
                 .setName("someUserName")
                 .setDescription("someDescription")

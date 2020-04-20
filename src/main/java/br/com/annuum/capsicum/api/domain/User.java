@@ -4,14 +4,13 @@ import br.com.annuum.capsicum.api.domain.enums.Profile;
 
 public interface User {
 
-  Long getId();
+    Long getId();
 
-  String getName();
+    String getName();
 
-  String getEmail();
+    String getEmail();
 
-  String getPassword();
+    String getPassword();
 
-  Profile getProfile();
-
+    Profile getProfile();
 }
