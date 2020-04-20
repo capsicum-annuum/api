@@ -8,8 +8,6 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -39,15 +37,12 @@ public class UserVolunteer extends AbstractUser {
 
     private String description;
 
-    @NotEmpty
     @ManyToMany
     private List<Cause> causeThatSupport;
 
-    @NotEmpty
     @ManyToMany
     private List<Skill> userSkills;
 
-    @NotNull
     @ColumnDefault("false")
     private Boolean hasCnh;
 
