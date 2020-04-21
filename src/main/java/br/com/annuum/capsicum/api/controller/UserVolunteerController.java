@@ -3,6 +3,7 @@ package br.com.annuum.capsicum.api.controller;
 import br.com.annuum.capsicum.api.controller.request.UserVolunteerRequest;
 import br.com.annuum.capsicum.api.controller.response.UserVolunteerResponse;
 import br.com.annuum.capsicum.api.service.SaveUserVolunteerService;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,7 @@ public class UserVolunteerController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UserVolunteerResponse saveUserVolunteer(@RequestBody final UserVolunteerRequest userVolunteerRequest) {
+    public UserVolunteerResponse saveUserVolunteer(@Valid @RequestBody final UserVolunteerRequest userVolunteerRequest) {
         return saveUserVolunteerService.save(userVolunteerRequest);
     }
 }
