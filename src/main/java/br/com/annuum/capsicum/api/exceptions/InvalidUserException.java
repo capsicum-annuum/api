@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(HttpStatus.FORBIDDEN)
 public class InvalidUserException extends UsernameNotFoundException {
 
-  public InvalidUserException() {
-    super("Unkown user");
-  }
+    public InvalidUserException() {
+        super("Unkown user");
+    }
 
 }

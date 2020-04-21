@@ -27,3 +27,5 @@ public class PointConverter implements AttributeConverter<SpatialLocation, Point
     }
 
 }
+
+

@@ -3,11 +3,12 @@ package br.com.annuum.capsicum.api.domain;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.util.List;
+
 @Data
 @Accessors(chain = true)
-public class SpatialLocation {
+public class Availability {
 
-    private Double latitude;
+    private List<DayShiftAvailability> dayShiftAvailabilities;
 
-    private Double longitude;
 }

@@ -20,68 +20,68 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 @ExtendWith(MockitoExtension.class)
 class JwtClaimMapperTest {
 
-  @InjectMocks
-  private JwtClaimMapper target;
+    @InjectMocks
+    private JwtClaimMapper target;
 
-  @Test
-  public void shouldMapAnUserToClaim() {
+    @Test
+    public void shouldMapAnUserToClaim() {
 
-    final Long id = RandomUtils.nextLong();
-    final String name = randomAlphanumeric(10);
-    final String email = randomAlphanumeric(10);
-    final String password = randomAlphanumeric(10);
-    final Profile profile = random(Profile.values());
-    final String roles = profile.toRoles();
+        final Long id = RandomUtils.nextLong();
+        final String name = randomAlphanumeric(10);
+        final String email = randomAlphanumeric(10);
+        final String password = randomAlphanumeric(10);
+        final Profile profile = random(Profile.values());
+        final String roles = profile.toRoles();
 
-    final User user = new UserPrincipal()
-        .setId(id)
-        .setName(name)
-        .setEmail(email)
-        .setPassword(password)
-        .setProfile(profile);
+        final User user = new UserPrincipal()
+                .setId(id)
+                .setName(name)
+                .setEmail(email)
+                .setPassword(password)
+                .setProfile(profile);
 
-    final Map<String, Object> map = target.map(user);
+        final Map<String, Object> map = target.map(user);
 
-    assertEquals(id, Long.valueOf(map.get("id").toString()));
-    assertEquals(name, map.get("name"));
-    assertEquals(email, map.get("email"));
-    assertEquals(profile, map.get("profile"));
-    assertEquals(roles, map.get("roles"));
+        assertEquals(id, Long.valueOf(map.get("id").toString()));
+        assertEquals(name, map.get("name"));
+        assertEquals(email, map.get("email"));
+        assertEquals(profile, map.get("profile"));
+        assertEquals(roles, map.get("roles"));
 
-    // the password should not be serialized
-    assertNull(map.get("password"));
-    assertEquals(5, map.size());
-  }
+        // the password should not be serialized
+        assertNull(map.get("password"));
+        assertEquals(5, map.size());
+    }
 
 
-  @Test
-  public void shouldMapClaimsToUser() {
+    @Test
+    public void shouldMapClaimsToUser() {
 
-    final Long id = RandomUtils.nextLong();
-    final String name = randomAlphanumeric(10);
-    final String email = randomAlphanumeric(10);
-    final String password = randomAlphanumeric(10);
-    final Profile profile = random(Profile.values());
-    final String roles = profile.toRoles();
+        final Long id = RandomUtils.nextLong();
+        final String name = randomAlphanumeric(10);
+        final String email = randomAlphanumeric(10);
+        final String password = randomAlphanumeric(10);
+        final Profile profile = random(Profile.values());
+        final String roles = profile.toRoles();
 
-    final Map<String, Object> claims = new HashMap<>();
+        final Map<String, Object> claims = new HashMap<>();
 
-    claims.put("id", id);
-    claims.put("name", name);
-    claims.put("email", email);
-    claims.put("password", password);
-    claims.put("profile", profile);
-    claims.put("roles", roles);
+        claims.put("id", id);
+        claims.put("name", name);
+        claims.put("email", email);
+        claims.put("password", password);
+        claims.put("profile", profile);
+        claims.put("roles", roles);
 
-    final UserPrincipal user = target.map(claims);
+        final UserPrincipal user = target.map(claims);
 
-    assertEquals(id, user.getId());
-    assertEquals(name, user.getName());
-    assertEquals(email, user.getEmail());
-    assertEquals(profile, user.getProfile());
-    assertEquals(roles, String.join(", ", user.getProfile().getRoles()));
+        assertEquals(id, user.getId());
+        assertEquals(name, user.getName());
+        assertEquals(email, user.getEmail());
+        assertEquals(profile, user.getProfile());
+        assertEquals(roles, String.join(", ", user.getProfile().getRoles()));
 
-    // the password should not be serialized
-    assertNull(user.getPassword());
-  }
+        // the password should not be serialized
+        assertNull(user.getPassword());
+    }
 }

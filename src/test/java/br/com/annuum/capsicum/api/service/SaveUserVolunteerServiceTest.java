@@ -1,14 +1,14 @@
 package br.com.annuum.capsicum.api.service;
 
-import br.com.annuum.capsicum.api.controller.request.SpatialLocationRequest;
 import br.com.annuum.capsicum.api.controller.request.AddressRequest;
 import br.com.annuum.capsicum.api.controller.request.UserVolunteerRequest;
 import br.com.annuum.capsicum.api.controller.response.UserVolunteerResponse;
-import br.com.annuum.capsicum.api.domain.*;
+import br.com.annuum.capsicum.api.domain.Address;
+import br.com.annuum.capsicum.api.domain.Cause;
+import br.com.annuum.capsicum.api.domain.Skill;
+import br.com.annuum.capsicum.api.domain.UserVolunteer;
 import br.com.annuum.capsicum.api.repository.UserVolunteerRepository;
-import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;
-import com.vividsolutions.jts.geom.Point;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

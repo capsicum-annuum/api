@@ -11,15 +11,15 @@ import org.springframework.security.core.GrantedAuthority;
 @ExtendWith(MockitoExtension.class)
 class GrantedAuthorityMapperTest {
 
-  @InjectMocks
-  private GrantedAuthorityMapper mapper;
+    @InjectMocks
+    private GrantedAuthorityMapper mapper;
 
-  @Test
-  public void shouldMapRoleAsStringToGrantedAuthority() {
+    @Test
+    public void shouldMapRoleAsStringToGrantedAuthority() {
 
-    final String randomRole = RandomStringUtils.randomAlphabetic(10);
-    final GrantedAuthority authority = mapper.map(randomRole);
+        final String randomRole = RandomStringUtils.randomAlphabetic(10);
+        final GrantedAuthority authority = mapper.map(randomRole);
 
-    Assertions.assertEquals(randomRole, authority.getAuthority());
-  }
+        Assertions.assertEquals(randomRole, authority.getAuthority());
+    }
 }

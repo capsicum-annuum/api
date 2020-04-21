@@ -31,12 +31,12 @@ public class UserPrincipal implements UserDetails, User {
 
     public static UserPrincipal create(final User user) {
         return new UserPrincipal()
-            .setEnabled(true)
-            .setId(user.getId())
-            .setName(user.getName())
-            .setEmail(user.getEmail())
-            .setPassword(user.getPassword())
-            .setProfile(user.getProfile());
+                .setEnabled(true)
+                .setId(user.getId())
+                .setName(user.getName())
+                .setEmail(user.getEmail())
+                .setPassword(user.getPassword())
+                .setProfile(user.getProfile());
     }
 
     @Override

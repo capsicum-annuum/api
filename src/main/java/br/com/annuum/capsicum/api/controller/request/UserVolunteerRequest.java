@@ -30,7 +30,10 @@ public class UserVolunteerRequest {
     @NotEmpty(message = "A lista de Habilidades não pode estar vazia.")
     private List<String> userSkills;
 
-    @NotNull(message = "O objeto Endereço não pode ser nulo.")
+    @NotNull(message = "A Disponibilidade não pode ser nula.")
+    private AvailabilityRequest availability;
+
+    @NotNull(message = "O Endereço não pode ser nulo.")
     private AddressRequest addressRequest;
 
     @NotNull(message = "É preciso informar se usuário possui CNH.")

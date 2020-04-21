@@ -1,6 +1,5 @@
 package br.com.annuum.capsicum.api.service;
 
-import br.com.annuum.capsicum.api.component.PointFactory;
 import br.com.annuum.capsicum.api.controller.request.UserVolunteerRequest;
 import br.com.annuum.capsicum.api.controller.response.UserVolunteerResponse;
 import br.com.annuum.capsicum.api.domain.*;
@@ -34,9 +33,6 @@ public class SaveUserVolunteerService {
     @Autowired
     private ModelMapper modelMapper;
 
-    @Autowired
-    private PointFactory pointFactory;
-
     @Transactional
     public UserVolunteerResponse save(final UserVolunteerRequest userVolunteerRequest) {
 
@@ -53,11 +49,17 @@ public class SaveUserVolunteerService {
                 .map(skill -> findSkillByDescriptionService.find(skill))
                 .collect(Collectors.toList());
 
+        final List<DayShiftAvailability> availability = userVolunteerRequest.getAvailability().getDayShiftAvailabilities()
+                .stream()
+                .map(dayShft -> modelMapper.map(dayShft, DayShiftAvailability.class))
+                .collect(Collectors.toList());
+
         log.info("Building UserVolunteer to persist");
         final UserVolunteer userVolunteer = modelMapper.map(userVolunteerRequest, UserVolunteer.class)
                 .setAddress(address)
                 .setCauseThatSupport(causesThatSupport)
-                .setUserSkills(userSkills);
+                .setUserSkills(userSkills)
+                .setAvailability(new Availability().setDayShiftAvailabilities(availability));
 
         userVolunteer.setCreatedAt(LocalDateTime.now());
 
