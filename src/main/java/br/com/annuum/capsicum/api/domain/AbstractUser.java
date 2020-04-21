@@ -1,11 +1,11 @@
 package br.com.annuum.capsicum.api.domain;
 
-import br.com.annuum.capsicum.api.listener.UserListener;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -18,9 +18,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
+@EntityListeners(AuditingEntityListener.class)
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence")
-@EntityListeners({UserListener.class})
+//@EntityListeners({UserListener.class})
 public abstract class AbstractUser implements User {
 
     @Id

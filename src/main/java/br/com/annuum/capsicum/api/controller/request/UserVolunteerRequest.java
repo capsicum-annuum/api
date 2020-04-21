@@ -1,14 +1,13 @@
 package br.com.annuum.capsicum.api.controller.request;
 
-import lombok.Data;
-import lombok.experimental.Accessors;
-import org.springframework.lang.Nullable;
-
+import java.util.List;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.List;
+import lombok.Data;
+import lombok.experimental.Accessors;
+import org.springframework.lang.Nullable;
 
 @Data
 @Accessors(chain = true)
@@ -30,7 +29,10 @@ public class UserVolunteerRequest {
     @NotEmpty(message = "A lista de Habilidades não pode estar vazia.")
     private List<String> userSkills;
 
-    @NotNull(message = "O objeto Endereço não pode ser nulo.")
+    @NotNull(message = "A Disponibilidade não pode ser nula.")
+    private AvailabilityRequest availability;
+
+    @NotNull(message = "O Endereço não pode ser nulo.")
     private AddressRequest addressRequest;
 
     @NotNull(message = "É preciso informar se usuário possui CNH.")
