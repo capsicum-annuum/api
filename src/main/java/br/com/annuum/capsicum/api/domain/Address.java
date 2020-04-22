@@ -14,7 +14,7 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 @Entity
-@SequenceGenerator(name = "address_sequence", sequenceName = "address_sequence")
+@SequenceGenerator(name = "address_sequence", sequenceName = "address_sequence", allocationSize = 1)
 public class Address {
 
     @Id

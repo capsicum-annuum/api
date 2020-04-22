@@ -1,4 +1,4 @@
-package br.com.annuum.capsicum.api.utils;
+package br.com.annuum.capsicum.api.converter;
 
 import br.com.annuum.capsicum.api.domain.Cause;
 import br.com.annuum.capsicum.api.domain.Skill;
@@ -7,7 +7,7 @@ import org.springframework.lang.Nullable;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-public class UserMatchCodeGeneratorUtils {
+public class UserMatchCodeConverter {
 
     public static String encode(@Nullable List<Skill> skills, @NotNull List<Cause> causes) {
         StringBuilder builder = new StringBuilder();

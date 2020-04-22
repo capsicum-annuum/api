@@ -10,7 +10,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Data
@@ -20,8 +19,7 @@ import java.time.LocalDateTime;
 @Accessors(chain = true)
 @EntityListeners(AuditingEntityListener.class)
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence")
-//@EntityListeners({UserListener.class})
+@SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence", allocationSize = 1)
 public abstract class AbstractUser implements User {
 
     @Id
@@ -38,7 +36,6 @@ public abstract class AbstractUser implements User {
     @NotBlank
     private String password;
 
-    @NotNull
     private String matchCode;
 
     @CreatedDate

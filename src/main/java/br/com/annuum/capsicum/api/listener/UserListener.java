@@ -2,7 +2,7 @@ package br.com.annuum.capsicum.api.listener;
 
 import br.com.annuum.capsicum.api.domain.AbstractUser;
 import br.com.annuum.capsicum.api.domain.UserVolunteer;
-import br.com.annuum.capsicum.api.utils.UserMatchCodeGeneratorUtils;
+import br.com.annuum.capsicum.api.converter.UserMatchCodeConverter;
 
 import javax.persistence.PrePersist;
 
@@ -12,7 +12,7 @@ public class UserListener {
     void preCreate(AbstractUser user) {
         if (user instanceof UserVolunteer) {
             UserVolunteer userVolunteer = (UserVolunteer) user;
-            userVolunteer.setMatchCode(UserMatchCodeGeneratorUtils.encode(userVolunteer.getUserSkills(), userVolunteer.getCauseThatSupport()));
+            userVolunteer.setMatchCode(UserMatchCodeConverter.encode(userVolunteer.getUserSkills(), userVolunteer.getCauseThatSupport()));
         }
 
     }

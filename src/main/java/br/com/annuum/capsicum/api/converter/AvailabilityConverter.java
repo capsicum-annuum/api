@@ -24,7 +24,6 @@ public class AvailabilityConverter implements AttributeConverter<Availability, S
 
     @Override
     public String convertToDatabaseColumn(Availability attribute) {
-
         // creates "000000000000000000000" considering 7 days of week and 3 day shifts
         final String emptyValue = Character.toString(NOT_AVAILABLE).repeat(DayOfWeek.values().length * DayShift.values().length);
 
@@ -45,7 +44,6 @@ public class AvailabilityConverter implements AttributeConverter<Availability, S
 
     @Override
     public Availability convertToEntityAttribute(String dbData) {
-
         final String data = isNull(dbData) ? EMPTY : dbData;
         final List<DayShiftAvailability> values = EntryStream.of(asList(data.split(EMPTY)))
                 .filterValues(this::isAvailable)
@@ -75,5 +73,4 @@ public class AvailabilityConverter implements AttributeConverter<Availability, S
                 .setDayOfWeek(DayOfWeek.of(dayOfWeekValue))
                 .setDayShift(DayShift.of(dayShiftValue));
     }
-
 }
