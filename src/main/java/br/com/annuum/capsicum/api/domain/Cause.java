@@ -10,7 +10,7 @@ import javax.validation.constraints.NotBlank;
 @Accessors(chain = true)
 @Entity
 @SequenceGenerator(name = "cause_sequence", sequenceName = "cause_sequence", allocationSize = 1)
-public class Cause {
+public class Cause implements Encodable {
 
     @Id
     @GeneratedValue(generator = "cause_sequence", strategy = GenerationType.SEQUENCE)

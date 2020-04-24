@@ -1,11 +1,11 @@
 --DROP SCHEMA public cascade;
 --
---CREATE SCHEMA public AUTHORIZATION lgojsslzazmmwk;
+CREATE SCHEMA public AUTHORIZATION OWNER_NAME;
 --
 --COMMENT ON SCHEMA public IS 'standard public schema';
 --
 --
--- PostgreSQL database dump
+-- OWNER_NAMEQL database dump
 --
 
 -- Dumped from database version 12.2
@@ -26,7 +26,7 @@ CREATE TABLE public.address (
 );
 
 
-ALTER TABLE public.address OWNER TO lgojsslzazmmwk;
+ALTER TABLE public.address OWNER TO OWNER_NAME;
 
 
 CREATE SEQUENCE public.address_sequence
@@ -37,7 +37,7 @@ CREATE SEQUENCE public.address_sequence
     CACHE 20;
 
 
-ALTER TABLE public.address_sequence OWNER TO lgojsslzazmmwk;
+ALTER TABLE public.address_sequence OWNER TO OWNER_NAME;
 
 
 CREATE TABLE public.cause (
@@ -47,7 +47,7 @@ CREATE TABLE public.cause (
 );
 
 
-ALTER TABLE public.cause OWNER TO lgojsslzazmmwk;
+ALTER TABLE public.cause OWNER TO OWNER_NAME;
 
 
 CREATE SEQUENCE public.cause_sequence
@@ -58,7 +58,7 @@ CREATE SEQUENCE public.cause_sequence
     CACHE 20;
 
 
-ALTER TABLE public.cause_sequence OWNER TO lgojsslzazmmwk;
+ALTER TABLE public.cause_sequence OWNER TO OWNER_NAME;
 
 
 CREATE TABLE public.city (
@@ -69,7 +69,7 @@ CREATE TABLE public.city (
 );
 
 
-ALTER TABLE public.city OWNER TO lgojsslzazmmwk;
+ALTER TABLE public.city OWNER TO OWNER_NAME;
 
 
 CREATE SEQUENCE public.city_sequence
@@ -80,7 +80,7 @@ CREATE SEQUENCE public.city_sequence
     CACHE 20;
 
 
-ALTER TABLE public.city_sequence OWNER TO lgojsslzazmmwk;
+ALTER TABLE public.city_sequence OWNER TO OWNER_NAME;
 
 
 CREATE TABLE public.skill (
@@ -91,7 +91,7 @@ CREATE TABLE public.skill (
 );
 
 
-ALTER TABLE public.skill OWNER TO lgojsslzazmmwk;
+ALTER TABLE public.skill OWNER TO OWNER_NAME;
 
 
 CREATE SEQUENCE public.skill_sequence
@@ -102,7 +102,7 @@ CREATE SEQUENCE public.skill_sequence
     CACHE 20;
 
 
-ALTER TABLE public.skill_sequence OWNER TO lgojsslzazmmwk;
+ALTER TABLE public.skill_sequence OWNER TO OWNER_NAME;
 
 
 CREATE TABLE public.user_group (
@@ -122,7 +122,7 @@ CREATE TABLE public.user_group (
 );
 
 
-ALTER TABLE public.user_group OWNER TO lgojsslzazmmwk;
+ALTER TABLE public.user_group OWNER TO OWNER_NAME;
 
 
 CREATE TABLE public.user_group_cause_that_support (
@@ -131,7 +131,7 @@ CREATE TABLE public.user_group_cause_that_support (
 );
 
 
-ALTER TABLE public.user_group_cause_that_support OWNER TO lgojsslzazmmwk;
+ALTER TABLE public.user_group_cause_that_support OWNER TO OWNER_NAME;
 
 
 CREATE TABLE public.user_organization (
@@ -152,7 +152,7 @@ CREATE TABLE public.user_organization (
 );
 
 
-ALTER TABLE public.user_organization OWNER TO lgojsslzazmmwk;
+ALTER TABLE public.user_organization OWNER TO OWNER_NAME;
 
 
 CREATE TABLE public.user_organization_cause_that_support (
@@ -161,7 +161,7 @@ CREATE TABLE public.user_organization_cause_that_support (
 );
 
 
-ALTER TABLE public.user_organization_cause_that_support OWNER TO lgojsslzazmmwk;
+ALTER TABLE public.user_organization_cause_that_support OWNER TO OWNER_NAME;
 
 
 CREATE SEQUENCE public.user_sequence
@@ -172,7 +172,7 @@ CREATE SEQUENCE public.user_sequence
     CACHE 20;
 
 
-ALTER TABLE public.user_sequence OWNER TO lgojsslzazmmwk;
+ALTER TABLE public.user_sequence OWNER TO OWNER_NAME;
 
 
 CREATE TABLE public.user_volunteer (
@@ -193,7 +193,7 @@ CREATE TABLE public.user_volunteer (
 );
 
 
-ALTER TABLE public.user_volunteer OWNER TO lgojsslzazmmwk;
+ALTER TABLE public.user_volunteer OWNER TO OWNER_NAME;
 
 
 CREATE TABLE public.user_volunteer_cause_that_support (
@@ -202,7 +202,7 @@ CREATE TABLE public.user_volunteer_cause_that_support (
 );
 
 
-ALTER TABLE public.user_volunteer_cause_that_support OWNER TO lgojsslzazmmwk;
+ALTER TABLE public.user_volunteer_cause_that_support OWNER TO OWNER_NAME;
 
 
 CREATE TABLE public.user_volunteer_user_skills (
@@ -211,7 +211,7 @@ CREATE TABLE public.user_volunteer_user_skills (
 );
 
 
-ALTER TABLE public.user_volunteer_user_skills OWNER TO lgojsslzazmmwk;
+ALTER TABLE public.user_volunteer_user_skills OWNER TO OWNER_NAME;
 
 
 ALTER TABLE ONLY public.address

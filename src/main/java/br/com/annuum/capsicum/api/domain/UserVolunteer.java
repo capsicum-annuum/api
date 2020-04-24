@@ -1,6 +1,7 @@
 package br.com.annuum.capsicum.api.domain;
 
 import br.com.annuum.capsicum.api.converter.AvailabilityConverter;
+import br.com.annuum.capsicum.api.converter.EncodableAttributeConverter;
 import br.com.annuum.capsicum.api.domain.enums.Profile;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -37,9 +38,11 @@ public class UserVolunteer extends AbstractUser {
     private String description;
 
     @ManyToMany
+    @Convert(converter = EncodableAttributeConverter.class)
     private List<Cause> causeThatSupport;
 
     @ManyToMany
+    @Convert(converter = EncodableAttributeConverter.class)
     private List<Skill> userSkills;
 
     @Convert(converter = AvailabilityConverter.class)
