@@ -8,7 +8,6 @@ import br.com.annuum.capsicum.api.domain.Cause;
 import br.com.annuum.capsicum.api.domain.Skill;
 import br.com.annuum.capsicum.api.domain.UserVolunteer;
 import br.com.annuum.capsicum.api.repository.UserVolunteerRepository;
-import com.vividsolutions.jts.geom.GeometryFactory;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -44,8 +43,6 @@ class SaveUserVolunteerServiceTest {
     @Mock
     private ModelMapper modelMapper;
 
-    @Mock
-    private GeometryFactory geometryFactory;
 
     @Test
     public void mustSaveAndReturnNewUserVolunteer_withSuccess() {
