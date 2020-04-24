@@ -14,7 +14,10 @@ public class AddressRequest {
     private CityRequest cityRequest;
 
     @NotNull(message = "A localização espacial precisa ser informada.")
-    private SpatialLocationRequest spatialLocationRequest;
+    private Double latitude;
+
+    @NotNull
+    private Double longitude;
 
     @Nullable
     private String googlePlaceAddressId;

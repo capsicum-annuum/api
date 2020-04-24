@@ -4,8 +4,8 @@ import br.com.annuum.capsicum.api.component.PointFactory;
 import br.com.annuum.capsicum.api.controller.request.AddressRequest;
 import br.com.annuum.capsicum.api.domain.Address;
 import br.com.annuum.capsicum.api.domain.City;
-import br.com.annuum.capsicum.api.domain.SpatialLocation;
 import br.com.annuum.capsicum.api.repository.AddressRepository;
+import com.vividsolutions.jts.geom.Point;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -43,22 +43,22 @@ class SaveAddressServiceTest {
                 .setId(1L)
                 .setName("someCityName")
                 .setState(RS);
-        final SpatialLocation spatialLocation = new SpatialLocation()
-                .setLatitude(1D)
-                .setLongitude(1D);
+        final Point geolocation = Mockito.mock(Point.class);
         final Address expectedAddress = new Address()
                 .setId(1L)
                 .setCity(city)
                 .setStreetName("someStreet")
-                .setSpatialLocation(spatialLocation);
+                .setLatitude(1D)
+                .setLongitude(1D)
+                .setGeolocation(geolocation);
         final AddressRequest addressRequest = Mockito.mock(AddressRequest.class);
 
         Mockito.when(findOrCreateNewCityService.findOrCreateNewCity(addressRequest.getCityRequest()))
                 .thenReturn(city);
         Mockito.when(modelMapper.map(addressRequest, Address.class))
                 .thenReturn(expectedAddress);
-        Mockito.when(modelMapper.map(addressRequest.getSpatialLocationRequest(), SpatialLocation.class))
-                .thenReturn(spatialLocation);
+        Mockito.when(pointFactory.createPointFromCoordinates(addressRequest.getLatitude(), addressRequest.getLongitude()))
+                .thenReturn(geolocation);
         Mockito.when(addressRepository.save(expectedAddress))
                 .thenReturn(expectedAddress);
 

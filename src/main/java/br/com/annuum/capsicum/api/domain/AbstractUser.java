@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @Accessors(chain = true)
 @EntityListeners(AuditingEntityListener.class)
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence")
+@SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence", allocationSize = 1)
 public abstract class AbstractUser implements User {
 
     @Id

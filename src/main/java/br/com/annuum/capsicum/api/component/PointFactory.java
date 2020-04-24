@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class PointFactory extends GeometryFactory {
 
-    public Point createPointFromSpatialLocation(SpatialLocation spatialLocation) {
+    public Point createPointFromCoordinates(double latitude, double longitude) {
 
-        final Coordinate coordinate = new Coordinate(spatialLocation.getLatitude(), spatialLocation.getLongitude());
+        final Coordinate coordinate = new Coordinate(latitude, longitude);
 
         return createPoint(coordinate);
     }

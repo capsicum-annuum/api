@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 @Data
 @Accessors(chain = true)
 @Entity
-@SequenceGenerator(name = "skill_sequence", sequenceName = "skill_sequence")
+@SequenceGenerator(name = "skill_sequence", sequenceName = "skill_sequence", allocationSize = 1)
 public class Skill {
 
     @Id
