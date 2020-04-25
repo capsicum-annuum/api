@@ -8,9 +8,9 @@ import java.util.List;
 @Component
 public class EncodableAttributeConverter {
 
-    public String convertToBinaryCode(List<Encodable> attribute) {
+    public String convertToBinaryCode(List<? extends Encodable> encodables) {
         StringBuilder builder = new StringBuilder();
-        attribute.forEach(encodable -> {
+        encodables.forEach(encodable -> {
             builder.append(Integer.toBinaryString(encodable.getBinaryIdentifier()));
         });
         return builder.toString();

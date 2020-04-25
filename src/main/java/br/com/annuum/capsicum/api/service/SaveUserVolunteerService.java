@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static java.util.Objects.nonNull;
 
@@ -41,7 +40,6 @@ public class SaveUserVolunteerService {
 
     @Transactional
     public UserVolunteerResponse save(final UserVolunteerRequest userVolunteerRequest) {
-
         log.info("Start to create an UserVolunteer for: '{}'", userVolunteerRequest);
         final Address address = saveAddressService.saveAddress(userVolunteerRequest.getAddressRequest());
 
@@ -55,9 +53,6 @@ public class SaveUserVolunteerService {
                 .map(skill -> findSkillByDescriptionService.find(skill))
                 .collect(Collectors.toList());
 
-        List<Encodable> encodableList = Stream.concat(userSkills.stream(), causesThatSupport.stream())
-                .collect(Collectors.toList());
-
         final List<DayShiftAvailability> availability = userVolunteerRequest.getAvailability().getDayShiftAvailabilities()
                 .stream()
                 .map(dayShft -> modelMapper.map(dayShft, DayShiftAvailability.class))
@@ -67,11 +62,11 @@ public class SaveUserVolunteerService {
         final UserVolunteer userVolunteer = modelMapper.map(userVolunteerRequest, UserVolunteer.class)
                 .setAddress(address)
                 .setCauseThatSupport(causesThatSupport)
+                .setCauseMatchCode(encodableAttributeConverter.convertToBinaryCode(causesThatSupport))
                 .setUserSkills(userSkills)
+                .setSkillMatchCode(encodableAttributeConverter.convertToBinaryCode(userSkills))
                 .setAvailability(new Availability().setDayShiftAvailabilities(availability));
 
-        userVolunteer
-                .setMatchCode(encodableAttributeConverter.convertToBinaryCode(encodableList));
 
         if (nonNull(userVolunteerRequest.getActualLocationCoordinatesRequest())) {
             log.info("Getting LocationCoordinates from user");

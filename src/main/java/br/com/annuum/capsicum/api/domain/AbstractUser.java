@@ -36,8 +36,6 @@ public abstract class AbstractUser implements User {
     @NotBlank
     private String password;
 
-    private String matchCode;
-
     @CreatedDate
     private LocalDateTime createdAt;
 }

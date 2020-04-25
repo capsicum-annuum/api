@@ -45,8 +45,12 @@ public class UserVolunteer extends AbstractUser {
     @Convert(converter = EncodableAttributeConverter.class)
     private List<Skill> userSkills;
 
+    private String skillMatchCode;
+
     @Convert(converter = AvailabilityConverter.class)
     private Availability availability;
+
+    private String causeMatchCode;
 
     @ColumnDefault("false")
     private Boolean hasCnh;
