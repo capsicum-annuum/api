@@ -32,7 +32,7 @@ public class Address {
     @ManyToOne
     private City city;
 
-    private String googlePlaceAddressId;
+    private String googlePlaceAddressIdentifier;
 
     private String district;
 

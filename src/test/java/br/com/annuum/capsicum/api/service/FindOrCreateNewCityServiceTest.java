@@ -33,17 +33,17 @@ class FindOrCreateNewCityServiceTest {
     public void mustFindAndReturnCityThatWasRegistered_withSuccess() {
         // Arrange
         final CityRequest cityRequest = new CityRequest()
-                .setGooglePlaceCityId("someId")
+                .setGooglePlaceCityIdentifier("someId")
                 .setName("someName")
                 .setState(RS);
 
         final City expectedCity = new City()
                 .setId(1L)
-                .setGooglePlaceCityId("someId")
+                .setGooglePlaceCityIdentifier("someId")
                 .setName("someName")
                 .setState(RS);
 
-        Mockito.when(cityRepository.findByGooglePlaceCityId(cityRequest.getGooglePlaceCityId()))
+        Mockito.when(cityRepository.findByGooglePlaceCityIdentifier(cityRequest.getGooglePlaceCityIdentifier()))
                 .thenReturn(Optional.of(expectedCity));
 
         // Act
@@ -57,17 +57,17 @@ class FindOrCreateNewCityServiceTest {
     public void mustCreateAndReturnANewCityWhenItIsNotRegisteredYet_withSuccess() {
         // Arrange
         final CityRequest cityRequest = new CityRequest()
-                .setGooglePlaceCityId("someId")
+                .setGooglePlaceCityIdentifier("someId")
                 .setName("someName")
                 .setState(RS);
 
         final City expectedCity = new City()
                 .setId(1L)
-                .setGooglePlaceCityId("someId")
+                .setGooglePlaceCityIdentifier("someId")
                 .setName("someName")
                 .setState(RS);
 
-        Mockito.when(cityRepository.findByGooglePlaceCityId(cityRequest.getGooglePlaceCityId()))
+        Mockito.when(cityRepository.findByGooglePlaceCityIdentifier(cityRequest.getGooglePlaceCityIdentifier()))
                 .thenReturn(Optional.empty());
         Mockito.when(modelMapper.map(cityRequest, City.class))
                 .thenReturn(expectedCity);

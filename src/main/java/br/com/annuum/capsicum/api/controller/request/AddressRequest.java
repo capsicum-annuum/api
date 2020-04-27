@@ -20,7 +20,7 @@ public class AddressRequest {
     private Double longitude;
 
     @Nullable
-    private String googlePlaceAddressId;
+    private String googlePlaceAddressIdentifier;
 
     @Nullable
     private String district;

@@ -19,7 +19,7 @@ public class City {
     private Long id;
 
     @NotBlank
-    private String googlePlaceCityId;
+    private String googlePlaceCityIdentifier;
 
     @NotBlank
     private String name;
