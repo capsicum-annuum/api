@@ -2,10 +2,7 @@ package br.com.annuum.capsicum.api.service;
 
 import br.com.annuum.capsicum.api.controller.request.UserVolunteerRequest;
 import br.com.annuum.capsicum.api.controller.response.UserVolunteerResponse;
-<<<<<<< HEAD
-=======
 import br.com.annuum.capsicum.api.converter.EncodableAttributeConverter;
->>>>>>> 0fd3dd36a8909b65d5540de547bf2f900d1fa73d
 import br.com.annuum.capsicum.api.domain.*;
 import br.com.annuum.capsicum.api.repository.UserVolunteerRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -16,8 +13,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static java.util.Objects.nonNull;
 
 @Service
 @Slf4j

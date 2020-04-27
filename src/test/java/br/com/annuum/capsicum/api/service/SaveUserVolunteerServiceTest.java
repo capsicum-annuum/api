@@ -87,7 +87,6 @@ class SaveUserVolunteerServiceTest {
                 .setAddressRequest(Mockito.mock(AddressRequest.class))
                 .setCauseThatSupport(Collections.singletonList("someCause"))
                 .setUserSkills(Collections.singletonList("someSkill"))
-                .setActualLocationCoordinatesRequest(Mockito.mock(LocationCoordinatesRequest.class))
                 .setAvailability(availabilityRequest);
 
         final UserVolunteerResponse expectedUserVolunteerResponse = new UserVolunteerResponse()
