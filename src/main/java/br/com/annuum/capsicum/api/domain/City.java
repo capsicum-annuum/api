@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @Accessors(chain = true)
 @Entity
-@SequenceGenerator(name = "city_sequence", sequenceName = "city_sequence")
+@SequenceGenerator(name = "city_sequence", sequenceName = "city_sequence", allocationSize = 1)
 public class City {
 
     @Id
