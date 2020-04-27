@@ -40,27 +40,27 @@ class SaveAddressServiceTest {
     public void mustSaveAndReturnPersistedAddress_withSuccess() {
         // Arrange
         final City city = new City()
-                .setId(1L)
-                .setName("someCityName")
-                .setState(RS);
+            .setId(1L)
+            .setName("someCityName")
+            .setState(RS);
         final Point geolocation = Mockito.mock(Point.class);
         final Address expectedAddress = new Address()
-                .setId(1L)
-                .setCity(city)
-                .setStreetName("someStreet")
-                .setLatitude(1D)
-                .setLongitude(1D)
-                .setGeolocation(geolocation);
+            .setId(1L)
+            .setCity(city)
+            .setStreetName("someStreet")
+            .setLatitude(1D)
+            .setLongitude(1D)
+            .setGeolocation(geolocation);
         final AddressRequest addressRequest = Mockito.mock(AddressRequest.class);
 
         Mockito.when(findOrCreateNewCityService.findOrCreateNewCity(addressRequest.getCityRequest()))
-                .thenReturn(city);
+            .thenReturn(city);
         Mockito.when(modelMapper.map(addressRequest, Address.class))
-                .thenReturn(expectedAddress);
+            .thenReturn(expectedAddress);
         Mockito.when(pointFactory.createPointFromCoordinates(addressRequest.getLatitude(), addressRequest.getLongitude()))
-                .thenReturn(geolocation);
+            .thenReturn(geolocation);
         Mockito.when(addressRepository.save(expectedAddress))
-                .thenReturn(expectedAddress);
+            .thenReturn(expectedAddress);
 
         // Act
         final Address returnedAddress = saveAddressService.saveAddress(addressRequest);

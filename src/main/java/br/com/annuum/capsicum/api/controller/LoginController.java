@@ -19,7 +19,7 @@ public class LoginController {
     @PostMapping
     public LoginResponse login(@RequestBody LoginRequest request) {
         return new LoginResponse()
-                .setToken(service.authenticate(request.getUsername(), request.getPassword()));
+            .setToken(service.authenticate(request.getUsername(), request.getPassword()));
     }
 
 }

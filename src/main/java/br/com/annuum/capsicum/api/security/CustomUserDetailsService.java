@@ -17,7 +17,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(final String username) {
         final User user = repository.findByEmail(username)
-                .orElseThrow(InvalidUserException::new);
+            .orElseThrow(InvalidUserException::new);
         return UserPrincipal.create(user);
     }
 

@@ -24,10 +24,10 @@ public class AuthenticationService {
 
     public String authenticate(String username, String password) {
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        username,
-                        password
-                )
+            new UsernamePasswordAuthenticationToken(
+                username,
+                password
+            )
         );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);

@@ -38,14 +38,14 @@ class CustomUserDetailsServiceTest {
         final Profile profile = random(Profile.values());
 
         final User user = new UserPrincipal()
-                .setId(id)
-                .setName(name)
-                .setEmail(email)
-                .setPassword(password)
-                .setProfile(profile);
+            .setId(id)
+            .setName(name)
+            .setEmail(email)
+            .setPassword(password)
+            .setProfile(profile);
 
         when(repository.findByEmail(email))
-                .thenReturn(Optional.of(user));
+            .thenReturn(Optional.of(user));
 
         final UserDetails userDetails = service.loadUserByUsername(email);
         final UserPrincipal userPrincipal = (UserPrincipal) userDetails;
@@ -64,7 +64,7 @@ class CustomUserDetailsServiceTest {
         final String email = randomAlphanumeric(10);
 
         when(repository.findByEmail(email))
-                .thenReturn(Optional.empty());
+            .thenReturn(Optional.empty());
 
         assertThrows(InvalidUserException.class, () -> service.loadUserByUsername(email));
     }

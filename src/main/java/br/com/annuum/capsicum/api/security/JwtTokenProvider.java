@@ -53,12 +53,12 @@ public class JwtTokenProvider {
         final Map<String, Object> claims = claimMapper.map(user);
 
         final String jwt = Jwts.builder()
-                .setSubject(Long.toString(user.getId()))
-                .setIssuedAt(toDate(now()))
-                .setExpiration(toDate(expiration))
-                .signWith(SignatureAlgorithm.HS512, jwtSecret)
-                .setClaims(claims)
-                .compact();
+            .setSubject(Long.toString(user.getId()))
+            .setIssuedAt(toDate(now()))
+            .setExpiration(toDate(expiration))
+            .signWith(SignatureAlgorithm.HS512, jwtSecret)
+            .setClaims(claims)
+            .compact();
 
         log.info("Generated JWT Token: {}", jwt);
 

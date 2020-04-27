@@ -35,22 +35,6 @@ class PasswordEncoderListenerTest {
     @Mock
     private EntityMetamodel metamodel;
 
-    @Data
-    @Accessors(chain = true)
-    class UserWithEncodedPassword implements HasEncodedPassword {
-
-        private Long id;
-        private String password;
-    }
-
-    @Data
-    @Accessors(chain = true)
-    class UserWithoutEncodedPassword {
-
-        private Long id;
-        private String password;
-    }
-
     @Test
     public void shouldEncodePasswordOnPreInsertWhenEntityImplementsHasEncodedPassword() {
 
@@ -127,6 +111,22 @@ class PasswordEncoderListenerTest {
         assertFalse(result);
         assertEquals(originalPassword, state[0]);
         verify(passwordEncoder, never()).encode(any());
+    }
+
+    @Data
+    @Accessors(chain = true)
+    class UserWithEncodedPassword implements HasEncodedPassword {
+
+        private Long id;
+        private String password;
+    }
+
+    @Data
+    @Accessors(chain = true)
+    class UserWithoutEncodedPassword {
+
+        private Long id;
+        private String password;
     }
 
 }

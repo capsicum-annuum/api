@@ -34,11 +34,11 @@ class JwtClaimMapperTest {
         final String roles = profile.toRoles();
 
         final User user = new UserPrincipal()
-                .setId(id)
-                .setName(name)
-                .setEmail(email)
-                .setPassword(password)
-                .setProfile(profile);
+            .setId(id)
+            .setName(name)
+            .setEmail(email)
+            .setPassword(password)
+            .setProfile(profile);
 
         final Map<String, Object> map = target.map(user);
 

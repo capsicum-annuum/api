@@ -29,11 +29,11 @@ class FindSkillByDescriptionServiceTest {
         // Arrange
         final String skillDescription = "someCause";
         final Skill expectedSkill = new Skill()
-                .setId(1L)
-                .setDescription("someSkill");
+            .setId(1L)
+            .setDescription("someSkill");
 
         Mockito.when(skillRepository.findByDescription(skillDescription))
-                .thenReturn(Optional.of(expectedSkill));
+            .thenReturn(Optional.of(expectedSkill));
 
         // Act
         final Skill returnedSkill = findSkillByDescriptionService.find(skillDescription);
@@ -47,7 +47,7 @@ class FindSkillByDescriptionServiceTest {
         // Arrange
         final String skillDescription = "someskill";
         Mockito.when(skillRepository.findByDescription(skillDescription))
-                .thenReturn(Optional.empty());
+            .thenReturn(Optional.empty());
 
         // Act and Assert
         assertThrows(RegisterNotFoundException.class, () -> findSkillByDescriptionService.find(skillDescription));

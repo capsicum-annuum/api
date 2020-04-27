@@ -17,6 +17,6 @@ public class FindCauseByDescriptionService {
     public Cause find(final String description) {
         log.info("Searching for Cause with description '{}'", description);
         return causeRepository.findByDescription(description)
-                .orElseThrow(() -> new RegisterNotFoundException("Causa não encontrada!"));
+            .orElseThrow(() -> new RegisterNotFoundException("Causa não encontrada!"));
     }
 }

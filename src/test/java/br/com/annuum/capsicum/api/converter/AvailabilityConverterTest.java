@@ -32,7 +32,7 @@ class AvailabilityConverterTest {
     public void shouldConvertToDatabaseColumnWithEmptyAvailabilityWhenEmptyDayShiftAvailability() {
 
         final Availability attribute = new Availability()
-                .setDayShiftAvailabilities(new ArrayList<>());
+            .setDayShiftAvailabilities(new ArrayList<>());
 
         final String column = target.convertToDatabaseColumn(attribute);
 
@@ -43,14 +43,14 @@ class AvailabilityConverterTest {
     public void shouldConvertToDatabaseColumnWithFirstAndLastDayShiftAvailableIndicatingMondayMorningAndSundayNight() {
 
         final Availability attribute = new Availability()
-                .setDayShiftAvailabilities(asList(
-                        new DayShiftAvailability()
-                                .setDayOfWeek(MONDAY)
-                                .setDayShift(MORNING),
-                        new DayShiftAvailability()
-                                .setDayOfWeek(SUNDAY)
-                                .setDayShift(NIGHT)
-                ));
+            .setDayShiftAvailabilities(asList(
+                new DayShiftAvailability()
+                    .setDayOfWeek(MONDAY)
+                    .setDayShift(MORNING),
+                new DayShiftAvailability()
+                    .setDayOfWeek(SUNDAY)
+                    .setDayShift(NIGHT)
+            ));
 
         final String column = target.convertToDatabaseColumn(attribute);
 
@@ -61,29 +61,29 @@ class AvailabilityConverterTest {
     public void shouldConvertToDatabaseColumnWithEveryMorningsAvailable() {
 
         final Availability attribute = new Availability()
-                .setDayShiftAvailabilities(asList(
-                        new DayShiftAvailability()
-                                .setDayOfWeek(MONDAY)
-                                .setDayShift(MORNING),
-                        new DayShiftAvailability()
-                                .setDayOfWeek(TUESDAY)
-                                .setDayShift(MORNING),
-                        new DayShiftAvailability()
-                                .setDayOfWeek(WEDNESDAY)
-                                .setDayShift(MORNING),
-                        new DayShiftAvailability()
-                                .setDayOfWeek(THURSDAY)
-                                .setDayShift(MORNING),
-                        new DayShiftAvailability()
-                                .setDayOfWeek(FRIDAY)
-                                .setDayShift(MORNING),
-                        new DayShiftAvailability()
-                                .setDayOfWeek(SATURDAY)
-                                .setDayShift(MORNING),
-                        new DayShiftAvailability()
-                                .setDayOfWeek(SUNDAY)
-                                .setDayShift(MORNING)
-                ));
+            .setDayShiftAvailabilities(asList(
+                new DayShiftAvailability()
+                    .setDayOfWeek(MONDAY)
+                    .setDayShift(MORNING),
+                new DayShiftAvailability()
+                    .setDayOfWeek(TUESDAY)
+                    .setDayShift(MORNING),
+                new DayShiftAvailability()
+                    .setDayOfWeek(WEDNESDAY)
+                    .setDayShift(MORNING),
+                new DayShiftAvailability()
+                    .setDayOfWeek(THURSDAY)
+                    .setDayShift(MORNING),
+                new DayShiftAvailability()
+                    .setDayOfWeek(FRIDAY)
+                    .setDayShift(MORNING),
+                new DayShiftAvailability()
+                    .setDayOfWeek(SATURDAY)
+                    .setDayShift(MORNING),
+                new DayShiftAvailability()
+                    .setDayOfWeek(SUNDAY)
+                    .setDayShift(MORNING)
+            ));
 
         final String column = target.convertToDatabaseColumn(attribute);
 
@@ -94,26 +94,26 @@ class AvailabilityConverterTest {
     public void shouldConvertToDatabaseColumnWithAvailabilityOnlyOnWeekends() {
 
         final Availability attribute = new Availability()
-                .setDayShiftAvailabilities(asList(
-                        new DayShiftAvailability()
-                                .setDayOfWeek(SATURDAY)
-                                .setDayShift(MORNING),
-                        new DayShiftAvailability()
-                                .setDayOfWeek(SATURDAY)
-                                .setDayShift(AFTERMOON),
-                        new DayShiftAvailability()
-                                .setDayOfWeek(SATURDAY)
-                                .setDayShift(NIGHT),
-                        new DayShiftAvailability()
-                                .setDayOfWeek(SUNDAY)
-                                .setDayShift(MORNING),
-                        new DayShiftAvailability()
-                                .setDayOfWeek(SUNDAY)
-                                .setDayShift(AFTERMOON),
-                        new DayShiftAvailability()
-                                .setDayOfWeek(SUNDAY)
-                                .setDayShift(NIGHT)
-                ));
+            .setDayShiftAvailabilities(asList(
+                new DayShiftAvailability()
+                    .setDayOfWeek(SATURDAY)
+                    .setDayShift(MORNING),
+                new DayShiftAvailability()
+                    .setDayOfWeek(SATURDAY)
+                    .setDayShift(AFTERMOON),
+                new DayShiftAvailability()
+                    .setDayOfWeek(SATURDAY)
+                    .setDayShift(NIGHT),
+                new DayShiftAvailability()
+                    .setDayOfWeek(SUNDAY)
+                    .setDayShift(MORNING),
+                new DayShiftAvailability()
+                    .setDayOfWeek(SUNDAY)
+                    .setDayShift(AFTERMOON),
+                new DayShiftAvailability()
+                    .setDayOfWeek(SUNDAY)
+                    .setDayShift(NIGHT)
+            ));
 
         final String column = target.convertToDatabaseColumn(attribute);
 
@@ -124,53 +124,53 @@ class AvailabilityConverterTest {
     public void shouldConvertToDatabaseColumnWithAvailabilityOnlyOnWeekDays() {
 
         final Availability attribute = new Availability()
-                .setDayShiftAvailabilities(asList(
-                        new DayShiftAvailability()
-                                .setDayOfWeek(MONDAY)
-                                .setDayShift(MORNING),
-                        new DayShiftAvailability()
-                                .setDayOfWeek(MONDAY)
-                                .setDayShift(AFTERMOON),
-                        new DayShiftAvailability()
-                                .setDayOfWeek(MONDAY)
-                                .setDayShift(NIGHT),
-                        new DayShiftAvailability()
-                                .setDayOfWeek(TUESDAY)
-                                .setDayShift(MORNING),
-                        new DayShiftAvailability()
-                                .setDayOfWeek(TUESDAY)
-                                .setDayShift(AFTERMOON),
-                        new DayShiftAvailability()
-                                .setDayOfWeek(TUESDAY)
-                                .setDayShift(NIGHT),
-                        new DayShiftAvailability()
-                                .setDayOfWeek(WEDNESDAY)
-                                .setDayShift(MORNING),
-                        new DayShiftAvailability()
-                                .setDayOfWeek(WEDNESDAY)
-                                .setDayShift(AFTERMOON),
-                        new DayShiftAvailability()
-                                .setDayOfWeek(WEDNESDAY)
-                                .setDayShift(NIGHT),
-                        new DayShiftAvailability()
-                                .setDayOfWeek(THURSDAY)
-                                .setDayShift(MORNING),
-                        new DayShiftAvailability()
-                                .setDayOfWeek(THURSDAY)
-                                .setDayShift(AFTERMOON),
-                        new DayShiftAvailability()
-                                .setDayOfWeek(THURSDAY)
-                                .setDayShift(NIGHT),
-                        new DayShiftAvailability()
-                                .setDayOfWeek(FRIDAY)
-                                .setDayShift(MORNING),
-                        new DayShiftAvailability()
-                                .setDayOfWeek(FRIDAY)
-                                .setDayShift(AFTERMOON),
-                        new DayShiftAvailability()
-                                .setDayOfWeek(FRIDAY)
-                                .setDayShift(NIGHT)
-                ));
+            .setDayShiftAvailabilities(asList(
+                new DayShiftAvailability()
+                    .setDayOfWeek(MONDAY)
+                    .setDayShift(MORNING),
+                new DayShiftAvailability()
+                    .setDayOfWeek(MONDAY)
+                    .setDayShift(AFTERMOON),
+                new DayShiftAvailability()
+                    .setDayOfWeek(MONDAY)
+                    .setDayShift(NIGHT),
+                new DayShiftAvailability()
+                    .setDayOfWeek(TUESDAY)
+                    .setDayShift(MORNING),
+                new DayShiftAvailability()
+                    .setDayOfWeek(TUESDAY)
+                    .setDayShift(AFTERMOON),
+                new DayShiftAvailability()
+                    .setDayOfWeek(TUESDAY)
+                    .setDayShift(NIGHT),
+                new DayShiftAvailability()
+                    .setDayOfWeek(WEDNESDAY)
+                    .setDayShift(MORNING),
+                new DayShiftAvailability()
+                    .setDayOfWeek(WEDNESDAY)
+                    .setDayShift(AFTERMOON),
+                new DayShiftAvailability()
+                    .setDayOfWeek(WEDNESDAY)
+                    .setDayShift(NIGHT),
+                new DayShiftAvailability()
+                    .setDayOfWeek(THURSDAY)
+                    .setDayShift(MORNING),
+                new DayShiftAvailability()
+                    .setDayOfWeek(THURSDAY)
+                    .setDayShift(AFTERMOON),
+                new DayShiftAvailability()
+                    .setDayOfWeek(THURSDAY)
+                    .setDayShift(NIGHT),
+                new DayShiftAvailability()
+                    .setDayOfWeek(FRIDAY)
+                    .setDayShift(MORNING),
+                new DayShiftAvailability()
+                    .setDayOfWeek(FRIDAY)
+                    .setDayShift(AFTERMOON),
+                new DayShiftAvailability()
+                    .setDayOfWeek(FRIDAY)
+                    .setDayShift(NIGHT)
+            ));
 
         final String column = target.convertToDatabaseColumn(attribute);
 
@@ -207,13 +207,13 @@ class AvailabilityConverterTest {
         final Availability availability = target.convertToEntityAttribute(column);
 
         assertTrue(availability.getDayShiftAvailabilities().contains(
-                new DayShiftAvailability()
-                        .setDayOfWeek(MONDAY)
-                        .setDayShift(MORNING)));
+            new DayShiftAvailability()
+                .setDayOfWeek(MONDAY)
+                .setDayShift(MORNING)));
         assertTrue(availability.getDayShiftAvailabilities().contains(
-                new DayShiftAvailability()
-                        .setDayOfWeek(SUNDAY)
-                        .setDayShift(NIGHT)));
+            new DayShiftAvailability()
+                .setDayOfWeek(SUNDAY)
+                .setDayShift(NIGHT)));
     }
 
     @Test
@@ -224,33 +224,33 @@ class AvailabilityConverterTest {
         final Availability availability = target.convertToEntityAttribute(column);
 
         assertTrue(availability.getDayShiftAvailabilities().contains(
-                new DayShiftAvailability()
-                        .setDayOfWeek(MONDAY)
-                        .setDayShift(MORNING)));
+            new DayShiftAvailability()
+                .setDayOfWeek(MONDAY)
+                .setDayShift(MORNING)));
         assertTrue(availability.getDayShiftAvailabilities().contains(
-                new DayShiftAvailability()
-                        .setDayOfWeek(TUESDAY)
-                        .setDayShift(MORNING)));
+            new DayShiftAvailability()
+                .setDayOfWeek(TUESDAY)
+                .setDayShift(MORNING)));
         assertTrue(availability.getDayShiftAvailabilities().contains(
-                new DayShiftAvailability()
-                        .setDayOfWeek(WEDNESDAY)
-                        .setDayShift(MORNING)));
+            new DayShiftAvailability()
+                .setDayOfWeek(WEDNESDAY)
+                .setDayShift(MORNING)));
         assertTrue(availability.getDayShiftAvailabilities().contains(
-                new DayShiftAvailability()
-                        .setDayOfWeek(THURSDAY)
-                        .setDayShift(MORNING)));
+            new DayShiftAvailability()
+                .setDayOfWeek(THURSDAY)
+                .setDayShift(MORNING)));
         assertTrue(availability.getDayShiftAvailabilities().contains(
-                new DayShiftAvailability()
-                        .setDayOfWeek(FRIDAY)
-                        .setDayShift(MORNING)));
+            new DayShiftAvailability()
+                .setDayOfWeek(FRIDAY)
+                .setDayShift(MORNING)));
         assertTrue(availability.getDayShiftAvailabilities().contains(
-                new DayShiftAvailability()
-                        .setDayOfWeek(SATURDAY)
-                        .setDayShift(MORNING)));
+            new DayShiftAvailability()
+                .setDayOfWeek(SATURDAY)
+                .setDayShift(MORNING)));
         assertTrue(availability.getDayShiftAvailabilities().contains(
-                new DayShiftAvailability()
-                        .setDayOfWeek(SUNDAY)
-                        .setDayShift(MORNING)));
+            new DayShiftAvailability()
+                .setDayOfWeek(SUNDAY)
+                .setDayShift(MORNING)));
     }
 
     @Test
@@ -261,29 +261,29 @@ class AvailabilityConverterTest {
         final Availability availability = target.convertToEntityAttribute(column);
 
         assertTrue(availability.getDayShiftAvailabilities().contains(
-                new DayShiftAvailability()
-                        .setDayOfWeek(SATURDAY)
-                        .setDayShift(MORNING)));
+            new DayShiftAvailability()
+                .setDayOfWeek(SATURDAY)
+                .setDayShift(MORNING)));
         assertTrue(availability.getDayShiftAvailabilities().contains(
-                new DayShiftAvailability()
-                        .setDayOfWeek(SATURDAY)
-                        .setDayShift(AFTERMOON)));
+            new DayShiftAvailability()
+                .setDayOfWeek(SATURDAY)
+                .setDayShift(AFTERMOON)));
         assertTrue(availability.getDayShiftAvailabilities().contains(
-                new DayShiftAvailability()
-                        .setDayOfWeek(SATURDAY)
-                        .setDayShift(NIGHT)));
+            new DayShiftAvailability()
+                .setDayOfWeek(SATURDAY)
+                .setDayShift(NIGHT)));
         assertTrue(availability.getDayShiftAvailabilities().contains(
-                new DayShiftAvailability()
-                        .setDayOfWeek(SUNDAY)
-                        .setDayShift(MORNING)));
+            new DayShiftAvailability()
+                .setDayOfWeek(SUNDAY)
+                .setDayShift(MORNING)));
         assertTrue(availability.getDayShiftAvailabilities().contains(
-                new DayShiftAvailability()
-                        .setDayOfWeek(SUNDAY)
-                        .setDayShift(AFTERMOON)));
+            new DayShiftAvailability()
+                .setDayOfWeek(SUNDAY)
+                .setDayShift(AFTERMOON)));
         assertTrue(availability.getDayShiftAvailabilities().contains(
-                new DayShiftAvailability()
-                        .setDayOfWeek(SUNDAY)
-                        .setDayShift(NIGHT)));
+            new DayShiftAvailability()
+                .setDayOfWeek(SUNDAY)
+                .setDayShift(NIGHT)));
     }
 
     @Test
@@ -294,65 +294,65 @@ class AvailabilityConverterTest {
         final Availability availability = target.convertToEntityAttribute(column);
 
         assertTrue(availability.getDayShiftAvailabilities().contains(
-                new DayShiftAvailability()
-                        .setDayOfWeek(MONDAY)
-                        .setDayShift(MORNING)));
+            new DayShiftAvailability()
+                .setDayOfWeek(MONDAY)
+                .setDayShift(MORNING)));
         assertTrue(availability.getDayShiftAvailabilities().contains(
-                new DayShiftAvailability()
-                        .setDayOfWeek(MONDAY)
-                        .setDayShift(AFTERMOON)));
+            new DayShiftAvailability()
+                .setDayOfWeek(MONDAY)
+                .setDayShift(AFTERMOON)));
         assertTrue(availability.getDayShiftAvailabilities().contains(
-                new DayShiftAvailability()
-                        .setDayOfWeek(MONDAY)
-                        .setDayShift(NIGHT)));
+            new DayShiftAvailability()
+                .setDayOfWeek(MONDAY)
+                .setDayShift(NIGHT)));
         assertTrue(availability.getDayShiftAvailabilities().contains(
-                new DayShiftAvailability()
-                        .setDayOfWeek(TUESDAY)
-                        .setDayShift(MORNING)));
+            new DayShiftAvailability()
+                .setDayOfWeek(TUESDAY)
+                .setDayShift(MORNING)));
         assertTrue(availability.getDayShiftAvailabilities().contains(
-                new DayShiftAvailability()
-                        .setDayOfWeek(TUESDAY)
-                        .setDayShift(AFTERMOON)));
+            new DayShiftAvailability()
+                .setDayOfWeek(TUESDAY)
+                .setDayShift(AFTERMOON)));
         assertTrue(availability.getDayShiftAvailabilities().contains(
-                new DayShiftAvailability()
-                        .setDayOfWeek(TUESDAY)
-                        .setDayShift(NIGHT)));
+            new DayShiftAvailability()
+                .setDayOfWeek(TUESDAY)
+                .setDayShift(NIGHT)));
         assertTrue(availability.getDayShiftAvailabilities().contains(
-                new DayShiftAvailability()
-                        .setDayOfWeek(WEDNESDAY)
-                        .setDayShift(MORNING)));
+            new DayShiftAvailability()
+                .setDayOfWeek(WEDNESDAY)
+                .setDayShift(MORNING)));
         assertTrue(availability.getDayShiftAvailabilities().contains(
-                new DayShiftAvailability()
-                        .setDayOfWeek(WEDNESDAY)
-                        .setDayShift(AFTERMOON)));
+            new DayShiftAvailability()
+                .setDayOfWeek(WEDNESDAY)
+                .setDayShift(AFTERMOON)));
         assertTrue(availability.getDayShiftAvailabilities().contains(
-                new DayShiftAvailability()
-                        .setDayOfWeek(WEDNESDAY)
-                        .setDayShift(NIGHT)));
+            new DayShiftAvailability()
+                .setDayOfWeek(WEDNESDAY)
+                .setDayShift(NIGHT)));
         assertTrue(availability.getDayShiftAvailabilities().contains(
-                new DayShiftAvailability()
-                        .setDayOfWeek(THURSDAY)
-                        .setDayShift(MORNING)));
+            new DayShiftAvailability()
+                .setDayOfWeek(THURSDAY)
+                .setDayShift(MORNING)));
         assertTrue(availability.getDayShiftAvailabilities().contains(
-                new DayShiftAvailability()
-                        .setDayOfWeek(THURSDAY)
-                        .setDayShift(AFTERMOON)));
+            new DayShiftAvailability()
+                .setDayOfWeek(THURSDAY)
+                .setDayShift(AFTERMOON)));
         assertTrue(availability.getDayShiftAvailabilities().contains(
-                new DayShiftAvailability()
-                        .setDayOfWeek(THURSDAY)
-                        .setDayShift(NIGHT)));
+            new DayShiftAvailability()
+                .setDayOfWeek(THURSDAY)
+                .setDayShift(NIGHT)));
         assertTrue(availability.getDayShiftAvailabilities().contains(
-                new DayShiftAvailability()
-                        .setDayOfWeek(FRIDAY)
-                        .setDayShift(MORNING)));
+            new DayShiftAvailability()
+                .setDayOfWeek(FRIDAY)
+                .setDayShift(MORNING)));
         assertTrue(availability.getDayShiftAvailabilities().contains(
-                new DayShiftAvailability()
-                        .setDayOfWeek(FRIDAY)
-                        .setDayShift(AFTERMOON)));
+            new DayShiftAvailability()
+                .setDayOfWeek(FRIDAY)
+                .setDayShift(AFTERMOON)));
         assertTrue(availability.getDayShiftAvailabilities().contains(
-                new DayShiftAvailability()
-                        .setDayOfWeek(FRIDAY)
-                        .setDayShift(NIGHT)));
+            new DayShiftAvailability()
+                .setDayOfWeek(FRIDAY)
+                .setDayShift(NIGHT)));
     }
 
 }

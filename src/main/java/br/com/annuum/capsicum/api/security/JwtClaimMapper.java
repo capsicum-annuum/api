@@ -28,10 +28,10 @@ public class JwtClaimMapper implements Mapper<User, Map<String, Object>> {
 
     public UserPrincipal map(final Map<String, Object> claims) {
         return new UserPrincipal()
-                .setId(Long.parseLong(valueOf(claims.get("id"))))
-                .setName(valueOf(claims.get("name")))
-                .setEmail(valueOf(claims.get("email")))
-                .setProfile(Profile.valueOf(valueOf(claims.get("profile"))));
+            .setId(Long.parseLong(valueOf(claims.get("id"))))
+            .setName(valueOf(claims.get("name")))
+            .setEmail(valueOf(claims.get("email")))
+            .setProfile(Profile.valueOf(valueOf(claims.get("profile"))));
     }
 
 }

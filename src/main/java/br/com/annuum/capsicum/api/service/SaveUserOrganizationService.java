@@ -43,13 +43,13 @@ public class SaveUserOrganizationService {
         final Address address = saveAddressService.saveAddress(userOrganizationRequest.getAddressRequest());
 
         final List<Cause> causesThatSupport = userOrganizationRequest.getCauseThatSupport().stream()
-                .map(cause -> findCauseByDescriptionService.find(cause))
-                .collect(Collectors.toList());
+            .map(cause -> findCauseByDescriptionService.find(cause))
+            .collect(Collectors.toList());
 
         log.info("Building UserOrganization to persist");
         final UserOrganization userOrganization = modelMapper.map(userOrganizationRequest, UserOrganization.class)
-                .setAddress(address)
-                .setCauseThatSupport(causesThatSupport);
+            .setAddress(address)
+            .setCauseThatSupport(causesThatSupport);
 
         userOrganization.setCreatedAt(LocalDateTime.now());
 

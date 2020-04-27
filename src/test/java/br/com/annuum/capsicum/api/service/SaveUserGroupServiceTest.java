@@ -44,30 +44,30 @@ class SaveUserGroupServiceTest {
         // Arrange
         final Address address = Mockito.mock(Address.class);
         final Cause cause = new Cause()
-                .setId(1L)
-                .setDescription("someCause");
+            .setId(1L)
+            .setDescription("someCause");
         final UserGroup userGroup = new UserGroup()
-                .setAddress(address)
-                .setCauseThatSupport(Collections.singletonList(cause));
+            .setAddress(address)
+            .setCauseThatSupport(Collections.singletonList(cause));
         userGroup.setCreatedAt(LocalDateTime.now());
         final UserGroupRequest userGroupRequest = new UserGroupRequest()
-                .setAddressRequest(Mockito.mock(AddressRequest.class))
-                .setCauseThatSupport(Collections.singletonList("someCause"));
+            .setAddressRequest(Mockito.mock(AddressRequest.class))
+            .setCauseThatSupport(Collections.singletonList("someCause"));
         final UserGroupResponse expectedUserGroupResponse = new UserGroupResponse()
-                .setName("someUserName")
-                .setDescription("someDescription")
-                .setEmail("someEmail");
+            .setName("someUserName")
+            .setDescription("someDescription")
+            .setEmail("someEmail");
 
         Mockito.when(findCauseByDescriptionService.find(cause.getDescription()))
-                .thenReturn(cause);
+            .thenReturn(cause);
         Mockito.when(saveAddressService.saveAddress(userGroupRequest.getAddressRequest()))
-                .thenReturn(address);
+            .thenReturn(address);
         Mockito.when(modelMapper.map(userGroupRequest, UserGroup.class))
-                .thenReturn(userGroup);
+            .thenReturn(userGroup);
         Mockito.when(userGroupRepository.save(userGroup))
-                .thenReturn(userGroup);
+            .thenReturn(userGroup);
         Mockito.when(modelMapper.map(userGroup, UserGroupResponse.class))
-                .thenReturn(expectedUserGroupResponse);
+            .thenReturn(expectedUserGroupResponse);
 
         // Act
         final UserGroupResponse returnedUserGroupResponse = saveUserGroupService.save(userGroupRequest);

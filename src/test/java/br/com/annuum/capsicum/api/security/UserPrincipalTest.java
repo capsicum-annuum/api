@@ -21,10 +21,10 @@ class UserPrincipalTest {
         final String password = randomAlphanumeric(10);
 
         final User user = new UserVolunteer()
-                .setId(id)
-                .setName(name)
-                .setEmail(email)
-                .setPassword(password);
+            .setId(id)
+            .setName(name)
+            .setEmail(email)
+            .setPassword(password);
 
         final UserPrincipal userPrincipal = UserPrincipal.create(user);
 

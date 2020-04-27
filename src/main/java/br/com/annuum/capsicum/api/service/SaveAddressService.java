@@ -34,8 +34,8 @@ public class SaveAddressService {
         final City city = findOrCreateNewCityService.findOrCreateNewCity(addressRequest.getCityRequest());
 
         final Address addressToPersist = modelMapper.map(addressRequest, Address.class)
-                .setGeolocation(pointFactory.createPointFromCoordinates(addressRequest.getLatitude(), addressRequest.getLongitude()))
-                .setCity(city);
+            .setGeolocation(pointFactory.createPointFromCoordinates(addressRequest.getLatitude(), addressRequest.getLongitude()))
+            .setCity(city);
 
         log.info("Creating a new Address: '{}'", addressToPersist);
         return addressRepository.save(addressToPersist);

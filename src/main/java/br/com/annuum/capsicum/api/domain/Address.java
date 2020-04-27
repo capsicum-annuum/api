@@ -6,7 +6,6 @@ import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.awt.*;
 
 @Data
 @Accessors(chain = true)

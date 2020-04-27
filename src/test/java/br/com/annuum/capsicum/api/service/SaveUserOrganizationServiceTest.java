@@ -15,7 +15,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
-import java.time.LocalDateTime;
 import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -44,29 +43,29 @@ class SaveUserOrganizationServiceTest {
         // Arrange
         final Address address = Mockito.mock(Address.class);
         final Cause cause = new Cause()
-                .setId(1L)
-                .setDescription("someCause");
+            .setId(1L)
+            .setDescription("someCause");
         final UserOrganization userOrganization = new UserOrganization()
-                .setAddress(address)
-                .setCauseThatSupport(Collections.singletonList(cause));
+            .setAddress(address)
+            .setCauseThatSupport(Collections.singletonList(cause));
         final UserOrganizationResponse expectedUserOrganizationResponse = new UserOrganizationResponse()
-                .setName("someUserName")
-                .setDescription("someDescription")
-                .setEmail("someEmail");
+            .setName("someUserName")
+            .setDescription("someDescription")
+            .setEmail("someEmail");
         final UserOrganizationRequest userOrganizationRequest = new UserOrganizationRequest()
-                .setAddressRequest(Mockito.mock(AddressRequest.class))
-                .setCauseThatSupport(Collections.singletonList("someCause"));
+            .setAddressRequest(Mockito.mock(AddressRequest.class))
+            .setCauseThatSupport(Collections.singletonList("someCause"));
 
         Mockito.when(findCauseByDescriptionService.find(cause.getDescription()))
-                .thenReturn(cause);
+            .thenReturn(cause);
         Mockito.when(saveAddressService.saveAddress(userOrganizationRequest.getAddressRequest()))
-                .thenReturn(address);
+            .thenReturn(address);
         Mockito.when(modelMapper.map(userOrganizationRequest, UserOrganization.class))
-                .thenReturn(userOrganization);
+            .thenReturn(userOrganization);
         Mockito.when(userOrganizationRepository.save(userOrganization))
-                .thenReturn(userOrganization);
+            .thenReturn(userOrganization);
         Mockito.when(modelMapper.map(userOrganization, UserOrganizationResponse.class))
-                .thenReturn(expectedUserOrganizationResponse);
+            .thenReturn(expectedUserOrganizationResponse);
 
         // Act
         final UserOrganizationResponse returnedUserOrganizationResponse = saveUserOrganizationService.save(userOrganizationRequest);

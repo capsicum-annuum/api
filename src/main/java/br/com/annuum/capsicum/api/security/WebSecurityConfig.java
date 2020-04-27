@@ -42,8 +42,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(final AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         authenticationManagerBuilder
-                .userDetailsService(customUserDetailsService)
-                .passwordEncoder(passwordEncoder());
+            .userDetailsService(customUserDetailsService)
+            .passwordEncoder(passwordEncoder());
     }
 
     @Override
@@ -56,26 +56,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(final HttpSecurity http) throws Exception {
 
         http
-                .headers()
-                .frameOptions()
-                .sameOrigin()
-                .and()
-                .cors()
-                .and()
-                .csrf()
-                .disable()
-                .headers()
-                .frameOptions().disable()
-                .and()
-                .exceptionHandling()
-                .authenticationEntryPoint(securityException401EntryPoint())
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeRequests()
-                .anyRequest()
-                .permitAll()
+            .headers()
+            .frameOptions()
+            .sameOrigin()
+            .and()
+            .cors()
+            .and()
+            .csrf()
+            .disable()
+            .headers()
+            .frameOptions().disable()
+            .and()
+            .exceptionHandling()
+            .authenticationEntryPoint(securityException401EntryPoint())
+            .and()
+            .sessionManagement()
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and()
+            .authorizeRequests()
+            .anyRequest()
+            .permitAll()
         ;
 
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

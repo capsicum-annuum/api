@@ -38,8 +38,8 @@ public class LoginControllerIntgrationTest {
         final String json = objectMapper.writeValueAsString(request);
 
         this.mockMvc.perform(post("/login").contentType(MediaType.APPLICATION_JSON).content(json))
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("{\"token\":\"Bearer ")));
+            .andExpect(status().isOk())
+            .andExpect(content().string(containsString("{\"token\":\"Bearer ")));
     }
 
 
@@ -52,8 +52,8 @@ public class LoginControllerIntgrationTest {
         final String json = objectMapper.writeValueAsString(request);
 
         this.mockMvc.perform(post("/login").contentType(MediaType.APPLICATION_JSON).content(json))
-                .andExpect(status().isUnauthorized())
-                .andExpect(content().string(emptyString()));
+            .andExpect(status().isUnauthorized())
+            .andExpect(content().string(emptyString()));
     }
 
     @Test
@@ -65,8 +65,8 @@ public class LoginControllerIntgrationTest {
         final String json = objectMapper.writeValueAsString(request);
 
         this.mockMvc.perform(post("/login").contentType(MediaType.APPLICATION_JSON).content(json))
-                .andExpect(status().isUnauthorized())
-                .andExpect(content().string(emptyString()));
+            .andExpect(status().isUnauthorized())
+            .andExpect(content().string(emptyString()));
     }
 
 }

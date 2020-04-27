@@ -20,13 +20,13 @@ class EncodableAttributeConverterTest {
     public void mustEncondeSkillAttributeToBinaryCode() {
         // Arrange
         final Skill skill1 = new Skill()
-                .setId(1L)
-                .setName("skill1")
-                .setBinaryIdentifier(2);
+            .setId(1L)
+            .setName("skill1")
+            .setBinaryIdentifier(2);
         final Skill skill2 = new Skill()
-                .setId(2L)
-                .setName("skill2")
-                .setBinaryIdentifier(4);
+            .setId(2L)
+            .setName("skill2")
+            .setBinaryIdentifier(4);
         final String expectedBinaryCode = Integer.toBinaryString(skill1.getBinaryIdentifier()) + Integer.toBinaryString(skill2.getBinaryIdentifier());
         final List<Encodable> encodables = Arrays.asList(skill1, skill2);
 
@@ -41,13 +41,13 @@ class EncodableAttributeConverterTest {
     public void mustEncondeCauseAttributeToBinaryCode() {
         // Arrange
         final Cause cause1 = new Cause()
-                .setId(1L)
-                .setDescription("cause1")
-                .setBinaryIdentifier(2);
+            .setId(1L)
+            .setDescription("cause1")
+            .setBinaryIdentifier(2);
         final Cause cause2 = new Cause()
-                .setId(2L)
-                .setDescription("cause2")
-                .setBinaryIdentifier(4);
+            .setId(2L)
+            .setDescription("cause2")
+            .setBinaryIdentifier(4);
         final String expectedBinaryCode = Integer.toBinaryString(cause1.getBinaryIdentifier()) + Integer.toBinaryString(cause2.getBinaryIdentifier());
         final List<Encodable> encodables = Arrays.asList(cause1, cause2);
 
