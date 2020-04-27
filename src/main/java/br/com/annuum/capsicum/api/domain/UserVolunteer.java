@@ -1,6 +1,7 @@
 package br.com.annuum.capsicum.api.domain;
 
 import br.com.annuum.capsicum.api.converter.AvailabilityConverter;
+import br.com.annuum.capsicum.api.converter.EncodableAttributeConverter;
 import br.com.annuum.capsicum.api.domain.enums.Profile;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,10 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.ColumnDefault;
 
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -37,13 +35,19 @@ public class UserVolunteer extends AbstractUser {
     private String description;
 
     @ManyToMany
+    @Convert(converter = EncodableAttributeConverter.class)
     private List<Cause> causeThatSupport;
 
     @ManyToMany
+    @Convert(converter = EncodableAttributeConverter.class)
     private List<Skill> userSkills;
+
+    private String skillMatchCode;
 
     @Convert(converter = AvailabilityConverter.class)
     private Availability availability;
+
+    private String causeMatchCode;
 
     @ColumnDefault("false")
     private Boolean hasCnh;

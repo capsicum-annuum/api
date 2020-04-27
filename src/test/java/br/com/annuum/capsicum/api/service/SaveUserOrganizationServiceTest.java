@@ -49,7 +49,6 @@ class SaveUserOrganizationServiceTest {
         final UserOrganization userOrganization = new UserOrganization()
                 .setAddress(address)
                 .setCauseThatSupport(Collections.singletonList(cause));
-        userOrganization.setCreatedAt(LocalDateTime.now());
         final UserOrganizationResponse expectedUserOrganizationResponse = new UserOrganizationResponse()
                 .setName("someUserName")
                 .setDescription("someDescription")

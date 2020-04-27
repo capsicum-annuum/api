@@ -13,5 +13,4 @@ public interface User extends HasEncodedPassword {
     String getPassword();
 
     Profile getProfile();
-
 }

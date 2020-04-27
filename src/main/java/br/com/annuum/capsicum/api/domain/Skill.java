@@ -10,7 +10,7 @@ import javax.validation.constraints.NotBlank;
 @Accessors(chain = true)
 @Entity
 @SequenceGenerator(name = "skill_sequence", sequenceName = "skill_sequence", allocationSize = 1)
-public class Skill {
+public class Skill implements Encodable {
 
     @Id
     @GeneratedValue(generator = "skill_sequence", strategy = GenerationType.SEQUENCE)
@@ -20,4 +20,6 @@ public class Skill {
     private String name;
 
     private String description;
+
+    private Integer binaryIdentifier;
 }

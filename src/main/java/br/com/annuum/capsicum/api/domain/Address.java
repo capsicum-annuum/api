@@ -10,7 +10,6 @@ import javax.validation.constraints.NotNull;
 @Data
 @Accessors(chain = true)
 @Entity
-@Table(name = "Address")
 @SequenceGenerator(name = "address_sequence", sequenceName = "address_sequence", allocationSize = 1)
 public class Address {
 
