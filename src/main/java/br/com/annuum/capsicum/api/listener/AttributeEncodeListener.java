@@ -18,7 +18,7 @@ import java.util.List;
 
 @Slf4j
 @Component
-public class AtributeEncodeListener implements PreInsertEventListener, PreUpdateEventListener {
+public class AttributeEncodeListener implements PreInsertEventListener, PreUpdateEventListener {
 
     @Autowired
     private EntityManagerFactory entityManagerFactory;
