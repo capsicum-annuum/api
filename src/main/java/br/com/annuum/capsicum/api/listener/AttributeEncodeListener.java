@@ -18,7 +18,7 @@ import java.util.List;
 
 @Slf4j
 @Component
-public class AttributeEncodeListener implements PreInsertEventListener, PreUpdateEventListener {
+public class AtributeEncodeListener implements PreInsertEventListener, PreUpdateEventListener {
 
     @Autowired
     private EntityManagerFactory entityManagerFactory;
@@ -28,6 +28,7 @@ public class AttributeEncodeListener implements PreInsertEventListener, PreUpdat
         SessionFactoryImpl sessionFactory = entityManagerFactory.unwrap(SessionFactoryImpl.class);
         EventListenerRegistry registry = sessionFactory.getServiceRegistry().getService(EventListenerRegistry.class);
         registry.getEventListenerGroup(EventType.PRE_INSERT).appendListener(this);
+        registry.getEventListenerGroup(EventType.PRE_UPDATE).appendListener(this);
     }
 
     @Override
