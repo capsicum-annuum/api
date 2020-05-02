@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
@@ -28,9 +27,6 @@ public class UserGroup extends AbstractUser {
     @NotNull
     @OneToOne
     private Address address;
-
-    @Embedded
-    private LocationCoordinates actualLocationCoordinates;
 
     private Long profilePictureId;
 

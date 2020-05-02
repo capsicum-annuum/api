@@ -1,15 +1,11 @@
 package br.com.annuum.capsicum.api.domain;
 
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-import javax.validation.constraints.NotNull;
+import com.vividsolutions.jts.geom.Point;
 import lombok.Data;
 import lombok.experimental.Accessors;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Accessors(chain = true)
@@ -21,14 +17,21 @@ public class Address {
     @GeneratedValue(generator = "address_sequence", strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    private String googlePlaceAddressId;
+    @NotNull
+    private Double latitude;
 
-    @Embedded
-    private LocationCoordinates LocationCoordinates;
+    @NotNull
+    private Double longitude;
+
+    @NotNull
+    @Column(columnDefinition = "geography(POINT, 4326)")
+    private Point geolocation;
 
     @NotNull
     @ManyToOne
     private City city;
+
+    private String googlePlaceAddressIdentifier;
 
     private String district;
 

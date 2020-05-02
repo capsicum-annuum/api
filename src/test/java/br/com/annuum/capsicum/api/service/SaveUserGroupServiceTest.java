@@ -1,12 +1,10 @@
 package br.com.annuum.capsicum.api.service;
 
 import br.com.annuum.capsicum.api.controller.request.AddressRequest;
-import br.com.annuum.capsicum.api.controller.request.LocationCoordinatesRequest;
 import br.com.annuum.capsicum.api.controller.request.UserGroupRequest;
 import br.com.annuum.capsicum.api.controller.response.UserGroupResponse;
 import br.com.annuum.capsicum.api.domain.Address;
 import br.com.annuum.capsicum.api.domain.Cause;
-import br.com.annuum.capsicum.api.domain.LocationCoordinates;
 import br.com.annuum.capsicum.api.domain.UserGroup;
 import br.com.annuum.capsicum.api.repository.UserGroupRepository;
 import org.junit.jupiter.api.Test;
@@ -44,37 +42,32 @@ class SaveUserGroupServiceTest {
     @Test
     public void mustSaveAndReturnNewUserGroup_withSuccess() {
         // Arrange
-        final LocationCoordinates locationCoordinates = new LocationCoordinates()
-                .setLatitude(1D)
-                .setLongitude(1D);
         final Address address = Mockito.mock(Address.class);
         final Cause cause = new Cause()
-                .setId(1L)
-                .setDescription("someCause");
+            .setId(1L)
+            .setDescription("someCause");
         final UserGroup userGroup = new UserGroup()
-                .setAddress(address)
-                .setCauseThatSupport(Collections.singletonList(cause));
-        final UserGroupResponse expectedUserGroupResponse = new UserGroupResponse()
-                .setName("someUserName")
-                .setDescription("someDescription")
-                .setEmail("someEmail");
+            .setAddress(address)
+            .setCauseThatSupport(Collections.singletonList(cause));
+        userGroup.setCreatedAt(LocalDateTime.now());
         final UserGroupRequest userGroupRequest = new UserGroupRequest()
-                .setAddressRequest(Mockito.mock(AddressRequest.class))
-                .setCauseThatSupport(Collections.singletonList("someCause"))
-                .setActualLocationCoordinatesRequest(Mockito.mock(LocationCoordinatesRequest.class));
+            .setAddressRequest(Mockito.mock(AddressRequest.class))
+            .setCauseThatSupport(Collections.singletonList("someCause"));
+        final UserGroupResponse expectedUserGroupResponse = new UserGroupResponse()
+            .setName("someUserName")
+            .setDescription("someDescription")
+            .setEmail("someEmail");
 
         Mockito.when(findCauseByDescriptionService.find(cause.getDescription()))
-                .thenReturn(cause);
+            .thenReturn(cause);
         Mockito.when(saveAddressService.saveAddress(userGroupRequest.getAddressRequest()))
-                .thenReturn(address);
+            .thenReturn(address);
         Mockito.when(modelMapper.map(userGroupRequest, UserGroup.class))
-                .thenReturn(userGroup);
-        Mockito.when(modelMapper.map(userGroupRequest.getActualLocationCoordinatesRequest(), LocationCoordinates.class))
-                .thenReturn(locationCoordinates);
+            .thenReturn(userGroup);
         Mockito.when(userGroupRepository.save(userGroup))
-                .thenReturn(userGroup);
+            .thenReturn(userGroup);
         Mockito.when(modelMapper.map(userGroup, UserGroupResponse.class))
-                .thenReturn(expectedUserGroupResponse);
+            .thenReturn(expectedUserGroupResponse);
 
         // Act
         final UserGroupResponse returnedUserGroupResponse = saveUserGroupService.save(userGroupRequest);

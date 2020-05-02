@@ -1,6 +1,9 @@
 package br.com.annuum.capsicum.api.service;
 
-import br.com.annuum.capsicum.api.controller.request.*;
+import br.com.annuum.capsicum.api.controller.request.AddressRequest;
+import br.com.annuum.capsicum.api.controller.request.AvailabilityRequest;
+import br.com.annuum.capsicum.api.controller.request.DayShiftAvailabilityRequest;
+import br.com.annuum.capsicum.api.controller.request.UserVolunteerRequest;
 import br.com.annuum.capsicum.api.controller.response.UserVolunteerResponse;
 import br.com.annuum.capsicum.api.domain.*;
 import br.com.annuum.capsicum.api.domain.enums.DayShift;
@@ -45,9 +48,6 @@ class SaveUserVolunteerServiceTest {
     @Test
     public void mustSaveAndReturnNewUserVolunteer_withSuccess() {
         // Arrange
-        final LocationCoordinates locationCoordinates = new LocationCoordinates()
-            .setLatitude(1D)
-            .setLongitude(1D);
         final Address address = Mockito.mock(Address.class);
         final Cause cause = new Cause()
             .setId(1L)
@@ -74,7 +74,6 @@ class SaveUserVolunteerServiceTest {
         final List<Cause> causeList = Collections.singletonList(cause);
 
         final UserVolunteer userVolunteer = new UserVolunteer()
-            .setActualLocationCoordinates(locationCoordinates)
             .setAddress(address)
             .setCauseThatSupport(causeList)
             .setUserSkills(skillList)
@@ -86,15 +85,12 @@ class SaveUserVolunteerServiceTest {
             .setAddressRequest(Mockito.mock(AddressRequest.class))
             .setCauseThatSupport(Collections.singletonList("someCause"))
             .setUserSkills(Collections.singletonList("someSkill"))
-            .setActualLocationCoordinatesRequest(Mockito.mock(LocationCoordinatesRequest.class))
             .setAvailability(availabilityRequest);
 
         final UserVolunteerResponse expectedUserVolunteerResponse = new UserVolunteerResponse()
             .setName("someUserName")
             .setDescription("someDescription")
             .setEmail("someEmail");
-
-        final String mockedMatchCode = "...";
 
         Mockito.when(findCauseByDescriptionService.find(cause.getDescription()))
             .thenReturn(cause);
@@ -104,8 +100,6 @@ class SaveUserVolunteerServiceTest {
             .thenReturn(address);
         Mockito.when(modelMapper.map(userVolunteerRequest, UserVolunteer.class))
             .thenReturn(userVolunteer);
-        Mockito.when(modelMapper.map(userVolunteerRequest.getActualLocationCoordinatesRequest(), LocationCoordinates.class))
-            .thenReturn(locationCoordinates);
         Mockito.when(userVolunteerRepository.save(userVolunteer))
             .thenReturn(userVolunteer);
         Mockito.when(modelMapper.map(userVolunteer, UserVolunteerResponse.class))

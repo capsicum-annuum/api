@@ -1,21 +1,21 @@
 package br.com.annuum.capsicum.api.service;
 
-import static java.util.Objects.nonNull;
-
+import br.com.annuum.capsicum.api.component.PointFactory;
 import br.com.annuum.capsicum.api.controller.request.UserGroupRequest;
 import br.com.annuum.capsicum.api.controller.response.UserGroupResponse;
 import br.com.annuum.capsicum.api.domain.Address;
 import br.com.annuum.capsicum.api.domain.Cause;
-import br.com.annuum.capsicum.api.domain.LocationCoordinates;
 import br.com.annuum.capsicum.api.domain.UserGroup;
 import br.com.annuum.capsicum.api.repository.UserGroupRepository;
-import java.util.List;
-import java.util.stream.Collectors;
-import javax.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -33,6 +33,9 @@ public class SaveUserGroupService {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private PointFactory pointFactory;
+
     @Transactional
     public UserGroupResponse save(final UserGroupRequest userGroupRequest) {
 
@@ -48,10 +51,7 @@ public class SaveUserGroupService {
                 .setAddress(address)
                 .setCauseThatSupport(causesThatSupport);
 
-        if (nonNull(userGroupRequest.getActualLocationCoordinatesRequest())) {
-            log.info("Getting LocationCoordinates from user");
-            userGroup.setActualLocationCoordinates(modelMapper.map(userGroupRequest.getActualLocationCoordinatesRequest(), LocationCoordinates.class));
-        }
+        userGroup.setCreatedAt(LocalDateTime.now());
 
         log.info("Creating a new UserGroup: '{}'", userGroup);
         return modelMapper.map(userGroupRepository.save(userGroup), UserGroupResponse.class);

@@ -1,16 +1,17 @@
 package br.com.annuum.capsicum.api.controller;
 
-import static java.util.Optional.of;
-import static java.util.Optional.ofNullable;
-
 import br.com.annuum.capsicum.api.security.UserPrincipal;
 import br.com.annuum.capsicum.api.service.ApplicationService;
-import javax.annotation.security.RolesAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.security.RolesAllowed;
+
+import static java.util.Optional.of;
+import static java.util.Optional.ofNullable;
 
 @RestController("/")
 public class ApplicationController {

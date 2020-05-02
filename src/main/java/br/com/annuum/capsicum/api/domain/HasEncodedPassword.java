@@ -2,8 +2,8 @@ package br.com.annuum.capsicum.api.domain;
 
 public interface HasEncodedPassword {
 
-  String getPassword();
+    String getPassword();
 
-  HasEncodedPassword setPassword(String encodedPassword);
+    HasEncodedPassword setPassword(String encodedPassword);
 
 }

@@ -31,9 +31,6 @@ public class UserVolunteer extends AbstractUser {
     @OneToOne
     private Address address;
 
-    @Embedded
-    private LocationCoordinates actualLocationCoordinates;
-
     private Long profilePictureId;
 
     private String description;

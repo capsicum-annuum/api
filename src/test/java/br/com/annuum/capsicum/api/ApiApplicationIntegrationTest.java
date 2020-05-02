@@ -2,13 +2,14 @@ package br.com.annuum.capsicum.api;
 
 import br.com.annuum.capsicum.api.domain.Cause;
 import br.com.annuum.capsicum.api.repository.CauseRepository;
-import java.util.List;
-import javax.annotation.Resource;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 @SpringBootTest
 @ActiveProfiles("test")

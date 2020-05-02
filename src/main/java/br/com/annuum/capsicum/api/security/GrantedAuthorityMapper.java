@@ -8,9 +8,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class GrantedAuthorityMapper implements Mapper<String, GrantedAuthority> {
 
-  @Override
-  public GrantedAuthority map(final String role) {
-    return new SimpleGrantedAuthority(role);
-  }
+    @Override
+    public GrantedAuthority map(final String role) {
+        return new SimpleGrantedAuthority(role);
+    }
 
 }

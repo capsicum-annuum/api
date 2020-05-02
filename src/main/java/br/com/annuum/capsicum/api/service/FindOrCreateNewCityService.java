@@ -21,10 +21,10 @@ public class FindOrCreateNewCityService {
     private ModelMapper modelMapper;
 
     public City findOrCreateNewCity(final CityRequest cityRequest) {
-        final String placeId = cityRequest.getGooglePlaceCityId();
+        final String placeId = cityRequest.getGooglePlaceCityIdentifier();
         log.info("Searching for City with placeId '{}'", placeId);
 
-        final Optional<City> cityOpt = cityRepository.findByGooglePlaceCityId(placeId);
+        final Optional<City> cityOpt = cityRepository.findByGooglePlaceCityIdentifier(placeId);
 
         if (cityOpt.isPresent()) {
             return cityOpt.get();

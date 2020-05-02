@@ -8,19 +8,19 @@ import lombok.Getter;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public enum DayShift {
 
-  MORNING(1, "Manhã"),
-  AFTERMOON(2, "Tarde"),
-  NIGHT(3, "Noite");
+    MORNING(1, "Manhã"),
+    AFTERMOON(2, "Tarde"),
+    NIGHT(3, "Noite");
 
-  private int value;
-  private String description;
+    private int value;
+    private String description;
 
-  public static DayShift of(final int value) {
-    for (DayShift dayShift : values()) {
-      if (dayShift.getValue() == value) {
-        return dayShift;
-      }
+    public static DayShift of(final int value) {
+        for (DayShift dayShift : values()) {
+            if (dayShift.getValue() == value) {
+                return dayShift;
+            }
+        }
+        return null;
     }
-    return null;
-  }
 }

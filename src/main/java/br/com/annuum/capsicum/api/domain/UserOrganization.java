@@ -1,21 +1,20 @@
 package br.com.annuum.capsicum.api.domain;
 
-import static br.com.annuum.capsicum.api.domain.enums.Profile.ORGANIZATION;
-
 import br.com.annuum.capsicum.api.domain.enums.Profile;
-import java.util.List;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.hibernate.validator.constraints.br.CNPJ;
+
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import java.util.List;
+
+import static br.com.annuum.capsicum.api.domain.enums.Profile.ORGANIZATION;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -34,9 +33,6 @@ public class UserOrganization extends AbstractUser {
     @NotNull
     @OneToOne
     private Address address;
-
-    @Embedded
-    private LocationCoordinates actualLocationCoordinates;
 
     private Long profilePictureId;
 

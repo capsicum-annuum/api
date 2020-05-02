@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/login")
 public class LoginController {
 
-  @Autowired
-  private AuthenticationService service;
+    @Autowired
+    private AuthenticationService service;
 
-  @PostMapping
-  public LoginResponse login(@RequestBody LoginRequest request) {
-    return new LoginResponse()
-        .setToken(service.authenticate(request.getUsername(), request.getPassword()));
-  }
+    @PostMapping
+    public LoginResponse login(@RequestBody LoginRequest request) {
+        return new LoginResponse()
+            .setToken(service.authenticate(request.getUsername(), request.getPassword()));
+    }
 
 }

@@ -36,8 +36,8 @@ public class AvailabilityConverter implements AttributeConverter<Availability, S
 
         // replace zero to one when availability occurs
         attribute.getDayShiftAvailabilities()
-                .forEach(availability ->
-                        builder.setCharAt(calculateIndex(availability), AVAILABLE));
+            .forEach(availability ->
+                builder.setCharAt(calculateIndex(availability), AVAILABLE));
 
         return builder.toString();
     }
@@ -46,12 +46,12 @@ public class AvailabilityConverter implements AttributeConverter<Availability, S
     public Availability convertToEntityAttribute(String dbData) {
         final String data = isNull(dbData) ? EMPTY : dbData;
         final List<DayShiftAvailability> values = EntryStream.of(asList(data.split(EMPTY)))
-                .filterValues(this::isAvailable)
-                .map(this::toDayShiftAvailability)
-                .toList();
+            .filterValues(this::isAvailable)
+            .map(this::toDayShiftAvailability)
+            .toList();
 
         return new Availability()
-                .setDayShiftAvailabilities(values);
+            .setDayShiftAvailabilities(values);
     }
 
     private int calculateIndex(final DayShiftAvailability availability) {
@@ -70,7 +70,7 @@ public class AvailabilityConverter implements AttributeConverter<Availability, S
         int dayShiftValue = index % DayShift.values().length + 1;
 
         return new DayShiftAvailability()
-                .setDayOfWeek(DayOfWeek.of(dayOfWeekValue))
-                .setDayShift(DayShift.of(dayShiftValue));
+            .setDayOfWeek(DayOfWeek.of(dayOfWeekValue))
+            .setDayShift(DayShift.of(dayShiftValue));
     }
 }

@@ -61,12 +61,6 @@ public class SaveUserVolunteerService {
             .setUserSkills(userSkills)
             .setAvailability(new Availability().setDayShiftAvailabilities(availability));
 
-
-        if (nonNull(userVolunteerRequest.getActualLocationCoordinatesRequest())) {
-            log.info("Getting LocationCoordinates from user");
-            userVolunteer.setActualLocationCoordinates(modelMapper.map(userVolunteerRequest.getActualLocationCoordinatesRequest(), LocationCoordinates.class));
-        }
-
         log.info("Creating a new UserVolunteer: '{}'", userVolunteer);
         return modelMapper.map(userVolunteerRepository.save(userVolunteer), UserVolunteerResponse.class);
     }
