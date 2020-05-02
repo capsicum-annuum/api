@@ -7,8 +7,8 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class LoginRequest {
 
-  private String username;
+    private String username;
 
-  private String password;
+    private String password;
 
 }

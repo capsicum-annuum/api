@@ -13,14 +13,17 @@ CREATE SCHEMA public AUTHORIZATION OWNER_NAME;
 
 -- Started on 2020-04-21 23:23:36
 
+CREATE EXTENSION postgis;
+
 CREATE TABLE public.address (
     id bigint NOT NULL,
     latitude double precision,
     longitude double precision,
+    geolocation geography(point, 4326),
     address_number character varying(255),
     complement character varying(255),
     district character varying(255),
-    google_place_address_id character varying(255),
+    google_place_address_identifier character varying(255),
     street_name character varying(255),
     city_id bigint NOT NULL
 );
@@ -63,7 +66,7 @@ ALTER TABLE public.cause_sequence OWNER TO OWNER_NAME;
 
 CREATE TABLE public.city (
     id bigint NOT NULL,
-    google_place_city_id character varying(255),
+    google_place_city_identifier character varying(255),
     name character varying(255),
     state character varying(255) NOT NULL
 );
@@ -111,8 +114,6 @@ CREATE TABLE public.user_group (
     email character varying(255),
     name character varying(255),
     password character varying(255),
-    latitude double precision,
-    longitude double precision,
     description character varying(255),
     mission character varying(255),
     phone character varying(255),
@@ -139,8 +140,6 @@ CREATE TABLE public.user_organization (
     email character varying(255),
     name character varying(255),
     password character varying(255),
-    latitude double precision,
-    longitude double precision,
     cnpj character varying(255),
     description character varying(255),
     mission character varying(255),
@@ -181,8 +180,6 @@ CREATE TABLE public.user_volunteer (
     cause_match_code character varying(2048),
     name character varying(255),
     password character varying(255),
-    latitude double precision,
-    longitude double precision,
     availability character varying(255),
     description character varying(255),
     has_cnh boolean DEFAULT false,

@@ -10,14 +10,17 @@ import javax.validation.constraints.NotNull;
 @Accessors(chain = true)
 public class AddressRequest {
 
-    @NotNull(message = "O objeto cidade não pode estar em branco.")
+    @NotNull(message = "A cidade precisa ser informada.")
     private CityRequest cityRequest;
 
-    @NotNull(message = "As coordenadas mais precisas do endereço precisam ser informadas.")
-    private LocationCoordinatesRequest locationCoordinatesRequest;
+    @NotNull(message = "A localização espacial precisa ser informada.")
+    private Double latitude;
+
+    @NotNull
+    private Double longitude;
 
     @Nullable
-    private String googlePlaceAddressId;
+    private String googlePlaceAddressIdentifier;
 
     @Nullable
     private String district;

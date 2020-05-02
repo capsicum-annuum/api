@@ -14,8 +14,6 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static java.util.Objects.nonNull;
-
 @Service
 @Slf4j
 public class SaveUserVolunteerService {
@@ -44,34 +42,28 @@ public class SaveUserVolunteerService {
         final Address address = saveAddressService.saveAddress(userVolunteerRequest.getAddressRequest());
 
         final List<Cause> causesThatSupport = userVolunteerRequest.getCauseThatSupport()
-                .stream()
-                .map(cause -> findCauseByDescriptionService.find(cause))
-                .collect(Collectors.toList());
+            .stream()
+            .map(cause -> findCauseByDescriptionService.find(cause))
+            .collect(Collectors.toList());
 
         final List<Skill> userSkills = userVolunteerRequest.getUserSkills()
-                .stream()
-                .map(skill -> findSkillByDescriptionService.find(skill))
-                .collect(Collectors.toList());
+            .stream()
+            .map(skill -> findSkillByDescriptionService.find(skill))
+            .collect(Collectors.toList());
 
         final List<DayShiftAvailability> availability = userVolunteerRequest.getAvailability().getDayShiftAvailabilities()
-                .stream()
-                .map(dayShft -> modelMapper.map(dayShft, DayShiftAvailability.class))
-                .collect(Collectors.toList());
+            .stream()
+            .map(dayShft -> modelMapper.map(dayShft, DayShiftAvailability.class))
+            .collect(Collectors.toList());
 
         log.info("Building UserVolunteer to persist");
         final UserVolunteer userVolunteer = modelMapper.map(userVolunteerRequest, UserVolunteer.class)
-                .setAddress(address)
-                .setCauseThatSupport(causesThatSupport)
-                .setCauseMatchCode(encodableAttributeConverter.convertToBinaryCode(causesThatSupport))
-                .setUserSkills(userSkills)
-                .setSkillMatchCode(encodableAttributeConverter.convertToBinaryCode(userSkills))
-                .setAvailability(new Availability().setDayShiftAvailabilities(availability));
-
-
-        if (nonNull(userVolunteerRequest.getActualLocationCoordinatesRequest())) {
-            log.info("Getting LocationCoordinates from user");
-            userVolunteer.setActualLocationCoordinates(modelMapper.map(userVolunteerRequest.getActualLocationCoordinatesRequest(), LocationCoordinates.class));
-        }
+            .setAddress(address)
+            .setCauseThatSupport(causesThatSupport)
+            .setCauseMatchCode(encodableAttributeConverter.convertToBinaryCode(causesThatSupport))
+            .setUserSkills(userSkills)
+            .setSkillMatchCode(encodableAttributeConverter.convertToBinaryCode(userSkills))
+            .setAvailability(new Availability().setDayShiftAvailabilities(availability));
 
         log.info("Creating a new UserVolunteer: '{}'", userVolunteer);
         return modelMapper.map(userVolunteerRepository.save(userVolunteer), UserVolunteerResponse.class);

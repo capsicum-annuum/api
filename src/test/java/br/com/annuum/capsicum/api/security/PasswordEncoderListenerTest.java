@@ -1,13 +1,5 @@
 package br.com.annuum.capsicum.api.security;
 
-import static org.apache.commons.lang3.RandomStringUtils.randomAlphanumeric;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 import br.com.annuum.capsicum.api.domain.HasEncodedPassword;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -22,113 +14,119 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import static org.apache.commons.lang3.RandomStringUtils.randomAlphanumeric;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+
 @ExtendWith(MockitoExtension.class)
 class PasswordEncoderListenerTest {
 
-  @InjectMocks
-  private PasswordEncoderListener target;
+    @InjectMocks
+    private PasswordEncoderListener target;
 
-  @Mock
-  private PasswordEncoder passwordEncoder;
+    @Mock
+    private PasswordEncoder passwordEncoder;
 
-  @Mock
-  private EntityPersister persister;
+    @Mock
+    private EntityPersister persister;
 
-  @Mock
-  private EntityMetamodel metamodel;
+    @Mock
+    private EntityMetamodel metamodel;
 
-  @Data
-  @Accessors(chain = true)
-  class UserWithEncodedPassword implements HasEncodedPassword {
+    @Test
+    public void shouldEncodePasswordOnPreInsertWhenEntityImplementsHasEncodedPassword() {
 
-    private Long id;
-    private String password;
-  }
+        final Long id = null;
+        final String originalPassword = randomAlphanumeric(8);
+        final String encryptedPassword = randomAlphanumeric(8);
 
-  @Data
-  @Accessors(chain = true)
-  class UserWithoutEncodedPassword {
+        final String[] propertyNames = {"password"};
+        final Object[] state = {originalPassword};
+        final UserWithEncodedPassword entity = new UserWithEncodedPassword().setPassword(originalPassword);
+        final PreInsertEvent event = new PreInsertEvent(entity, id, state, persister, null);
 
-    private Long id;
-    private String password;
-  }
+        when(persister.getEntityMetamodel()).thenReturn(metamodel);
+        when(metamodel.getPropertyNames()).thenReturn(propertyNames);
+        when(passwordEncoder.encode(originalPassword)).thenReturn(encryptedPassword);
 
-  @Test
-  public void shouldEncodePasswordOnPreInsertWhenEntityImplementsHasEncodedPassword() {
+        final boolean result = target.onPreInsert(event);
 
-    final Long id = null;
-    final String originalPassword = randomAlphanumeric(8);
-    final String encryptedPassword = randomAlphanumeric(8);
+        assertFalse(result);
+        assertEquals(encryptedPassword, state[0]);
+    }
 
-    final String[] propertyNames = {"password"};
-    final Object[] state = {originalPassword};
-    final UserWithEncodedPassword entity = new UserWithEncodedPassword().setPassword(originalPassword);
-    final PreInsertEvent event = new PreInsertEvent(entity, id, state, persister, null);
+    @Test
+    public void shouldNotEncodePasswordOnPreInsertWhenEntityNotImplementsHasEncodedPassword() {
 
-    when(persister.getEntityMetamodel()).thenReturn(metamodel);
-    when(metamodel.getPropertyNames()).thenReturn(propertyNames);
-    when(passwordEncoder.encode(originalPassword)).thenReturn(encryptedPassword);
+        final Long id = null;
+        final String originalPassword = randomAlphanumeric(8);
 
-    final boolean result = target.onPreInsert(event);
+        final Object[] state = {originalPassword};
+        final UserWithoutEncodedPassword entity = new UserWithoutEncodedPassword().setPassword(originalPassword);
+        final PreInsertEvent event = new PreInsertEvent(entity, id, state, persister, null);
 
-    assertFalse(result);
-    assertEquals(encryptedPassword, state[0]);
-  }
+        final boolean result = target.onPreInsert(event);
 
-  @Test
-  public void shouldNotEncodePasswordOnPreInsertWhenEntityNotImplementsHasEncodedPassword() {
+        assertFalse(result);
+        assertEquals(originalPassword, state[0]);
+        verify(passwordEncoder, never()).encode(any());
+    }
 
-    final Long id = null;
-    final String originalPassword = randomAlphanumeric(8);
+    @Test
+    public void shouldEncodePasswordOnPreUpdateWhenEntityImplementsHasEncodedPassword() {
 
-    final Object[] state = {originalPassword};
-    final UserWithoutEncodedPassword entity = new UserWithoutEncodedPassword().setPassword(originalPassword);
-    final PreInsertEvent event = new PreInsertEvent(entity, id, state, persister, null);
+        final Long id = null;
+        final String originalPassword = randomAlphanumeric(8);
+        final String encryptedPassword = randomAlphanumeric(8);
 
-    final boolean result = target.onPreInsert(event);
+        final String[] propertyNames = {"password"};
+        final Object[] state = {originalPassword};
+        final UserWithEncodedPassword entity = new UserWithEncodedPassword().setPassword(originalPassword);
+        final PreUpdateEvent event = new PreUpdateEvent(entity, id, state, null, persister, null);
 
-    assertFalse(result);
-    assertEquals(originalPassword, state[0]);
-    verify(passwordEncoder, never()).encode(any());
-  }
+        when(persister.getEntityMetamodel()).thenReturn(metamodel);
+        when(metamodel.getPropertyNames()).thenReturn(propertyNames);
+        when(passwordEncoder.encode(originalPassword)).thenReturn(encryptedPassword);
 
-  @Test
-  public void shouldEncodePasswordOnPreUpdateWhenEntityImplementsHasEncodedPassword() {
+        final boolean result = target.onPreUpdate(event);
 
-    final Long id = null;
-    final String originalPassword = randomAlphanumeric(8);
-    final String encryptedPassword = randomAlphanumeric(8);
+        assertFalse(result);
+        assertEquals(encryptedPassword, state[0]);
+    }
 
-    final String[] propertyNames = {"password"};
-    final Object[] state = {originalPassword};
-    final UserWithEncodedPassword entity = new UserWithEncodedPassword().setPassword(originalPassword);
-    final PreUpdateEvent event = new PreUpdateEvent(entity, id, state, null, persister, null);
+    @Test
+    public void shouldNotEncodePasswordOnPreUpdateWhenEntityNotImplementsHasEncodedPassword() {
 
-    when(persister.getEntityMetamodel()).thenReturn(metamodel);
-    when(metamodel.getPropertyNames()).thenReturn(propertyNames);
-    when(passwordEncoder.encode(originalPassword)).thenReturn(encryptedPassword);
+        final Long id = null;
+        final String originalPassword = randomAlphanumeric(8);
 
-    final boolean result = target.onPreUpdate(event);
+        final Object[] state = {originalPassword};
+        final UserWithoutEncodedPassword entity = new UserWithoutEncodedPassword().setPassword(originalPassword);
+        final PreUpdateEvent event = new PreUpdateEvent(entity, id, state, null, persister, null);
 
-    assertFalse(result);
-    assertEquals(encryptedPassword, state[0]);
-  }
+        final boolean result = target.onPreUpdate(event);
 
-  @Test
-  public void shouldNotEncodePasswordOnPreUpdateWhenEntityNotImplementsHasEncodedPassword() {
+        assertFalse(result);
+        assertEquals(originalPassword, state[0]);
+        verify(passwordEncoder, never()).encode(any());
+    }
 
-    final Long id = null;
-    final String originalPassword = randomAlphanumeric(8);
+    @Data
+    @Accessors(chain = true)
+    class UserWithEncodedPassword implements HasEncodedPassword {
 
-    final Object[] state = {originalPassword};
-    final UserWithoutEncodedPassword entity = new UserWithoutEncodedPassword().setPassword(originalPassword);
-    final PreUpdateEvent event = new PreUpdateEvent(entity, id, state, null, persister, null);
+        private Long id;
+        private String password;
+    }
 
-    final boolean result = target.onPreUpdate(event);
+    @Data
+    @Accessors(chain = true)
+    class UserWithoutEncodedPassword {
 
-    assertFalse(result);
-    assertEquals(originalPassword, state[0]);
-    verify(passwordEncoder, never()).encode(any());
-  }
+        private Long id;
+        private String password;
+    }
 
 }

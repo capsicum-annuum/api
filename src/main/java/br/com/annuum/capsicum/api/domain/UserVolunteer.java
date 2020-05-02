@@ -10,7 +10,10 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.ColumnDefault;
 
-import javax.persistence.*;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -29,9 +32,6 @@ public class UserVolunteer extends AbstractUser {
     @NotNull
     @OneToOne
     private Address address;
-
-    @Embedded
-    private LocationCoordinates actualLocationCoordinates;
 
     private Long profilePictureId;
 

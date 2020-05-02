@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface CityRepository extends PagingAndSortingRepository<City, Long> {
 
-    Optional<City> findByGooglePlaceCityId(String googlePlaceId);
+    Optional<City> findByGooglePlaceCityIdentifier(String googlePlaceIdentifier);
 
 }

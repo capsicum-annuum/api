@@ -33,9 +33,6 @@ public class UserGroupRequest {
     private AddressRequest addressRequest;
 
     @Nullable
-    private LocationCoordinatesRequest actualLocationCoordinatesRequest;
-
-    @Nullable
     private String phone;
 
     @Nullable

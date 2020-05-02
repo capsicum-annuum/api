@@ -2,13 +2,14 @@ package br.com.annuum.capsicum.api.security;
 
 import br.com.annuum.capsicum.api.domain.User;
 import br.com.annuum.capsicum.api.domain.enums.Profile;
-import java.util.Collection;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
 
 @Data
 @Accessors(chain = true)

@@ -7,6 +7,6 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class LoginResponse {
 
-  private String token;
+    private String token;
 
 }

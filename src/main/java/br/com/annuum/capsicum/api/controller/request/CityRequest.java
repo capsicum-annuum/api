@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 public class CityRequest {
 
     @NotBlank(message = "O identificador GooglePlaceId não pode estar em branco para a cidade.")
-    private String googlePlaceCityId;
+    private String googlePlaceCityIdentifier;
 
     @NotBlank(message = "O nome da cidade não pode estar em branco.")
     private String name;

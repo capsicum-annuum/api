@@ -29,11 +29,11 @@ class FindCauseByDescriptionServiceTest {
         // Arrange
         final String causeDescription = "someCause";
         final Cause expectedCause = new Cause()
-                .setId(1L)
-                .setDescription("someCause");
+            .setId(1L)
+            .setDescription("someCause");
 
         Mockito.when(causeRepository.findByDescription(causeDescription))
-                .thenReturn(Optional.of(expectedCause));
+            .thenReturn(Optional.of(expectedCause));
 
         // Act
         final Cause returnedCause = findCauseByDescriptionService.find(causeDescription);
@@ -47,7 +47,7 @@ class FindCauseByDescriptionServiceTest {
         // Arrange
         final String causeDescription = "someCause";
         Mockito.when(causeRepository.findByDescription(causeDescription))
-                .thenReturn(Optional.empty());
+            .thenReturn(Optional.empty());
 
         // Act and Assert
         assertThrows(RegisterNotFoundException.class, () -> findCauseByDescriptionService.find(causeDescription));

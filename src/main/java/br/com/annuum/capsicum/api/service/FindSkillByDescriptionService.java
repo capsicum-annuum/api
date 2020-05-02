@@ -17,6 +17,6 @@ public class FindSkillByDescriptionService {
     public Skill find(final String description) {
         log.info("Searching for Skill with description '{}'", description);
         return skillRepository.findByDescription(description)
-                .orElseThrow(() -> new RegisterNotFoundException("Skill não encontrada!"));
+            .orElseThrow(() -> new RegisterNotFoundException("Skill não encontrada!"));
     }
 }
