@@ -2,7 +2,6 @@ package br.com.annuum.capsicum.api.service;
 
 import br.com.annuum.capsicum.api.controller.request.*;
 import br.com.annuum.capsicum.api.controller.response.UserVolunteerResponse;
-import br.com.annuum.capsicum.api.converter.EncodableAttributeConverter;
 import br.com.annuum.capsicum.api.domain.*;
 import br.com.annuum.capsicum.api.domain.enums.DayShift;
 import br.com.annuum.capsicum.api.repository.UserVolunteerRepository;
@@ -35,9 +34,6 @@ class SaveUserVolunteerServiceTest {
     private FindSkillByDescriptionService findSkillByDescriptionService;
 
     @Mock
-    private EncodableAttributeConverter encodableAttributeConverter;
-
-    @Mock
     private UserVolunteerRepository userVolunteerRepository;
 
     @Mock
@@ -50,84 +46,78 @@ class SaveUserVolunteerServiceTest {
     public void mustSaveAndReturnNewUserVolunteer_withSuccess() {
         // Arrange
         final LocationCoordinates locationCoordinates = new LocationCoordinates()
-                .setLatitude(1D)
-                .setLongitude(1D);
+            .setLatitude(1D)
+            .setLongitude(1D);
         final Address address = Mockito.mock(Address.class);
         final Cause cause = new Cause()
-                .setId(1L)
-                .setDescription("someCause");
+            .setId(1L)
+            .setDescription("someCause");
         final Skill skill = new Skill()
-                .setId(1L)
-                .setDescription("someSkill");
+            .setId(1L)
+            .setDescription("someSkill");
 
         final DayShiftAvailabilityRequest dayShiftAvailabilityRequest = new DayShiftAvailabilityRequest()
-                .setDayShift(DayShift.MORNING)
-                .setDayOfWeek(DayOfWeek.MONDAY);
+            .setDayShift(DayShift.MORNING)
+            .setDayOfWeek(DayOfWeek.MONDAY);
 
         final DayShiftAvailability dayShiftAvailability = new DayShiftAvailability()
-                .setDayShift(DayShift.MORNING)
-                .setDayOfWeek(DayOfWeek.MONDAY);
+            .setDayShift(DayShift.MORNING)
+            .setDayOfWeek(DayOfWeek.MONDAY);
 
         final AvailabilityRequest availabilityRequest = new AvailabilityRequest()
-                .setDayShiftAvailabilities(Collections.singletonList(dayShiftAvailabilityRequest));
+            .setDayShiftAvailabilities(Collections.singletonList(dayShiftAvailabilityRequest));
 
         final Availability availability = new Availability()
-                .setDayShiftAvailabilities(Collections.singletonList(dayShiftAvailability));
+            .setDayShiftAvailabilities(Collections.singletonList(dayShiftAvailability));
 
         final List<Skill> skillList = Collections.singletonList(skill);
         final List<Cause> causeList = Collections.singletonList(cause);
 
         final UserVolunteer userVolunteer = new UserVolunteer()
-                .setActualLocationCoordinates(locationCoordinates)
-                .setAddress(address)
-                .setCauseThatSupport(causeList)
-                .setUserSkills(skillList)
-                .setAvailability(availability);
+            .setActualLocationCoordinates(locationCoordinates)
+            .setAddress(address)
+            .setCauseThatSupport(causeList)
+            .setUserSkills(skillList)
+            .setAvailability(availability);
 
         userVolunteer.setCreatedAt(LocalDateTime.now());
 
         final UserVolunteerRequest userVolunteerRequest = new UserVolunteerRequest()
-                .setAddressRequest(Mockito.mock(AddressRequest.class))
-                .setCauseThatSupport(Collections.singletonList("someCause"))
-                .setUserSkills(Collections.singletonList("someSkill"))
-                .setActualLocationCoordinatesRequest(Mockito.mock(LocationCoordinatesRequest.class))
-                .setAvailability(availabilityRequest);
+            .setAddressRequest(Mockito.mock(AddressRequest.class))
+            .setCauseThatSupport(Collections.singletonList("someCause"))
+            .setUserSkills(Collections.singletonList("someSkill"))
+            .setActualLocationCoordinatesRequest(Mockito.mock(LocationCoordinatesRequest.class))
+            .setAvailability(availabilityRequest);
 
         final UserVolunteerResponse expectedUserVolunteerResponse = new UserVolunteerResponse()
-                .setName("someUserName")
-                .setDescription("someDescription")
-                .setEmail("someEmail");
+            .setName("someUserName")
+            .setDescription("someDescription")
+            .setEmail("someEmail");
 
         final String mockedMatchCode = "...";
 
-        Mockito.when(encodableAttributeConverter.convertToBinaryCode(skillList))
-                .thenReturn(mockedMatchCode);
-        Mockito.when(encodableAttributeConverter.convertToBinaryCode(causeList))
-                .thenReturn(mockedMatchCode);
         Mockito.when(findCauseByDescriptionService.find(cause.getDescription()))
-                .thenReturn(cause);
+            .thenReturn(cause);
         Mockito.when(findSkillByDescriptionService.find(skill.getDescription()))
-                .thenReturn(skill);
+            .thenReturn(skill);
         Mockito.when(saveAddressService.saveAddress(userVolunteerRequest.getAddressRequest()))
-                .thenReturn(address);
+            .thenReturn(address);
         Mockito.when(modelMapper.map(userVolunteerRequest, UserVolunteer.class))
-                .thenReturn(userVolunteer);
+            .thenReturn(userVolunteer);
         Mockito.when(modelMapper.map(userVolunteerRequest.getActualLocationCoordinatesRequest(), LocationCoordinates.class))
-                .thenReturn(locationCoordinates);
+            .thenReturn(locationCoordinates);
         Mockito.when(userVolunteerRepository.save(userVolunteer))
-                .thenReturn(userVolunteer);
+            .thenReturn(userVolunteer);
         Mockito.when(modelMapper.map(userVolunteer, UserVolunteerResponse.class))
-                .thenReturn(expectedUserVolunteerResponse);
+            .thenReturn(expectedUserVolunteerResponse);
         Mockito.when(modelMapper.map(dayShiftAvailabilityRequest, DayShiftAvailability.class))
-                .thenReturn(dayShiftAvailability);
+            .thenReturn(dayShiftAvailability);
 
         // Act
         final UserVolunteerResponse returnedUserVolunteerResponse = saveUserVolunteerService.save(userVolunteerRequest);
 
         // Assert
         assertEquals(expectedUserVolunteerResponse, returnedUserVolunteerResponse);
-        Mockito.verify(encodableAttributeConverter, times(1)).convertToBinaryCode(skillList);
-        Mockito.verify(encodableAttributeConverter, times(1)).convertToBinaryCode(causeList);
         Mockito.verify(userVolunteerRepository, times(1)).save(userVolunteer);
     }
 }
