@@ -2,7 +2,6 @@ package br.com.annuum.capsicum.api.service;
 
 import br.com.annuum.capsicum.api.controller.request.UserVolunteerRequest;
 import br.com.annuum.capsicum.api.controller.response.UserVolunteerResponse;
-import br.com.annuum.capsicum.api.converter.EncodableAttributeConverter;
 import br.com.annuum.capsicum.api.domain.*;
 import br.com.annuum.capsicum.api.repository.UserVolunteerRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +13,8 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.util.Objects.nonNull;
+
 @Service
 @Slf4j
 public class SaveUserVolunteerService {
@@ -23,9 +24,6 @@ public class SaveUserVolunteerService {
 
     @Autowired
     private FindCauseByDescriptionService findCauseByDescriptionService;
-
-    @Autowired
-    private EncodableAttributeConverter encodableAttributeConverter;
 
     @Autowired
     private UserVolunteerRepository userVolunteerRepository;
@@ -60,9 +58,7 @@ public class SaveUserVolunteerService {
         final UserVolunteer userVolunteer = modelMapper.map(userVolunteerRequest, UserVolunteer.class)
             .setAddress(address)
             .setCauseThatSupport(causesThatSupport)
-            .setCauseMatchCode(encodableAttributeConverter.convertToBinaryCode(causesThatSupport))
             .setUserSkills(userSkills)
-            .setSkillMatchCode(encodableAttributeConverter.convertToBinaryCode(userSkills))
             .setAvailability(new Availability().setDayShiftAvailabilities(availability));
 
         log.info("Creating a new UserVolunteer: '{}'", userVolunteer);

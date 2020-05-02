@@ -5,7 +5,6 @@ import br.com.annuum.capsicum.api.controller.request.AvailabilityRequest;
 import br.com.annuum.capsicum.api.controller.request.DayShiftAvailabilityRequest;
 import br.com.annuum.capsicum.api.controller.request.UserVolunteerRequest;
 import br.com.annuum.capsicum.api.controller.response.UserVolunteerResponse;
-import br.com.annuum.capsicum.api.converter.EncodableAttributeConverter;
 import br.com.annuum.capsicum.api.domain.*;
 import br.com.annuum.capsicum.api.domain.enums.DayShift;
 import br.com.annuum.capsicum.api.repository.UserVolunteerRepository;
@@ -38,9 +37,6 @@ class SaveUserVolunteerServiceTest {
     private FindSkillByDescriptionService findSkillByDescriptionService;
 
     @Mock
-    private EncodableAttributeConverter encodableAttributeConverter;
-
-    @Mock
     private UserVolunteerRepository userVolunteerRepository;
 
     @Mock
@@ -48,7 +44,6 @@ class SaveUserVolunteerServiceTest {
 
     @Mock
     private ModelMapper modelMapper;
-
 
     @Test
     public void mustSaveAndReturnNewUserVolunteer_withSuccess() {
@@ -97,12 +92,6 @@ class SaveUserVolunteerServiceTest {
             .setDescription("someDescription")
             .setEmail("someEmail");
 
-        final String mockedMatchCode = "...";
-
-        Mockito.when(encodableAttributeConverter.convertToBinaryCode(skillList))
-            .thenReturn(mockedMatchCode);
-        Mockito.when(encodableAttributeConverter.convertToBinaryCode(causeList))
-            .thenReturn(mockedMatchCode);
         Mockito.when(findCauseByDescriptionService.find(cause.getDescription()))
             .thenReturn(cause);
         Mockito.when(findSkillByDescriptionService.find(skill.getDescription()))
@@ -123,8 +112,6 @@ class SaveUserVolunteerServiceTest {
 
         // Assert
         assertEquals(expectedUserVolunteerResponse, returnedUserVolunteerResponse);
-        Mockito.verify(encodableAttributeConverter, times(1)).convertToBinaryCode(skillList);
-        Mockito.verify(encodableAttributeConverter, times(1)).convertToBinaryCode(causeList);
         Mockito.verify(userVolunteerRepository, times(1)).save(userVolunteer);
     }
 }
