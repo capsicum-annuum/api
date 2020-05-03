@@ -1,19 +1,15 @@
 package br.com.annuum.capsicum.api.domain;
 
 import br.com.annuum.capsicum.api.converter.AvailabilityConverter;
-import br.com.annuum.capsicum.api.converter.EncodableAttributeConverter;
 import br.com.annuum.capsicum.api.domain.enums.Profile;
+import br.com.annuum.capsicum.api.listener.AttributeEncodeListener;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
-import javax.validation.constraints.NotBlank;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -24,6 +20,7 @@ import static br.com.annuum.capsicum.api.domain.enums.Profile.VOLUNTEER;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
+@EntityListeners(AttributeEncodeListener.class)
 @Entity
 public class UserVolunteer extends AbstractUser {
 
@@ -33,7 +30,6 @@ public class UserVolunteer extends AbstractUser {
 
     @NotNull
     @ManyToMany
-    @Convert(converter = EncodableAttributeConverter.class)
     private List<Cause> causeThatSupport;
 
     @NotBlank
@@ -41,7 +37,6 @@ public class UserVolunteer extends AbstractUser {
 
     @NotNull
     @ManyToMany
-    @Convert(converter = EncodableAttributeConverter.class)
     private List<Skill> userSkills;
 
     @NotBlank
