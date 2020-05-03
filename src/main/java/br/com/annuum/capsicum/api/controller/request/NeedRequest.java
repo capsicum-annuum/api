@@ -2,6 +2,7 @@ package br.com.annuum.capsicum.api.controller.request;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -19,7 +20,7 @@ public class NeedRequest {
     @NotBlank(message = "A descrição não pode estar vazia.")
     private String description;
 
-    @NotNull
-    private Boolean isActive;
+    @Nullable
+    private AvailabilityRequest availabilityRequest;
 
 }

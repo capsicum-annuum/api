@@ -60,9 +60,7 @@ public class SaveUserVolunteerService {
         final UserVolunteer userVolunteer = modelMapper.map(userVolunteerRequest, UserVolunteer.class)
             .setAddress(address)
             .setCauseThatSupport(causesThatSupport)
-            .setCauseMatchCode(encodableAttributeConverter.convertToBinaryCode(causesThatSupport))
             .setUserSkills(userSkills)
-            .setSkillMatchCode(encodableAttributeConverter.convertToBinaryCode(userSkills))
             .setAvailability(new Availability().setDayShiftAvailabilities(availability));
 
         log.info("Creating a new UserVolunteer: '{}'", userVolunteer);

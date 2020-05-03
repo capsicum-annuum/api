@@ -46,17 +46,11 @@ public class Movement {
     @ManyToMany
     private List<Need> needs;
 
-    @NotBlank
-    private String skillMatchCode;
-
-    @ManyToOne
-    private Cause cause;
+    @ManyToMany
+    private List<Cause> causesThatSupport;
 
     @NotBlank
     private String causeMatchCode;
-
-    @Convert(converter = AvailabilityConverter.class)
-    private Availability availability;
 
     @CreatedDate
     private LocalDateTime createdAt;

@@ -1,5 +1,6 @@
 package br.com.annuum.capsicum.api.domain;
 
+import br.com.annuum.capsicum.api.converter.AvailabilityConverter;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -22,14 +23,23 @@ public class Need {
     @ManyToOne
     private Skill skill;
 
+    @NotBlank
+    private String skillMatchCode;
+
     @NotNull
     private Integer quantity;
 
     @NotBlank
     private String description;
 
+    @Convert(converter = AvailabilityConverter.class)
+    private Availability availability;
+
     @ManyToMany
-    private List<Candidate> candidates;
+    private List<Application> applications;
+
+    @ManyToMany
+    private List<Volunteer> volunteers;
 
     @NotNull
     private Boolean isActive;

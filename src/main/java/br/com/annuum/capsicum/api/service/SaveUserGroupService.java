@@ -33,9 +33,6 @@ public class SaveUserGroupService {
     @Autowired
     private ModelMapper modelMapper;
 
-    @Autowired
-    private PointFactory pointFactory;
-
     @Transactional
     public UserGroupResponse save(final UserGroupRequest userGroupRequest) {
 

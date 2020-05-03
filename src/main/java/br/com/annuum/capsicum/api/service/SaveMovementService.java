@@ -2,9 +2,11 @@ package br.com.annuum.capsicum.api.service;
 
 import br.com.annuum.capsicum.api.controller.request.MovementRequest;
 import br.com.annuum.capsicum.api.converter.EncodableAttributeConverter;
+import br.com.annuum.capsicum.api.domain.Address;
+import br.com.annuum.capsicum.api.domain.Cause;
 import br.com.annuum.capsicum.api.domain.Movement;
-import br.com.annuum.capsicum.api.domain.Skill;
-import br.com.annuum.capsicum.api.repository.UserVolunteerRepository;
+import br.com.annuum.capsicum.api.domain.Need;
+import br.com.annuum.capsicum.api.repository.MovementRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +30,10 @@ public class SaveMovementService {
     private EncodableAttributeConverter encodableAttributeConverter;
 
     @Autowired
-    private UserVolunteerRepository userVolunteerRepository;
+    private MovementRepository movementRepository;
+
+    @Autowired
+    private SaveNeedService saveNeedService;
 
     @Autowired
     private SaveAddressService saveAddressService;
@@ -39,12 +44,22 @@ public class SaveMovementService {
     @Transactional
     public void save(final MovementRequest movementRequest) {
 
-        final List<Skill> skillsNeeded = movementRequest.getNeedsRequest()
-            .stream()
-            .map(needRequest -> findSkillByDescriptionService.find(needRequest.getSkill()))
+        log.info("Start to create an UserOrganization for: '{}'", movementRequest);
+        final Address address = saveAddressService.saveAddress(movementRequest.getAddressRequest());
+
+        final List<Need> needs = movementRequest.getNeedsRequest().stream()
+            .map(needRequest -> saveNeedService.save(needRequest))
+            .collect(Collectors.toList());
+
+        final List<Cause> causesThatSupport = movementRequest.getCausesThatSupport().stream()
+            .map(cause -> findCauseByDescriptionService.find(cause))
             .collect(Collectors.toList());
 
         final Movement movement = modelMapper.map(movementRequest, Movement.class)
-            .setSkillMatchCode(encodableAttributeConverter.convertToBinaryCode(skillsNeeded));
+            .setAddress(address)
+            .setCausesThatSupport(causesThatSupport)
+            .setCauseMatchCode(encodableAttributeConverter.convertToBinaryCode(causesThatSupport))
+            .setNeeds(needs);
+
     }
 }

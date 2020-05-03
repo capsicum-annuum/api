@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Accessors(chain = true)
 @Entity
 @SequenceGenerator(name = "candidate_sequence", sequenceName = "candidate_sequence", allocationSize = 1)
-public class Candidate {
+public class Volunteer {
 
     @Id
     @GeneratedValue(generator = "candidate_sequence", strategy = GenerationType.SEQUENCE)
@@ -20,9 +20,6 @@ public class Candidate {
 
     @ManyToOne
     private UserVolunteer userVolunteer;
-
-    @NotNull
-    private Boolean isApproved;
 
     private Boolean presentOnEvent;
 

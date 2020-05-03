@@ -26,21 +26,32 @@ public class UserOrganization extends AbstractUser {
     @CNPJ
     private String cnpj;
 
-    private String mission;
-
-    private String phone;
-
     @NotNull
     @OneToOne
     private Address address;
 
-    private Long profilePictureId;
-
-    private String description;
-
     @NotEmpty
     @ManyToMany
     private List<Cause> causeThatSupport;
+
+    @NotBlank
+    private String description;
+
+    private String mission;
+
+    private String phone;
+
+    private Long profilePictureId;
+
+    private Long backgroundPictureId;
+
+    private String webSiteUrl;
+
+    private String facebookUrl;
+
+    private String instagramUrl;
+
+    private String twitterUrl;
 
     @Override
     public Profile getProfile() {

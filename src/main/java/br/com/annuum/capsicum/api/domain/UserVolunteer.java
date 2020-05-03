@@ -8,12 +8,12 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
-import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -27,33 +27,41 @@ import static br.com.annuum.capsicum.api.domain.enums.Profile.VOLUNTEER;
 @Entity
 public class UserVolunteer extends AbstractUser {
 
-    private String phone;
-
     @NotNull
     @OneToOne
     private Address address;
+
+    @NotNull
+    @ManyToMany
+    @Convert(converter = EncodableAttributeConverter.class)
+    private List<Cause> causeThatSupport;
+
+    @NotBlank
+    private String causeMatchCode;
+
+    @NotNull
+    @ManyToMany
+    @Convert(converter = EncodableAttributeConverter.class)
+    private List<Skill> userSkills;
+
+    @NotBlank
+    private String skillMatchCode;
+
+    @NotNull
+    @Convert(converter = AvailabilityConverter.class)
+    private Availability availability;
+
+    private String phone;
 
     private Long profilePictureId;
 
     private String description;
 
-    @ManyToMany
-    @Convert(converter = EncodableAttributeConverter.class)
-    private List<Cause> causeThatSupport;
+    private String facebookUrl;
 
-    @ManyToMany
-    @Convert(converter = EncodableAttributeConverter.class)
-    private List<Skill> userSkills;
+    private String instagramUrl;
 
-    private String skillMatchCode;
-
-    @Convert(converter = AvailabilityConverter.class)
-    private Availability availability;
-
-    private String causeMatchCode;
-
-    @ColumnDefault("false")
-    private Boolean hasCnh;
+    private String twitterUrl;
 
     @Override
     public Profile getProfile() {

@@ -33,9 +33,6 @@ public class SaveUserOrganizationService {
     @Autowired
     private ModelMapper modelMapper;
 
-    @Autowired
-    private PointFactory pointFactory;
-
     @Transactional
     public UserOrganizationResponse save(final UserOrganizationRequest userOrganizationRequest) {
 
