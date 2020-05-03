@@ -33,14 +33,12 @@ public class UserVolunteer extends AbstractUser {
     @ManyToMany
     private List<Cause> causeThatSupport;
 
-    @NotBlank
     private String causeMatchCode;
 
     @NotNull
     @ManyToMany
     private List<Skill> userSkills;
 
-    @NotBlank
     private String skillMatchCode;
 
     @NotNull

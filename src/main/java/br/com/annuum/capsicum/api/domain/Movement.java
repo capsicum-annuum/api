@@ -50,7 +50,6 @@ public class Movement {
     @ManyToMany
     private List<Cause> causeThatSupport;
 
-    @NotBlank
     private String causeMatchCode;
 
     @CreatedDate

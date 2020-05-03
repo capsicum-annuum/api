@@ -1,6 +1,5 @@
 package br.com.annuum.capsicum.api.service;
 
-import br.com.annuum.capsicum.api.component.PointFactory;
 import br.com.annuum.capsicum.api.controller.request.UserOrganizationRequest;
 import br.com.annuum.capsicum.api.controller.response.UserOrganizationResponse;
 import br.com.annuum.capsicum.api.domain.Address;

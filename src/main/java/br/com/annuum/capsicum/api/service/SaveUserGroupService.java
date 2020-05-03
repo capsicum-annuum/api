@@ -1,6 +1,5 @@
 package br.com.annuum.capsicum.api.service;
 
-import br.com.annuum.capsicum.api.component.PointFactory;
 import br.com.annuum.capsicum.api.controller.request.UserGroupRequest;
 import br.com.annuum.capsicum.api.controller.response.UserGroupResponse;
 import br.com.annuum.capsicum.api.domain.Address;
@@ -40,13 +39,13 @@ public class SaveUserGroupService {
         final Address address = saveAddressService.saveAddress(userGroupRequest.getAddressRequest());
 
         final List<Cause> causesThatSupport = userGroupRequest.getCauseThatSupport().stream()
-                .map(cause -> findCauseByDescriptionService.find(cause))
-                .collect(Collectors.toList());
+            .map(cause -> findCauseByDescriptionService.find(cause))
+            .collect(Collectors.toList());
 
         log.info("Building UserGroup to persist");
         final UserGroup userGroup = modelMapper.map(userGroupRequest, UserGroup.class)
-                .setAddress(address)
-                .setCauseThatSupport(causesThatSupport);
+            .setAddress(address)
+            .setCauseThatSupport(causesThatSupport);
 
         userGroup.setCreatedAt(LocalDateTime.now());
 

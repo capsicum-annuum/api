@@ -24,13 +24,7 @@ public class SaveNeedService {
     private FindSkillByDescriptionService findSkillByDescriptionService;
 
     @Autowired
-    private FindCauseByDescriptionService findCauseByDescriptionService;
-
-    @Autowired
     private NeedRepository needRepository;
-
-    @Autowired
-    private SaveAddressService saveAddressService;
 
     @Autowired
     private ModelMapper modelMapper;

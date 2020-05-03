@@ -38,7 +38,7 @@ public class MovementRequest {
     @NotEmpty(message = "A lista de Causas não pode estar vazia.")
     private List<NeedRequest> needsRequest;
 
-    @NotBlank(message = "A data/hora de término não pode ser nula.")
+    @NotEmpty(message = "A lista de Causas não pode estar vazia.")
     private List<String> causeThatSupport;
 
 }

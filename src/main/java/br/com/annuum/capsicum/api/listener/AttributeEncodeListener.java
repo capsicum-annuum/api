@@ -86,21 +86,16 @@ public class AttributeEncodeListener implements PreInsertEventListener, PreUpdat
     }
 
     private String returnAttributeMatchCodeFromList(final List<? extends Encodable> attributes) {
-
         StringBuilder builder = new StringBuilder();
-
         attributes.forEach(encodable -> {
             builder.append(Integer.toBinaryString(encodable.getBinaryIdentifier()));
         });
-
         return builder.toString();
     }
 
     private String returnAttributeMatchCode(Integer binaryIdentifier) {
         StringBuilder builder = new StringBuilder();
-
         builder.append(Integer.toBinaryString(binaryIdentifier));
-
         return builder.toString();
     }
 

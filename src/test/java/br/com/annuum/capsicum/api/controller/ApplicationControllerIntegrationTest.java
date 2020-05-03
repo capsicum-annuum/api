@@ -24,56 +24,56 @@ public class ApplicationControllerIntegrationTest {
     @Test
     public void greetingShouldReturnGreetingsToGuestFromService() throws Exception {
         this.mockMvc.perform(get("/guest"))
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Hello, Guest | GUEST")));
+            .andExpect(status().isOk())
+            .andExpect(content().string(containsString("Hello, Guest | GUEST")));
     }
 
     @Test
     @WithUserDetails("voluntario@ajuda.ai")
     public void greetingShouldReturnGreetingsToVolunteerFromService() throws Exception {
         this.mockMvc.perform(get("/volunteer"))
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Hello, Volunteer | VOLUNTEER")));
+            .andExpect(status().isOk())
+            .andExpect(content().string(containsString("Hello, Volunteer | VOLUNTEER")));
     }
 
     @Test
     @WithUserDetails("grupo@ajuda.ai")
     public void greetingShouldReturnGreetingsToGroupFromService() throws Exception {
         this.mockMvc.perform(get("/group"))
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Hello, Group | GROUP")));
+            .andExpect(status().isOk())
+            .andExpect(content().string(containsString("Hello, Group | GROUP")));
     }
 
     @Test
     @WithUserDetails("ong@ajuda.ai")
     public void greetingShouldReturnGreetingsToOrganizationFromService() throws Exception {
         this.mockMvc.perform(get("/organization"))
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Hello, Organization | ORGANIZATION")));
+            .andExpect(status().isOk())
+            .andExpect(content().string(containsString("Hello, Organization | ORGANIZATION")));
     }
 
     @Test
     @WithUserDetails("voluntario@ajuda.ai")
     public void greetingShouldReturnGreetingsToVolunteerFromServiceForAllUsersEndpoint() throws Exception {
         this.mockMvc.perform(get("/user"))
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Hello, Volunteer | VOLUNTEER")));
+            .andExpect(status().isOk())
+            .andExpect(content().string(containsString("Hello, Volunteer | VOLUNTEER")));
     }
 
     @Test
     @WithUserDetails("grupo@ajuda.ai")
     public void greetingShouldReturnGreetingsToGroupFromServiceForAllUsersEndpoint() throws Exception {
         this.mockMvc.perform(get("/user"))
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Hello, Group | GROUP")));
+            .andExpect(status().isOk())
+            .andExpect(content().string(containsString("Hello, Group | GROUP")));
     }
 
     @Test
     @WithUserDetails("ong@ajuda.ai")
     public void greetingShouldReturnGreetingsToOrganizationFromServiceForAllUsersEndpoint() throws Exception {
         this.mockMvc.perform(get("/user"))
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Hello, Organization | ORGANIZATION")));
+            .andExpect(status().isOk())
+            .andExpect(content().string(containsString("Hello, Organization | ORGANIZATION")));
     }
 
 }

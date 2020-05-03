@@ -13,8 +13,6 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static java.util.Objects.nonNull;
-
 @Service
 @Slf4j
 public class SaveUserVolunteerService {

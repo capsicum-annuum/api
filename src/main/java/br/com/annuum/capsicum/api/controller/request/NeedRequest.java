@@ -23,4 +23,7 @@ public class NeedRequest {
     @Nullable
     private AvailabilityRequest availabilityRequest;
 
+    @NotNull(message = "A boolean isActive não pode estar nula.")
+    private Boolean isActive;
+
 }

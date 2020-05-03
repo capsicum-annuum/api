@@ -2,10 +2,7 @@ package br.com.annuum.capsicum.api.service;
 
 import br.com.annuum.capsicum.api.controller.request.MovementRequest;
 import br.com.annuum.capsicum.api.controller.response.MovementResponse;
-import br.com.annuum.capsicum.api.domain.Address;
-import br.com.annuum.capsicum.api.domain.Cause;
-import br.com.annuum.capsicum.api.domain.Movement;
-import br.com.annuum.capsicum.api.domain.Need;
+import br.com.annuum.capsicum.api.domain.*;
 import br.com.annuum.capsicum.api.repository.MovementRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -13,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,10 +19,10 @@ import java.util.stream.Collectors;
 public class SaveMovementService {
 
     @Autowired
-    private FindSkillByDescriptionService findSkillByDescriptionService;
+    private FindCauseByDescriptionService findCauseByDescriptionService;
 
     @Autowired
-    private FindCauseByDescriptionService findCauseByDescriptionService;
+    private FindUserByIdService findUserByIdService;
 
     @Autowired
     private MovementRepository movementRepository;
@@ -44,6 +42,8 @@ public class SaveMovementService {
         log.info("Start to create an UserOrganization for: '{}'", movementRequest);
         final Address address = saveAddressService.saveAddress(movementRequest.getAddressRequest());
 
+        final AbstractUser abstractUser = findUserByIdService.find(movementRequest.getUserAuthorId());
+
         final List<Need> needs = movementRequest.getNeedsRequest().stream()
             .map(needRequest -> saveNeedService.save(needRequest))
             .collect(Collectors.toList());
@@ -52,10 +52,17 @@ public class SaveMovementService {
             .map(cause -> findCauseByDescriptionService.find(cause))
             .collect(Collectors.toList());
 
-        final Movement movement = modelMapper.map(movementRequest, Movement.class)
+        final Movement movement = new Movement()
+            .setUserAuthor(abstractUser)
             .setAddress(address)
             .setCauseThatSupport(causeThatSupport)
-            .setNeeds(needs);
+            .setNeeds(needs)
+            .setDateTimeStart(movementRequest.getDateTimeStart())
+            .setDateTimeEnd(movementRequest.getDateTimeEnd())
+            .setPictureId(movementRequest.getPictureId())
+            .setTitle(movementRequest.getTitle())
+            .setDescription(movementRequest.getDescription())
+            .setCreatedAt(LocalDateTime.now());
 
         return modelMapper.map(movementRepository.save(movement), MovementResponse.class);
     }

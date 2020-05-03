@@ -25,7 +25,6 @@ public class Need {
     @ManyToOne
     private Skill skill;
 
-    @NotBlank
     private String skillMatchCode;
 
     @NotNull
