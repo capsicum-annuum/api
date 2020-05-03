@@ -39,6 +39,6 @@ public class MovementRequest {
     private List<NeedRequest> needsRequest;
 
     @NotBlank(message = "A data/hora de término não pode ser nula.")
-    private List<String> causesThatSupport;
+    private List<String> causeThatSupport;
 
 }

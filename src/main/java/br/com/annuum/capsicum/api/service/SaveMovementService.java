@@ -1,7 +1,7 @@
 package br.com.annuum.capsicum.api.service;
 
 import br.com.annuum.capsicum.api.controller.request.MovementRequest;
-import br.com.annuum.capsicum.api.converter.EncodableAttributeConverter;
+import br.com.annuum.capsicum.api.controller.response.MovementResponse;
 import br.com.annuum.capsicum.api.domain.Address;
 import br.com.annuum.capsicum.api.domain.Cause;
 import br.com.annuum.capsicum.api.domain.Movement;
@@ -27,9 +27,6 @@ public class SaveMovementService {
     private FindCauseByDescriptionService findCauseByDescriptionService;
 
     @Autowired
-    private EncodableAttributeConverter encodableAttributeConverter;
-
-    @Autowired
     private MovementRepository movementRepository;
 
     @Autowired
@@ -42,7 +39,7 @@ public class SaveMovementService {
     private ModelMapper modelMapper;
 
     @Transactional
-    public void save(final MovementRequest movementRequest) {
+    public MovementResponse save(final MovementRequest movementRequest) {
 
         log.info("Start to create an UserOrganization for: '{}'", movementRequest);
         final Address address = saveAddressService.saveAddress(movementRequest.getAddressRequest());
@@ -51,15 +48,15 @@ public class SaveMovementService {
             .map(needRequest -> saveNeedService.save(needRequest))
             .collect(Collectors.toList());
 
-        final List<Cause> causesThatSupport = movementRequest.getCausesThatSupport().stream()
+        final List<Cause> causeThatSupport = movementRequest.getCauseThatSupport().stream()
             .map(cause -> findCauseByDescriptionService.find(cause))
             .collect(Collectors.toList());
 
         final Movement movement = modelMapper.map(movementRequest, Movement.class)
             .setAddress(address)
-            .setCausesThatSupport(causesThatSupport)
-            .setCauseMatchCode(encodableAttributeConverter.convertToBinaryCode(causesThatSupport))
+            .setCauseThatSupport(causeThatSupport)
             .setNeeds(needs);
 
+        return modelMapper.map(movementRepository.save(movement), MovementResponse.class);
     }
 }

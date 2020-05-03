@@ -1,6 +1,6 @@
 package br.com.annuum.capsicum.api.domain;
 
-import br.com.annuum.capsicum.api.converter.AvailabilityConverter;
+import br.com.annuum.capsicum.api.listener.AttributeEncodeListener;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.data.annotation.CreatedDate;
@@ -13,6 +13,7 @@ import java.util.List;
 
 @Data
 @Accessors(chain = true)
+@EntityListeners(AttributeEncodeListener.class)
 @Entity
 @SequenceGenerator(name = "post_sequence", sequenceName = "post_sequence", allocationSize = 1)
 public class Movement {
@@ -47,7 +48,7 @@ public class Movement {
     private List<Need> needs;
 
     @ManyToMany
-    private List<Cause> causesThatSupport;
+    private List<Cause> causeThatSupport;
 
     @NotBlank
     private String causeMatchCode;

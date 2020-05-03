@@ -1,7 +1,6 @@
 package br.com.annuum.capsicum.api.service;
 
 import br.com.annuum.capsicum.api.controller.request.NeedRequest;
-import br.com.annuum.capsicum.api.converter.EncodableAttributeConverter;
 import br.com.annuum.capsicum.api.domain.Availability;
 import br.com.annuum.capsicum.api.domain.DayShiftAvailability;
 import br.com.annuum.capsicum.api.domain.Need;
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.nonNull;
@@ -27,9 +25,6 @@ public class SaveNeedService {
 
     @Autowired
     private FindCauseByDescriptionService findCauseByDescriptionService;
-
-    @Autowired
-    private EncodableAttributeConverter encodableAttributeConverter;
 
     @Autowired
     private NeedRepository needRepository;

@@ -1,6 +1,7 @@
 package br.com.annuum.capsicum.api.domain;
 
 import br.com.annuum.capsicum.api.converter.AvailabilityConverter;
+import br.com.annuum.capsicum.api.listener.AttributeEncodeListener;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Data
 @Accessors(chain = true)
+@EntityListeners(AttributeEncodeListener.class)
 @Entity
 @SequenceGenerator(name = "need_sequence", sequenceName = "need_sequence", allocationSize = 1)
 public class Need {
