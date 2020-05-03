@@ -31,11 +31,10 @@ public class SaveNeedService {
 
     @Transactional
     public Need save(final NeedRequest needRequest) {
-
+        log.info("Start to create an Need for: '{}'", needRequest);
         final Skill skill = findSkillByDescriptionService.find(needRequest.getSkill());
 
         final Availability availability = new Availability();
-
         if (nonNull(needRequest.getAvailabilityRequest())) {
             availability.setDayShiftAvailabilities(needRequest.getAvailabilityRequest().getDayShiftAvailabilities()
                 .stream()
@@ -43,10 +42,12 @@ public class SaveNeedService {
                 .collect(Collectors.toList()));
         }
 
-        final Need need = modelMapper.map(needRequest, Need.class)
+        log.info("Building Need to persist");
+        final Need needToPersist = modelMapper.map(needRequest, Need.class)
             .setSkill(skill)
             .setAvailability(availability);
 
-        return needRepository.save(need);
+        log.info("Creating a new Need: '{}'", needToPersist);
+        return needRepository.save(needToPersist);
     }
 }

@@ -38,7 +38,6 @@ public class SaveMovementService {
 
     @Transactional
     public MovementResponse save(final MovementRequest movementRequest) {
-
         log.info("Start to create an UserOrganization for: '{}'", movementRequest);
         final Address address = saveAddressService.saveAddress(movementRequest.getAddressRequest());
 
@@ -52,6 +51,7 @@ public class SaveMovementService {
             .map(cause -> findCauseByDescriptionService.find(cause))
             .collect(Collectors.toList());
 
+        log.info("Building Movement to persist");
         final Movement movement = new Movement()
             .setUserAuthor(abstractUser)
             .setAddress(address)
@@ -64,6 +64,7 @@ public class SaveMovementService {
             .setDescription(movementRequest.getDescription())
             .setCreatedAt(LocalDateTime.now());
 
+        log.info("Creating a new Movement: '{}'", movement);
         return modelMapper.map(movementRepository.save(movement), MovementResponse.class);
     }
 }

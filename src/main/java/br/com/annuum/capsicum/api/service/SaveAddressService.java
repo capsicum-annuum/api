@@ -30,9 +30,10 @@ public class SaveAddressService {
 
     @Transactional
     public Address saveAddress(final AddressRequest addressRequest) {
-
+        log.info("Start to create an Address for: '{}'", addressRequest);
         final City city = findOrCreateNewCityService.findOrCreateNewCity(addressRequest.getCityRequest());
 
+        log.info("Building Address to persist");
         final Address addressToPersist = modelMapper.map(addressRequest, Address.class)
             .setGeolocation(pointFactory.createPointFromCoordinates(addressRequest.getLatitude(), addressRequest.getLongitude()))
             .setCity(city);
