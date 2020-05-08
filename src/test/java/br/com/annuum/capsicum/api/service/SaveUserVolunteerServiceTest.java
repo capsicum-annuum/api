@@ -79,8 +79,6 @@ class SaveUserVolunteerServiceTest {
             .setUserSkills(skillList)
             .setAvailability(availability);
 
-        userVolunteer.setCreatedAt(LocalDateTime.now());
-
         final UserVolunteerRequest userVolunteerRequest = new UserVolunteerRequest()
             .setAddressRequest(Mockito.mock(AddressRequest.class))
             .setCauseThatSupport(Collections.singletonList("someCause"))

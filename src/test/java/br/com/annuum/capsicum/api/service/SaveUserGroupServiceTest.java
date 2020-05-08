@@ -49,7 +49,6 @@ class SaveUserGroupServiceTest {
         final UserGroup userGroup = new UserGroup()
             .setAddress(address)
             .setCauseThatSupport(Collections.singletonList(cause));
-        userGroup.setCreatedAt(LocalDateTime.now());
         final UserGroupRequest userGroupRequest = new UserGroupRequest()
             .setAddressRequest(Mockito.mock(AddressRequest.class))
             .setCauseThatSupport(Collections.singletonList("someCause"));

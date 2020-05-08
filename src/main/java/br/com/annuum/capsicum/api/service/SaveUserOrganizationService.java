@@ -47,8 +47,6 @@ public class SaveUserOrganizationService {
             .setAddress(address)
             .setCauseThatSupport(causesThatSupport);
 
-        userOrganization.setCreatedAt(LocalDateTime.now());
-
         log.info("Creating a new UserOrganization: '{}'", userOrganization);
         return modelMapper.map(userOrganizationRepository.save(userOrganization), UserOrganizationResponse.class);
     }

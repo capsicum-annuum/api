@@ -61,8 +61,7 @@ public class SaveMovementService {
             .setDateTimeEnd(movementRequest.getDateTimeEnd())
             .setPictureId(movementRequest.getPictureId())
             .setTitle(movementRequest.getTitle())
-            .setDescription(movementRequest.getDescription())
-            .setCreatedAt(LocalDateTime.now());
+            .setDescription(movementRequest.getDescription());
 
         log.info("Creating a new Movement: '{}'", movement);
         return modelMapper.map(movementRepository.save(movement), MovementResponse.class);
