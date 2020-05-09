@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 import static br.com.annuum.capsicum.api.domain.enums.Profile.VOLUNTEER;
@@ -45,17 +45,22 @@ public class UserVolunteer extends AbstractUser {
     @Convert(converter = AvailabilityConverter.class)
     private Availability availability;
 
-    private String phone;
-
-    private Long profilePictureId;
-
+    @Size(max = 1000)
     private String description;
 
+    @Size(max = 15)
+    private String phone;
+
+    @Size(max = 100)
     private String facebookUrl;
 
+    @Size(max = 100)
     private String instagramUrl;
 
+    @Size(max = 100)
     private String twitterUrl;
+
+    private Long profilePictureId;
 
     @Override
     public Profile getProfile() {

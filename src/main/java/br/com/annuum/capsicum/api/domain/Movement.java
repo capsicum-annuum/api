@@ -6,8 +6,7 @@ import lombok.experimental.Accessors;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -27,9 +26,11 @@ public class Movement {
     private AbstractUser userAuthor;
 
     @NotBlank
+    @Size(max = 100)
     private String title;
 
     @NotBlank
+    @Size(max = 1000)
     private String description;
 
     @NotNull
@@ -37,9 +38,11 @@ public class Movement {
     private Address address;
 
     @NotNull
+    @FutureOrPresent
     private LocalDateTime dateTimeStart;
 
     @NotNull
+    @Future
     private LocalDateTime dateTimeEnd;
 
     private Long PictureId;

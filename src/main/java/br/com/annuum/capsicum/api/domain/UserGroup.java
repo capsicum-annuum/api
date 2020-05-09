@@ -11,6 +11,7 @@ import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 import static br.com.annuum.capsicum.api.domain.enums.Profile.GROUP;
@@ -30,23 +31,30 @@ public class UserGroup extends AbstractUser {
     private List<Cause> causeThatSupport;
 
     @NotBlank
+    @Size(max = 1000)
     private String description;
 
+    @Size(max = 1000)
     private String mission;
 
+    @Size(max = 15)
     private String phone;
+
+    @Size(max = 100)
+    private String webSiteUrl;
+
+    @Size(max = 100)
+    private String facebookUrl;
+
+    @Size(max = 100)
+    private String instagramUrl;
+
+    @Size(max = 100)
+    private String twitterUrl;
 
     private Long profilePictureId;
 
     private Long backgroundPictureId;
-
-    private String webSiteUrl;
-
-    private String facebookUrl;
-
-    private String instagramUrl;
-
-    private String twitterUrl;
 
     @Override
     public Profile getProfile() {
