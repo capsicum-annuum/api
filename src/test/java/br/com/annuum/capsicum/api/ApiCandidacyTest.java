@@ -7,7 +7,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest
 @ActiveProfiles("test")
-class ApiApplicationTest {
+class ApiCandidacyTest {
 
     @Test
     void shouldInitialize() {

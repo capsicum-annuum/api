@@ -15,12 +15,12 @@ import java.util.List;
 @Accessors(chain = true)
 @EntityListeners(AttributeEncodeListener.class)
 @Entity
-@SequenceGenerator(name = "post_sequence", sequenceName = "post_sequence", allocationSize = 1)
+@SequenceGenerator(name = "movement_sequence", sequenceName = "movement_sequence", allocationSize = 1)
 @DateStartBeforeDateEnd
 public class Movement {
 
     @Id
-    @GeneratedValue(generator = "post_sequence", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(generator = "movement_sequence", strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @NotNull

@@ -11,11 +11,11 @@ import java.time.LocalDateTime;
 @Data
 @Accessors(chain = true)
 @Entity
-@SequenceGenerator(name = "candidate_sequence", sequenceName = "candidate_sequence", allocationSize = 1)
-public class Application {
+@SequenceGenerator(name = "candidacy_sequence", sequenceName = "candidacy_sequence", allocationSize = 1)
+public class Candidacy {
 
     @Id
-    @GeneratedValue(generator = "candidate_sequence", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(generator = "candidacy_sequence", strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @ManyToOne

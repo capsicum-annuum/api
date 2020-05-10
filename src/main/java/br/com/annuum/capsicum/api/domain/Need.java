@@ -37,7 +37,7 @@ public class Need {
     private Availability availability;
 
     @ManyToMany
-    private List<Application> applications;
+    private List<Candidacy> candidacies;
 
     @ManyToMany
     private List<Volunteer> volunteers;
