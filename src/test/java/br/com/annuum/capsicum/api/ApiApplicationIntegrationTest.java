@@ -13,7 +13,7 @@ import java.util.List;
 
 @SpringBootTest
 @ActiveProfiles("test")
-public class ApiCandidacyIntegrationTest {
+public class ApiApplicationIntegrationTest {
 
     @Resource
     private CauseRepository causeRepository;
