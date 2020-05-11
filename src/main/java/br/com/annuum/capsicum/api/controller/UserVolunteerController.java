@@ -1,7 +1,9 @@
 package br.com.annuum.capsicum.api.controller;
 
+import br.com.annuum.capsicum.api.controller.request.UserVolunteerEvaluationRequest;
 import br.com.annuum.capsicum.api.controller.request.UserVolunteerRequest;
 import br.com.annuum.capsicum.api.controller.response.UserVolunteerResponse;
+import br.com.annuum.capsicum.api.service.SaveUserVolunteerEvaluation;
 import br.com.annuum.capsicum.api.service.SaveUserVolunteerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,9 +18,18 @@ public class UserVolunteerController {
     @Autowired
     private SaveUserVolunteerService saveUserVolunteerService;
 
+    @Autowired
+    private SaveUserVolunteerEvaluation saveUserVolunteerEvaluation;
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UserVolunteerResponse saveUserVolunteer(@Valid @RequestBody final UserVolunteerRequest userVolunteerRequest) {
         return saveUserVolunteerService.save(userVolunteerRequest);
+    }
+
+    @PostMapping("/evaluation")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void saveUserVolunteerEvaluation(@Valid @RequestBody final UserVolunteerEvaluationRequest userVolunteerEvaluationRequest) {
+        saveUserVolunteerEvaluation.save(userVolunteerEvaluationRequest);
     }
 }
