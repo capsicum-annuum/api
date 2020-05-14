@@ -1,6 +1,5 @@
 package br.com.annuum.capsicum.api.controller.request;
 
-import br.com.annuum.capsicum.api.domain.Movement;
 import lombok.Data;
 import lombok.experimental.Accessors;
 

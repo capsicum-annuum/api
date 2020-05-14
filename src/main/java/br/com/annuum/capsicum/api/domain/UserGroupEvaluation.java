@@ -43,4 +43,5 @@ public class UserGroupEvaluation {
 
     @CreatedDate
     private LocalDateTime createdAt;
+
 }

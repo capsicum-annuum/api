@@ -17,7 +17,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
 import java.time.DayOfWeek;
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 

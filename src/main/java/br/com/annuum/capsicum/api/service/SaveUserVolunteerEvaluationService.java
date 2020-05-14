@@ -7,7 +7,6 @@ import br.com.annuum.capsicum.api.domain.UserVolunteer;
 import br.com.annuum.capsicum.api.domain.UserVolunteerEvaluation;
 import br.com.annuum.capsicum.api.repository.UserVolunteerEvaluationRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +14,7 @@ import javax.transaction.Transactional;
 
 @Service
 @Slf4j
-public class SaveUserVolunteerEvaluation {
+public class SaveUserVolunteerEvaluationService {
 
     @Autowired
     private UserVolunteerEvaluationRepository userVolunteerEvaluationRepository;
@@ -29,11 +28,8 @@ public class SaveUserVolunteerEvaluation {
     @Autowired
     private FindMovementByIdService findMovementByIdService;
 
-    @Autowired
-    private ModelMapper modelMapper;
-
     @Transactional
-    public void save(final UserVolunteerEvaluationRequest userVolunteerEvaluationRequest) {
+    public UserVolunteerEvaluation save(final UserVolunteerEvaluationRequest userVolunteerEvaluationRequest) {
 
         log.info("Start to create an UserVolunteerEvaluation for: '{}'", userVolunteerEvaluationRequest);
         final UserVolunteer userVolunteerEvaluated = findUserVolunteerByIdService.find(userVolunteerEvaluationRequest.getUserVolunteerEvaluatedId());
@@ -51,7 +47,7 @@ public class SaveUserVolunteerEvaluation {
             .setFeedback(userVolunteerEvaluationRequest.getFeedback());
 
         log.info("Creating a new UserVolunteerEvaluation: '{}'", userVolunteerEvaluation);
-        userVolunteerEvaluationRepository.save(userVolunteerEvaluation);
+        return userVolunteerEvaluationRepository.save(userVolunteerEvaluation);
     }
 
 }
