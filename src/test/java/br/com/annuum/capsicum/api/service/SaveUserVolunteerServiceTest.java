@@ -17,7 +17,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
 import java.time.DayOfWeek;
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
@@ -31,10 +30,10 @@ class SaveUserVolunteerServiceTest {
     private SaveUserVolunteerService saveUserVolunteerService;
 
     @Mock
-    private FindCauseByDescriptionService findCauseByDescriptionService;
+    private FindCauseByIdService findCauseByIdService;
 
     @Mock
-    private FindSkillByDescriptionService findSkillByDescriptionService;
+    private FindSkillByIdService findSkillByIdService;
 
     @Mock
     private UserVolunteerRepository userVolunteerRepository;
@@ -81,8 +80,8 @@ class SaveUserVolunteerServiceTest {
 
         final UserVolunteerRequest userVolunteerRequest = new UserVolunteerRequest()
             .setAddressRequest(Mockito.mock(AddressRequest.class))
-            .setCauseThatSupport(Collections.singletonList("someCause"))
-            .setUserSkills(Collections.singletonList("someSkill"))
+            .setCauseThatSupport(Collections.singletonList(1L))
+            .setUserSkills(Collections.singletonList(1L))
             .setAvailability(availabilityRequest);
 
         final UserVolunteerResponse expectedUserVolunteerResponse = new UserVolunteerResponse()
@@ -90,9 +89,9 @@ class SaveUserVolunteerServiceTest {
             .setDescription("someDescription")
             .setEmail("someEmail");
 
-        Mockito.when(findCauseByDescriptionService.find(cause.getDescription()))
+        Mockito.when(findCauseByIdService.find(cause.getId()))
             .thenReturn(cause);
-        Mockito.when(findSkillByDescriptionService.find(skill.getDescription()))
+        Mockito.when(findSkillByIdService.find(skill.getId()))
             .thenReturn(skill);
         Mockito.when(saveAddressService.saveAddress(userVolunteerRequest.getAddressRequest()))
             .thenReturn(address);

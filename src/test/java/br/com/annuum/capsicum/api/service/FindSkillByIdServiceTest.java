@@ -16,10 +16,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
-class FindSkillByDescriptionServiceTest {
+class FindSkillByIdServiceTest {
 
     @InjectMocks
-    FindSkillByDescriptionService findSkillByDescriptionService;
+    FindSkillByIdService findSkillByIdService;
 
     @Mock
     private SkillRepository skillRepository;
@@ -27,16 +27,16 @@ class FindSkillByDescriptionServiceTest {
     @Test
     public void mustReturnSkillThatDescriptionGivenMatchWithPersistedSkills_withSuccess() {
         // Arrange
-        final String skillDescription = "someCause";
+        final Long skillId = 1L;
         final Skill expectedSkill = new Skill()
             .setId(1L)
             .setDescription("someSkill");
 
-        Mockito.when(skillRepository.findByDescription(skillDescription))
+        Mockito.when(skillRepository.findById(skillId))
             .thenReturn(Optional.of(expectedSkill));
 
         // Act
-        final Skill returnedSkill = findSkillByDescriptionService.find(skillDescription);
+        final Skill returnedSkill = findSkillByIdService.find(skillId);
 
         // Assert
         assertEquals(expectedSkill, returnedSkill);
@@ -45,11 +45,11 @@ class FindSkillByDescriptionServiceTest {
     @Test
     public void mustThrowRegisterNotFoundExceptionWhenDescriptionGivenNotMatchWithPersistedSkills_withSuccess() {
         // Arrange
-        final String skillDescription = "someskill";
-        Mockito.when(skillRepository.findByDescription(skillDescription))
+        final Long skillId = 1L;
+        Mockito.when(skillRepository.findById(skillId))
             .thenReturn(Optional.empty());
 
         // Act and Assert
-        assertThrows(RegisterNotFoundException.class, () -> findSkillByDescriptionService.find(skillDescription));
+        assertThrows(RegisterNotFoundException.class, () -> findSkillByIdService.find(skillId));
     }
 }

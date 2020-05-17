@@ -28,7 +28,7 @@ class SaveMovementServiceTest {
     private SaveMovementService saveMovementService;
 
     @Mock
-    private FindCauseByDescriptionService findCauseByDescriptionService;
+    private FindCauseByIdService findCauseByIdService;
 
     @Mock
     private FindUserByIdService findUserByIdService;
@@ -67,7 +67,7 @@ class SaveMovementServiceTest {
             .setIsActive(true);
 
         final NeedRequest needRequest = new NeedRequest()
-            .setSkill("someSkill")
+            .setSkill(1L)
             .setDescription("someDescription")
             .setQuantity(1)
             .setIsActive(true);
@@ -80,7 +80,7 @@ class SaveMovementServiceTest {
             .setUserAuthorId(1L)
             .setAddressRequest(Mockito.mock(AddressRequest.class))
             .setNeedsRequest(needRequests)
-            .setCauseThatSupport(Collections.singletonList("someCause"))
+            .setCauseThatSupport(Collections.singletonList(1L))
             .setDateTimeStart(LocalDateTime.of(2021, 10, 10, 10, 10))
             .setDateTimeEnd(LocalDateTime.of(2021, 10, 11, 10, 10))
             .setDescription("someDescription")
@@ -108,7 +108,7 @@ class SaveMovementServiceTest {
             .thenReturn(userGroup);
         Mockito.when(saveNeedService.save(needRequest))
             .thenReturn(need);
-        Mockito.when(findCauseByDescriptionService.find(cause.getDescription()))
+        Mockito.when(findCauseByIdService.find(cause.getId()))
             .thenReturn(cause);
         Mockito.when(movementRepository.save(expectedMovement))
             .thenReturn(expectedMovement);

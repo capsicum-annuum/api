@@ -27,7 +27,7 @@ class SaveUserOrganizationServiceTest {
     private SaveUserOrganizationService saveUserOrganizationService;
 
     @Mock
-    private FindCauseByDescriptionService findCauseByDescriptionService;
+    private FindCauseByIdService findCauseByIdService;
 
     @Mock
     private UserOrganizationRepository userOrganizationRepository;
@@ -54,9 +54,9 @@ class SaveUserOrganizationServiceTest {
             .setEmail("someEmail");
         final UserOrganizationRequest userOrganizationRequest = new UserOrganizationRequest()
             .setAddressRequest(Mockito.mock(AddressRequest.class))
-            .setCauseThatSupport(Collections.singletonList("someCause"));
+            .setCauseThatSupport(Collections.singletonList(1l));
 
-        Mockito.when(findCauseByDescriptionService.find(cause.getDescription()))
+        Mockito.when(findCauseByIdService.find(cause.getId()))
             .thenReturn(cause);
         Mockito.when(saveAddressService.saveAddress(userOrganizationRequest.getAddressRequest()))
             .thenReturn(address);

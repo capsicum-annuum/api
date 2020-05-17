@@ -18,10 +18,10 @@ import java.util.stream.Collectors;
 public class SaveUserVolunteerService {
 
     @Autowired
-    private FindSkillByDescriptionService findSkillByDescriptionService;
+    private FindSkillByIdService findSkillByIdService;
 
     @Autowired
-    private FindCauseByDescriptionService findCauseByDescriptionService;
+    private FindCauseByIdService findCauseByIdService;
 
     @Autowired
     private UserVolunteerRepository userVolunteerRepository;
@@ -39,12 +39,12 @@ public class SaveUserVolunteerService {
 
         final List<Cause> causesThatSupport = userVolunteerRequest.getCauseThatSupport()
             .stream()
-            .map(cause -> findCauseByDescriptionService.find(cause))
+            .map(cause -> findCauseByIdService.find(cause))
             .collect(Collectors.toList());
 
         final List<Skill> userSkills = userVolunteerRequest.getUserSkills()
             .stream()
-            .map(skill -> findSkillByDescriptionService.find(skill))
+            .map(skill -> findSkillByIdService.find(skill))
             .collect(Collectors.toList());
 
         final List<DayShiftAvailability> availability = userVolunteerRequest.getAvailability().getDayShiftAvailabilities()

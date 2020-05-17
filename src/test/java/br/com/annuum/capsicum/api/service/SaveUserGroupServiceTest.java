@@ -15,7 +15,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
-import java.time.LocalDateTime;
 import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -28,7 +27,7 @@ class SaveUserGroupServiceTest {
     private SaveUserGroupService saveUserGroupService;
 
     @Mock
-    private FindCauseByDescriptionService findCauseByDescriptionService;
+    private FindCauseByIdService findCauseByIdService;
 
     @Mock
     private UserGroupRepository userGroupRepository;
@@ -51,13 +50,13 @@ class SaveUserGroupServiceTest {
             .setCauseThatSupport(Collections.singletonList(cause));
         final UserGroupRequest userGroupRequest = new UserGroupRequest()
             .setAddressRequest(Mockito.mock(AddressRequest.class))
-            .setCauseThatSupport(Collections.singletonList("someCause"));
+            .setCauseThatSupport(Collections.singletonList(1L));
         final UserGroupResponse expectedUserGroupResponse = new UserGroupResponse()
             .setName("someUserName")
             .setDescription("someDescription")
             .setEmail("someEmail");
 
-        Mockito.when(findCauseByDescriptionService.find(cause.getDescription()))
+        Mockito.when(findCauseByIdService.find(cause.getId()))
             .thenReturn(cause);
         Mockito.when(saveAddressService.saveAddress(userGroupRequest.getAddressRequest()))
             .thenReturn(address);

@@ -9,14 +9,15 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class FindCauseByDescriptionService {
+public class FindCauseByIdService {
 
     @Autowired
     private CauseRepository causeRepository;
 
-    public Cause find(final String description) {
-        log.info("Searching for Cause with description '{}'", description);
-        return causeRepository.findByDescription(description)
+    public Cause find(final Long id) {
+        log.info("Searching for Cause with id '{}'", id);
+        return causeRepository.findById(id)
             .orElseThrow(() -> new RegisterNotFoundException("Causa não encontrada!"));
     }
+
 }

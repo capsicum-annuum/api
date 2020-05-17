@@ -21,7 +21,7 @@ import static java.util.Objects.nonNull;
 public class SaveNeedService {
 
     @Autowired
-    private FindSkillByDescriptionService findSkillByDescriptionService;
+    private FindSkillByIdService findSkillByIdService;
 
     @Autowired
     private NeedRepository needRepository;
@@ -32,7 +32,7 @@ public class SaveNeedService {
     @Transactional
     public Need save(final NeedRequest needRequest) {
         log.info("Start to create an Need for: '{}'", needRequest);
-        final Skill skill = findSkillByDescriptionService.find(needRequest.getSkill());
+        final Skill skill = findSkillByIdService.find(needRequest.getSkill());
 
         final Availability availability = new Availability();
         if (nonNull(needRequest.getAvailabilityRequest())) {

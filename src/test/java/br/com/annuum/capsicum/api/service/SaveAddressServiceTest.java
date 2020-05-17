@@ -70,5 +70,4 @@ class SaveAddressServiceTest {
         Mockito.verify(addressRepository, times(1)).save(expectedAddress);
     }
 
-
 }

@@ -30,7 +30,7 @@ class SaveNeedServiceTest {
     private SaveNeedService saveNeedService;
 
     @Mock
-    private FindSkillByDescriptionService findSkillByDescriptionService;
+    private FindSkillByIdService findSkillByIdService;
 
     @Mock
     private NeedRepository needRepository;
@@ -69,13 +69,13 @@ class SaveNeedServiceTest {
             .setIsActive(true);
 
         final NeedRequest needRequest = new NeedRequest()
-            .setSkill("someSkill")
+            .setSkill(1L)
             .setDescription("someDescription")
             .setQuantity(1)
             .setAvailabilityRequest(availabilityRequest)
             .setIsActive(true);
 
-        Mockito.when(findSkillByDescriptionService.find(skill.getDescription()))
+        Mockito.when(findSkillByIdService.find(skill.getId()))
             .thenReturn(skill);
         Mockito.when(modelMapper.map(dayShiftAvailabilityRequest, DayShiftAvailability.class))
             .thenReturn(dayShiftAvailability);

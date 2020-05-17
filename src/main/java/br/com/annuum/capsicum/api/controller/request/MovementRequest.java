@@ -35,10 +35,10 @@ public class MovementRequest {
     @Nullable
     private Long PictureId;
 
-    @NotEmpty(message = "A lista de Causas não pode estar vazia.")
+    @NotEmpty(message = "A lista de Necessidades não pode estar vazia.")
     private List<NeedRequest> needsRequest;
 
     @NotEmpty(message = "A lista de Causas não pode estar vazia.")
-    private List<String> causeThatSupport;
+    private List<Long> causeThatSupport;
 
 }

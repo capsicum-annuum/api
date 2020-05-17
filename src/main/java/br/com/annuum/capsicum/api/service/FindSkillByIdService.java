@@ -9,14 +9,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class FindSkillByDescriptionService {
+public class FindSkillByIdService {
 
     @Autowired
     private SkillRepository skillRepository;
 
-    public Skill find(final String description) {
-        log.info("Searching for Skill with description '{}'", description);
-        return skillRepository.findByDescription(description)
+    public Skill find(final Long id) {
+        log.info("Searching for Skill with id '{}'", id);
+        return skillRepository.findById(id)
             .orElseThrow(() -> new RegisterNotFoundException("Skill não encontrada!"));
     }
 }
