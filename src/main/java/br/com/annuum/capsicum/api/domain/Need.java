@@ -39,9 +39,6 @@ public class Need {
     @ManyToMany
     private List<Candidacy> candidacies;
 
-    @ManyToMany
-    private List<Volunteer> volunteers;
-
     @NotNull
     private Boolean isActive;
 
