@@ -102,7 +102,7 @@ class SaveMovementServiceTest {
             .setDescription("someDescription")
             .setTitle("someTitle");
 
-        Mockito.when(saveAddressService.saveAddress(movementRequest.getAddressRequest()))
+        Mockito.when(saveAddressService.save(movementRequest.getAddressRequest()))
             .thenReturn(address);
         Mockito.when(findUserByIdService.find(movementRequest.getUserAuthorId()))
             .thenReturn(userGroup);

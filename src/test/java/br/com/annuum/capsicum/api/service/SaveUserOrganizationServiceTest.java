@@ -58,7 +58,7 @@ class SaveUserOrganizationServiceTest {
 
         Mockito.when(findCauseByIdService.find(cause.getId()))
             .thenReturn(cause);
-        Mockito.when(saveAddressService.saveAddress(userOrganizationRequest.getAddressRequest()))
+        Mockito.when(saveAddressService.save(userOrganizationRequest.getAddressRequest()))
             .thenReturn(address);
         Mockito.when(modelMapper.map(userOrganizationRequest, UserOrganization.class))
             .thenReturn(userOrganization);

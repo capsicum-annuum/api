@@ -58,7 +58,7 @@ class SaveUserGroupServiceTest {
 
         Mockito.when(findCauseByIdService.find(cause.getId()))
             .thenReturn(cause);
-        Mockito.when(saveAddressService.saveAddress(userGroupRequest.getAddressRequest()))
+        Mockito.when(saveAddressService.save(userGroupRequest.getAddressRequest()))
             .thenReturn(address);
         Mockito.when(modelMapper.map(userGroupRequest, UserGroup.class))
             .thenReturn(userGroup);

@@ -2,7 +2,11 @@ package br.com.annuum.capsicum.api.service;
 
 import br.com.annuum.capsicum.api.controller.request.UserVolunteerRequest;
 import br.com.annuum.capsicum.api.controller.response.UserVolunteerResponse;
-import br.com.annuum.capsicum.api.domain.*;
+import br.com.annuum.capsicum.api.domain.Address;
+import br.com.annuum.capsicum.api.domain.Cause;
+import br.com.annuum.capsicum.api.domain.Skill;
+import br.com.annuum.capsicum.api.domain.UserVolunteer;
+import br.com.annuum.capsicum.api.mapper.AvailabilityMapper;
 import br.com.annuum.capsicum.api.repository.UserVolunteerRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -32,10 +36,13 @@ public class SaveUserVolunteerService {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private AvailabilityMapper availabilityMapper;
+
     @Transactional
     public UserVolunteerResponse save(final UserVolunteerRequest userVolunteerRequest) {
         log.info("Start to create an UserVolunteer for: '{}'", userVolunteerRequest);
-        final Address address = saveAddressService.saveAddress(userVolunteerRequest.getAddressRequest());
+        final Address address = saveAddressService.save(userVolunteerRequest.getAddressRequest());
 
         final List<Cause> causesThatSupport = userVolunteerRequest.getCauseThatSupport()
             .stream()
@@ -47,17 +54,12 @@ public class SaveUserVolunteerService {
             .map(skill -> findSkillByIdService.find(skill))
             .collect(Collectors.toList());
 
-        final List<DayShiftAvailability> availability = userVolunteerRequest.getAvailability().getDayShiftAvailabilities()
-            .stream()
-            .map(dayShft -> modelMapper.map(dayShft, DayShiftAvailability.class))
-            .collect(Collectors.toList());
-
         log.info("Building UserVolunteer to persist");
         final UserVolunteer userVolunteer = modelMapper.map(userVolunteerRequest, UserVolunteer.class)
             .setAddress(address)
             .setCauseThatSupport(causesThatSupport)
             .setUserSkills(userSkills)
-            .setAvailability(new Availability().setDayShiftAvailabilities(availability));
+            .setAvailability(availabilityMapper.map(userVolunteerRequest.getAvailability()));
 
         log.info("Creating a new UserVolunteer: '{}'", userVolunteer);
         return modelMapper.map(userVolunteerRepository.save(userVolunteer), UserVolunteerResponse.class);

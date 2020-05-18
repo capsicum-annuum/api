@@ -35,7 +35,7 @@ public class SaveUserOrganizationService {
     public UserOrganizationResponse save(final UserOrganizationRequest userOrganizationRequest) {
 
         log.info("Start to create an UserOrganization for: '{}'", userOrganizationRequest);
-        final Address address = saveAddressService.saveAddress(userOrganizationRequest.getAddressRequest());
+        final Address address = saveAddressService.save(userOrganizationRequest.getAddressRequest());
 
         final List<Cause> causesThatSupport = userOrganizationRequest.getCauseThatSupport().stream()
             .map(cause -> findCauseByIdService.find(cause))

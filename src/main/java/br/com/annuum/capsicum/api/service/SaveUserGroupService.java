@@ -35,7 +35,7 @@ public class SaveUserGroupService {
     public UserGroupResponse save(final UserGroupRequest userGroupRequest) {
 
         log.info("Start to create an UserGroup for: '{}'", userGroupRequest);
-        final Address address = saveAddressService.saveAddress(userGroupRequest.getAddressRequest());
+        final Address address = saveAddressService.save(userGroupRequest.getAddressRequest());
 
         final List<Cause> causesThatSupport = userGroupRequest.getCauseThatSupport().stream()
             .map(cause -> findCauseByIdService.find(cause))

@@ -29,7 +29,7 @@ public class SaveAddressService {
     private PointFactory pointFactory;
 
     @Transactional
-    public Address saveAddress(final AddressRequest addressRequest) {
+    public Address save(final AddressRequest addressRequest) {
         log.info("Start to create an Address for: '{}'", addressRequest);
         final City city = findOrCreateNewCityService.findOrCreateNewCity(addressRequest.getCityRequest());
 

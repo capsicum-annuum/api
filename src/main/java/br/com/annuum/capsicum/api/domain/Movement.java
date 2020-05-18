@@ -1,6 +1,5 @@
 package br.com.annuum.capsicum.api.domain;
 
-import br.com.annuum.capsicum.api.annotation.DateStartBeforeDateEnd;
 import br.com.annuum.capsicum.api.listener.AttributeEncodeListener;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -16,8 +15,7 @@ import java.util.List;
 @EntityListeners(AttributeEncodeListener.class)
 @Entity
 @SequenceGenerator(name = "movement_sequence", sequenceName = "movement_sequence", allocationSize = 1)
-@DateStartBeforeDateEnd
-public class Movement {
+public class Movement implements EventPeriod {
 
     @Id
     @GeneratedValue(generator = "movement_sequence", strategy = GenerationType.SEQUENCE)
