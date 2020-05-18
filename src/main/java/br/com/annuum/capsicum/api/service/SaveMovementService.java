@@ -37,7 +37,7 @@ public class SaveMovementService {
 
     @Transactional
     public MovementResponse save(final MovementRequest movementRequest) {
-        log.info("Start to create an UserOrganization for: '{}'", movementRequest);
+        log.info("Start to create a Movement for: '{}'", movementRequest);
         final Address address = saveAddressService.save(movementRequest.getAddressRequest());
 
         final AbstractUser abstractUser = findUserByIdService.find(movementRequest.getUserAuthorId());

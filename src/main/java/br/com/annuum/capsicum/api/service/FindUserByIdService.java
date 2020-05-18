@@ -17,6 +17,6 @@ public class FindUserByIdService {
     public AbstractUser find(final Long id) {
         log.info("Searching for User with id '{}'", id);
         return (AbstractUser) userRepository.findById(id)
-            .orElseThrow(() -> new RegisterNotFoundException("User não encontrado!"));
+            .orElseThrow(() -> new RegisterNotFoundException("Usuário não encontrado!"));
     }
 }

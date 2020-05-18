@@ -36,7 +36,7 @@ public class Need {
     @Convert(converter = AvailabilityConverter.class)
     private Availability availability;
 
-    @ManyToMany
+    @OneToMany
     private List<Candidacy> candidacies;
 
     @NotNull
