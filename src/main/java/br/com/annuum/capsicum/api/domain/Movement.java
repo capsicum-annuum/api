@@ -1,6 +1,6 @@
 package br.com.annuum.capsicum.api.domain;
 
-import br.com.annuum.capsicum.api.listener.AttributeEncodeListener;
+import br.com.annuum.capsicum.api.listener.MovementListener;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.data.annotation.CreatedDate;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @Data
 @Accessors(chain = true)
-@EntityListeners(AttributeEncodeListener.class)
+@EntityListeners(MovementListener.class)
 @Entity
 @SequenceGenerator(name = "movement_sequence", sequenceName = "movement_sequence", allocationSize = 1)
 public class Movement implements EventPeriod {

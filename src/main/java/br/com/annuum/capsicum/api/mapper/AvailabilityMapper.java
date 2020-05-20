@@ -28,4 +28,6 @@ public class AvailabilityMapper {
         return availability;
     }
 
+
+
 }

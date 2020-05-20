@@ -1,9 +1,9 @@
-package br.com.annuum.capsicum.api.security;
+package br.com.annuum.capsicum.api.listener;
 
 import br.com.annuum.capsicum.api.domain.Cause;
 import br.com.annuum.capsicum.api.domain.Skill;
 import br.com.annuum.capsicum.api.domain.UserVolunteer;
-import br.com.annuum.capsicum.api.listener.AttributeEncodeListener;
+import br.com.annuum.capsicum.api.mapper.AttributeMachCodeMapper;
 import org.hibernate.event.spi.PreInsertEvent;
 import org.hibernate.persister.entity.EntityPersister;
 import org.hibernate.tuple.entity.EntityMetamodel;
@@ -20,16 +20,19 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class AttributeEncodeListenerTest {
+public class UserVolunteerListenerTest {
 
     @InjectMocks
-    private AttributeEncodeListener target;
+    private UserVolunteerListener target;
 
     @Mock
     private EntityPersister persister;
 
     @Mock
     private EntityMetamodel metamodel;
+
+    @Mock
+    private AttributeMachCodeMapper attributeMachCodeMapper;
 
     @Test
     public void shouldEncodeTheEncodableAttributesOnThatWasSettedDuringUserVolunteerPersistence() {
@@ -38,10 +41,12 @@ public class AttributeEncodeListenerTest {
             .setId(1L)
             .setName("skill")
             .setBinaryIdentifier(2);
+        final String skillBinaryIdentifier = "10";
         final Cause cause = new Cause()
             .setId(1L)
             .setDescription("cause")
             .setBinaryIdentifier(2);
+        final String causeBinaryIdentifier = "10";
         final UserVolunteer entity = new UserVolunteer()
             .setUserSkills(Collections.singletonList(skill))
             .setCauseThatSupport(Collections.singletonList(cause));
@@ -52,6 +57,10 @@ public class AttributeEncodeListenerTest {
         final String expectedSkillBinaryCode = Integer.toBinaryString(skill.getBinaryIdentifier());
         final String expectedCauseBinaryCode = Integer.toBinaryString(cause.getBinaryIdentifier());
 
+        when(attributeMachCodeMapper.mapFromList(entity.getUserSkills()))
+            .thenReturn(skillBinaryIdentifier);
+        when(attributeMachCodeMapper.mapFromList(entity.getCauseThatSupport()))
+            .thenReturn(causeBinaryIdentifier);
         when(persister.getEntityMetamodel())
             .thenReturn(metamodel);
         when(metamodel.getPropertyNames())
