@@ -41,12 +41,12 @@ public class UserVolunteerListenerTest {
             .setId(1L)
             .setName("skill")
             .setBinaryIdentifier(2);
-        final String skillBinaryIdentifier = "10";
+        final String expectedSkillBinaryCode = "10";
         final Cause cause = new Cause()
             .setId(1L)
             .setDescription("cause")
             .setBinaryIdentifier(2);
-        final String causeBinaryIdentifier = "10";
+        final String expectedCauseBinaryCode = "10";
         final UserVolunteer entity = new UserVolunteer()
             .setUserSkills(Collections.singletonList(skill))
             .setCauseThatSupport(Collections.singletonList(cause));
@@ -54,13 +54,11 @@ public class UserVolunteerListenerTest {
         final String[] propertyNames = new String[]{"skillMatchCode", "causeMatchCode"};
         final Object[] state = new String[]{"", ""};
         final PreInsertEvent event = new PreInsertEvent(entity, id, state, persister, null);
-        final String expectedSkillBinaryCode = Integer.toBinaryString(skill.getBinaryIdentifier());
-        final String expectedCauseBinaryCode = Integer.toBinaryString(cause.getBinaryIdentifier());
 
         when(attributeMachCodeMapper.mapFromList(entity.getUserSkills()))
-            .thenReturn(skillBinaryIdentifier);
+            .thenReturn(expectedSkillBinaryCode);
         when(attributeMachCodeMapper.mapFromList(entity.getCauseThatSupport()))
-            .thenReturn(causeBinaryIdentifier);
+            .thenReturn(expectedCauseBinaryCode);
         when(persister.getEntityMetamodel())
             .thenReturn(metamodel);
         when(metamodel.getPropertyNames())

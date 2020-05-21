@@ -46,7 +46,7 @@ public class MovementListenerTest {
             .setId(1L)
             .setDescription("cause")
             .setBinaryIdentifier(2);
-        final String causeBinaryIdentifier = "10";
+        final String expectedCauseBinaryCode = "10";
         final UserVolunteer userVolunteer = new UserVolunteer()
             .setUserSkills(Collections.singletonList(skill))
             .setCauseThatSupport(Collections.singletonList(cause));
@@ -64,10 +64,9 @@ public class MovementListenerTest {
         final String[] propertyNames = new String[]{"causeMatchCode"};
         final Object[] state = new String[]{""};
         final PreInsertEvent event = new PreInsertEvent(entity, id, state, persister, null);
-        final String expectedCauseBinaryCode = Integer.toBinaryString(cause.getBinaryIdentifier());
 
         when(attributeMachCodeMapper.mapFromList(entity.getCauseThatSupport()))
-            .thenReturn(causeBinaryIdentifier);
+            .thenReturn(expectedCauseBinaryCode);
         when(persister.getEntityMetamodel())
             .thenReturn(metamodel);
         when(metamodel.getPropertyNames())

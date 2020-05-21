@@ -40,20 +40,19 @@ public class NeedListenerTest {
             .setId(1L)
             .setName("skill")
             .setBinaryIdentifier(2);
-        final String skillBinaryIdentifier = "10";
+        final String expectedSkillBinaryCode = "10";
         final Need entity = new Need()
             .setIsActive(Boolean.TRUE)
             .setId(1L)
             .setSkill(skill)
-            .setSkillMatchCode(skillBinaryIdentifier);
+            .setSkillMatchCode(expectedSkillBinaryCode);
         final Long id = 0L;
         final String[] propertyNames = new String[]{"skillMatchCode"};
         final Object[] state = new String[]{""};
         final PreInsertEvent event = new PreInsertEvent(entity, id, state, persister, null);
-        final String expectedSkillBinaryCode = Integer.toBinaryString(skill.getBinaryIdentifier());
 
         when(attributeMachCodeMapper.map(entity.getSkill().getBinaryIdentifier()))
-            .thenReturn(skillBinaryIdentifier);
+            .thenReturn(expectedSkillBinaryCode);
         when(persister.getEntityMetamodel())
             .thenReturn(metamodel);
         when(metamodel.getPropertyNames())
