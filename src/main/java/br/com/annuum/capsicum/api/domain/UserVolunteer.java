@@ -2,16 +2,16 @@ package br.com.annuum.capsicum.api.domain;
 
 import br.com.annuum.capsicum.api.converter.AvailabilityConverter;
 import br.com.annuum.capsicum.api.domain.enums.Profile;
-import br.com.annuum.capsicum.api.listener.AttributeEncodeListener;
+import br.com.annuum.capsicum.api.listener.UserVolunteerListener;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
-import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 import static br.com.annuum.capsicum.api.domain.enums.Profile.VOLUNTEER;
@@ -21,35 +21,46 @@ import static br.com.annuum.capsicum.api.domain.enums.Profile.VOLUNTEER;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-@EntityListeners(AttributeEncodeListener.class)
+@EntityListeners(UserVolunteerListener.class)
 @Entity
 public class UserVolunteer extends AbstractUser {
-
-    private String phone;
 
     @NotNull
     @OneToOne
     private Address address;
 
-    private Long profilePictureId;
-
-    private String description;
-
+    @NotNull
     @ManyToMany
     private List<Cause> causeThatSupport;
 
+    private String causeMatchCode;
+
+    @NotNull
     @ManyToMany
     private List<Skill> userSkills;
 
     private String skillMatchCode;
 
+    @NotNull
     @Convert(converter = AvailabilityConverter.class)
     private Availability availability;
 
-    private String causeMatchCode;
+    @Size(max = 1000)
+    private String description;
 
-    @ColumnDefault("false")
-    private Boolean hasCnh;
+    @Size(max = 15)
+    private String phone;
+
+    @Size(max = 100)
+    private String facebookUrl;
+
+    @Size(max = 100)
+    private String instagramUrl;
+
+    @Size(max = 100)
+    private String twitterUrl;
+
+    private Long profilePictureId;
 
     @Override
     public Profile getProfile() {

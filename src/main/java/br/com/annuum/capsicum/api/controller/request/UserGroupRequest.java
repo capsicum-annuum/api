@@ -27,7 +27,7 @@ public class UserGroupRequest {
     private String mission;
 
     @NotEmpty(message = "A lista de Causas não pode estar vazia.")
-    private List<String> causeThatSupport;
+    private List<Long> causeThatSupport;
 
     @NotNull(message = "O objeto Endereço não pode ser nulo.")
     private AddressRequest addressRequest;

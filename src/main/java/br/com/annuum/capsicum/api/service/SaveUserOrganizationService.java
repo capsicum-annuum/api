@@ -1,6 +1,5 @@
 package br.com.annuum.capsicum.api.service;
 
-import br.com.annuum.capsicum.api.component.PointFactory;
 import br.com.annuum.capsicum.api.controller.request.UserOrganizationRequest;
 import br.com.annuum.capsicum.api.controller.response.UserOrganizationResponse;
 import br.com.annuum.capsicum.api.domain.Address;
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,7 +20,7 @@ import java.util.stream.Collectors;
 public class SaveUserOrganizationService {
 
     @Autowired
-    private FindCauseByDescriptionService findCauseByDescriptionService;
+    private FindCauseByIdService findCauseByIdService;
 
     @Autowired
     private UserOrganizationRepository userOrganizationRepository;
@@ -33,25 +31,20 @@ public class SaveUserOrganizationService {
     @Autowired
     private ModelMapper modelMapper;
 
-    @Autowired
-    private PointFactory pointFactory;
-
     @Transactional
     public UserOrganizationResponse save(final UserOrganizationRequest userOrganizationRequest) {
 
         log.info("Start to create an UserOrganization for: '{}'", userOrganizationRequest);
-        final Address address = saveAddressService.saveAddress(userOrganizationRequest.getAddressRequest());
+        final Address address = saveAddressService.save(userOrganizationRequest.getAddressRequest());
 
         final List<Cause> causesThatSupport = userOrganizationRequest.getCauseThatSupport().stream()
-            .map(cause -> findCauseByDescriptionService.find(cause))
+            .map(cause -> findCauseByIdService.find(cause))
             .collect(Collectors.toList());
 
         log.info("Building UserOrganization to persist");
         final UserOrganization userOrganization = modelMapper.map(userOrganizationRequest, UserOrganization.class)
             .setAddress(address)
             .setCauseThatSupport(causesThatSupport);
-
-        userOrganization.setCreatedAt(LocalDateTime.now());
 
         log.info("Creating a new UserOrganization: '{}'", userOrganization);
         return modelMapper.map(userOrganizationRepository.save(userOrganization), UserOrganizationResponse.class);

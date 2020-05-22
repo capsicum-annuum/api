@@ -25,10 +25,10 @@ public class UserVolunteerRequest {
     private String password;
 
     @NotEmpty(message = "A lista de Causas não pode estar vazia.")
-    private List<String> causeThatSupport;
+    private List<Long> causeThatSupport;
 
     @NotEmpty(message = "A lista de Habilidades não pode estar vazia.")
-    private List<String> userSkills;
+    private List<Long> userSkills;
 
     @NotNull(message = "A Disponibilidade não pode ser nula.")
     private AvailabilityRequest availability;
@@ -36,8 +36,8 @@ public class UserVolunteerRequest {
     @NotNull(message = "O Endereço não pode ser nulo.")
     private AddressRequest addressRequest;
 
-    @NotNull(message = "É preciso informar se usuário possui CNH.")
-    private Boolean hasCnh;
+    @NotBlank(message = "A descrição não pode estar em branco.")
+    private String description;
 
     @Nullable
     private String phone;
@@ -46,6 +46,12 @@ public class UserVolunteerRequest {
     private Long profilePictureId;
 
     @Nullable
-    private String description;
+    private String facebookUrl;
+
+    @Nullable
+    private String instagramUrl;
+
+    @Nullable
+    private String twitterUrl;
 
 }

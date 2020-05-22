@@ -32,10 +32,13 @@ public class UserOrganizationRequest {
     private String mission;
 
     @NotEmpty(message = "A lista de Causas não pode estar vazia.")
-    private List<String> causeThatSupport;
+    private List<Long> causeThatSupport;
 
     @NotNull(message = "O objeto Endereço não pode ser nulo.")
     private AddressRequest addressRequest;
+
+    @NotBlank(message = "A descrição não pode estar em branco.")
+    private String description;
 
     @Nullable
     private String phone;
@@ -44,5 +47,17 @@ public class UserOrganizationRequest {
     private Long profilePictureId;
 
     @Nullable
-    private String description;
+    private Long backgroundPictureId;
+
+    @Nullable
+    private String webSiteUrl;
+
+    @Nullable
+    private String facebookUrl;
+
+    @Nullable
+    private String instagramUrl;
+
+    @Nullable
+    private String twitterUrl;
 }

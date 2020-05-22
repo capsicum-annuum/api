@@ -1,8 +1,7 @@
 package br.com.annuum.capsicum.api.listener;
 
-import br.com.annuum.capsicum.api.domain.Cause;
-import br.com.annuum.capsicum.api.domain.Skill;
 import br.com.annuum.capsicum.api.domain.UserVolunteer;
+import br.com.annuum.capsicum.api.mapper.AttributeMachCodeMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
 import org.hibernate.event.service.spi.EventListenerRegistry;
@@ -14,14 +13,16 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManagerFactory;
-import java.util.List;
 
 @Slf4j
 @Component
-public class AttributeEncodeListener implements PreInsertEventListener, PreUpdateEventListener {
+public class UserVolunteerListener implements PreInsertEventListener, PreUpdateEventListener {
 
     @Autowired
     private EntityManagerFactory entityManagerFactory;
+
+    @Autowired
+    private AttributeMachCodeMapper attributeMachCodeMapper;
 
     @PostConstruct
     private void init() {
@@ -46,27 +47,13 @@ public class AttributeEncodeListener implements PreInsertEventListener, PreUpdat
 
         if (entity instanceof UserVolunteer) {
             log.info("AttributeEncodeListener :: onSave :: HasEncodedSkills");
+            final String skillMatchCode = attributeMachCodeMapper.mapFromList(((UserVolunteer) entity).getUserSkills());
 
-            final List<Skill> skills = ((UserVolunteer) entity).getUserSkills();
-            final List<Cause> causes = ((UserVolunteer) entity).getCauseThatSupport();
-
-            StringBuilder builder = new StringBuilder();
-            skills.forEach(encodable -> {
-                builder.append(Integer.toBinaryString(encodable.getBinaryIdentifier()));
-            });
-            final String skillMatchCode = builder.toString();
-
-            // Clean the buffer to use again with causes
-            builder.setLength(0);
-
-            causes.forEach(encodable -> {
-                builder.append(Integer.toBinaryString(encodable.getBinaryIdentifier()));
-            });
-            final String causeMatchCode = builder.toString();
+            log.info("AttributeEncodeListener :: onSave :: HasEncodedCauses");
+            final String causeMatchCode = attributeMachCodeMapper.mapFromList(((UserVolunteer) entity).getCauseThatSupport());
 
             setValue(persister, currentState, entity, new String[]{"skillMatchCode", "causeMatchCode"}, new Object[]{skillMatchCode, causeMatchCode});
         }
-
         return false;
     }
 
@@ -84,4 +71,5 @@ public class AttributeEncodeListener implements PreInsertEventListener, PreUpdat
             }
         }
     }
+
 }
