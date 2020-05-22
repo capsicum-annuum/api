@@ -5,6 +5,7 @@ import br.com.annuum.capsicum.api.controller.request.MovementRequest;
 import br.com.annuum.capsicum.api.controller.request.NeedRequest;
 import br.com.annuum.capsicum.api.controller.response.MovementResponse;
 import br.com.annuum.capsicum.api.domain.*;
+import br.com.annuum.capsicum.api.domain.enums.NeedStatus;
 import br.com.annuum.capsicum.api.repository.MovementRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -64,13 +65,12 @@ class SaveMovementServiceTest {
             .setDescription("someDescription")
             .setQuantity(1)
             .setAvailability(new Availability())
-            .setIsActive(true);
+            .setNeedStatus(NeedStatus.ACTIVE);
 
         final NeedRequest needRequest = new NeedRequest()
             .setSkill(1L)
             .setDescription("someDescription")
-            .setQuantity(1)
-            .setIsActive(true);
+            .setQuantity(1);
 
         final List<Need> needs = Collections.singletonList(need);
 

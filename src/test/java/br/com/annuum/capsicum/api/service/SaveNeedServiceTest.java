@@ -8,6 +8,7 @@ import br.com.annuum.capsicum.api.domain.DayShiftAvailability;
 import br.com.annuum.capsicum.api.domain.Need;
 import br.com.annuum.capsicum.api.domain.Skill;
 import br.com.annuum.capsicum.api.domain.enums.DayShift;
+import br.com.annuum.capsicum.api.domain.enums.NeedStatus;
 import br.com.annuum.capsicum.api.mapper.AvailabilityMapper;
 import br.com.annuum.capsicum.api.repository.NeedRepository;
 import org.junit.jupiter.api.Test;
@@ -70,14 +71,13 @@ class SaveNeedServiceTest {
             .setDescription("someDescription")
             .setQuantity(1)
             .setAvailability(availability)
-            .setIsActive(true);
+            .setNeedStatus(NeedStatus.ACTIVE);
 
         final NeedRequest needRequest = new NeedRequest()
             .setSkill(1L)
             .setDescription("someDescription")
             .setQuantity(1)
-            .setAvailabilityRequest(availabilityRequest)
-            .setIsActive(true);
+            .setAvailabilityRequest(availabilityRequest);
 
         Mockito.when(findSkillByIdService.find(skill.getId()))
             .thenReturn(skill);

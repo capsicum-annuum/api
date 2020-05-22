@@ -1,6 +1,7 @@
 package br.com.annuum.capsicum.api.listener;
 
 import br.com.annuum.capsicum.api.domain.*;
+import br.com.annuum.capsicum.api.domain.enums.NeedStatus;
 import br.com.annuum.capsicum.api.mapper.AttributeMachCodeMapper;
 import org.hibernate.event.spi.PreInsertEvent;
 import org.hibernate.persister.entity.EntityPersister;
@@ -42,7 +43,7 @@ public class NeedListenerTest {
             .setBinaryIdentifier(2);
         final String expectedSkillBinaryCode = "10";
         final Need entity = new Need()
-            .setIsActive(Boolean.TRUE)
+            .setNeedStatus(NeedStatus.ACTIVE)
             .setId(1L)
             .setSkill(skill)
             .setSkillMatchCode(expectedSkillBinaryCode);

@@ -1,6 +1,7 @@
 package br.com.annuum.capsicum.api.domain;
 
 import br.com.annuum.capsicum.api.converter.AvailabilityConverter;
+import br.com.annuum.capsicum.api.domain.enums.NeedStatus;
 import br.com.annuum.capsicum.api.listener.NeedListener;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -40,6 +41,7 @@ public class Need {
     private List<Candidacy> candidacies;
 
     @NotNull
-    private Boolean isActive;
+    @Enumerated(EnumType.STRING)
+    private NeedStatus needStatus;
 
 }

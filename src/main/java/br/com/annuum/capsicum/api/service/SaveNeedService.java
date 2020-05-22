@@ -4,6 +4,7 @@ import br.com.annuum.capsicum.api.controller.request.NeedRequest;
 import br.com.annuum.capsicum.api.domain.Availability;
 import br.com.annuum.capsicum.api.domain.Need;
 import br.com.annuum.capsicum.api.domain.Skill;
+import br.com.annuum.capsicum.api.domain.enums.NeedStatus;
 import br.com.annuum.capsicum.api.mapper.AvailabilityMapper;
 import br.com.annuum.capsicum.api.repository.NeedRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +40,8 @@ public class SaveNeedService {
         log.info("Building Need to persist");
         final Need needToPersist = modelMapper.map(needRequest, Need.class)
             .setSkill(skill)
-            .setAvailability(availability);
+            .setAvailability(availability)
+            .setNeedStatus(NeedStatus.ACTIVE);
 
         log.info("Creating a new Need: '{}'", needToPersist);
         return needRepository.save(needToPersist);
