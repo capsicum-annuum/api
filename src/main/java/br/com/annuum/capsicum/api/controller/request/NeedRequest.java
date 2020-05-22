@@ -14,7 +14,7 @@ public class NeedRequest {
     @NotNull(message = "O id da habilidade não pode ser nulo.")
     private Long skill;
 
-    @NotNull(message = "O id do usuário autor não pode ser nulo.")
+    @NotNull(message = "A quantidade não pode ser nula.")
     private Integer quantity;
 
     @NotBlank(message = "A descrição não pode estar vazia.")
