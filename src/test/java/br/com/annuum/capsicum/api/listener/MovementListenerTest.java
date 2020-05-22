@@ -13,7 +13,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import javax.swing.text.AbstractDocument;
 import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

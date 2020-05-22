@@ -1,6 +1,7 @@
 package br.com.annuum.capsicum.api.listener;
 
-import br.com.annuum.capsicum.api.domain.*;
+import br.com.annuum.capsicum.api.domain.Need;
+import br.com.annuum.capsicum.api.domain.Skill;
 import br.com.annuum.capsicum.api.domain.enums.NeedStatus;
 import br.com.annuum.capsicum.api.mapper.AttributeMachCodeMapper;
 import org.hibernate.event.spi.PreInsertEvent;
@@ -10,10 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
