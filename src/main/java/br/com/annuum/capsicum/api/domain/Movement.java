@@ -45,7 +45,7 @@ public class Movement implements EventPeriod {
     @Future
     private LocalDateTime dateTimeEnd;
 
-    private Long PictureId;
+    private Long pictureId;
 
     @ManyToMany
     private List<Need> needs;
