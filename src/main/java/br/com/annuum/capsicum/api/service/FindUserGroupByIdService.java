@@ -17,6 +17,6 @@ public class FindUserGroupByIdService {
     public UserGroup find(final Long id) {
         log.info("Searching for UserGroup with id '{}'", id);
         return userGroupRepository.findById(id)
-            .orElseThrow(() -> new RegisterNotFoundException("UserGroup não encontrado!"));
+            .orElseThrow(() -> new RegisterNotFoundException("Grupo não encontrado!"));
     }
 }

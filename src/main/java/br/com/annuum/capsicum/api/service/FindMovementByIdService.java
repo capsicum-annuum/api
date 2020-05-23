@@ -17,6 +17,6 @@ public class FindMovementByIdService {
     public Movement find(final Long id) {
         log.info("Searching for Movement with id '{}'", id);
         return movementRepository.findById(id)
-            .orElseThrow(() -> new RegisterNotFoundException("Movement não encontrado!"));
+            .orElseThrow(() -> new RegisterNotFoundException("Movimento não encontrado!"));
     }
 }

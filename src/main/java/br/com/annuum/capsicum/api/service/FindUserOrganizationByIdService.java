@@ -17,6 +17,6 @@ public class FindUserOrganizationByIdService {
     public UserOrganization find(final Long id) {
         log.info("Searching for UserOrganization with id '{}'", id);
         return userOrganizationRepository.findById(id)
-            .orElseThrow(() -> new RegisterNotFoundException("UserOrganization não encontrado!"));
+            .orElseThrow(() -> new RegisterNotFoundException("Organização não encontrado!"));
     }
 }
