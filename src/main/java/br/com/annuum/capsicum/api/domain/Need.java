@@ -1,7 +1,8 @@
 package br.com.annuum.capsicum.api.domain;
 
 import br.com.annuum.capsicum.api.converter.AvailabilityConverter;
-import br.com.annuum.capsicum.api.listener.AttributeEncodeListener;
+import br.com.annuum.capsicum.api.domain.enums.NeedStatus;
+import br.com.annuum.capsicum.api.listener.NeedListener;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -12,7 +13,7 @@ import java.util.List;
 
 @Data
 @Accessors(chain = true)
-@EntityListeners(AttributeEncodeListener.class)
+@EntityListeners(NeedListener.class)
 @Entity
 @SequenceGenerator(name = "need_sequence", sequenceName = "need_sequence", allocationSize = 1)
 public class Need {
@@ -36,13 +37,11 @@ public class Need {
     @Convert(converter = AvailabilityConverter.class)
     private Availability availability;
 
-    @ManyToMany
+    @OneToMany
     private List<Candidacy> candidacies;
 
-    @ManyToMany
-    private List<Volunteer> volunteers;
-
     @NotNull
-    private Boolean isActive;
+    @Enumerated(EnumType.STRING)
+    private NeedStatus needStatus;
 
 }

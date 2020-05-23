@@ -1,5 +1,6 @@
 package br.com.annuum.capsicum.api.domain;
 
+import br.com.annuum.capsicum.api.domain.enums.CandidacyStatus;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.data.annotation.CreatedDate;
@@ -22,7 +23,8 @@ public class Candidacy {
     private UserVolunteer userCandidate;
 
     @NotNull
-    private Boolean isApproved;
+    @Enumerated(EnumType.STRING)
+    private CandidacyStatus candidacyStatus;
 
     @CreatedDate
     private LocalDateTime createdAt;

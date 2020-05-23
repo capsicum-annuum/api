@@ -5,6 +5,7 @@ import br.com.annuum.capsicum.api.controller.request.MovementRequest;
 import br.com.annuum.capsicum.api.controller.request.NeedRequest;
 import br.com.annuum.capsicum.api.controller.response.MovementResponse;
 import br.com.annuum.capsicum.api.domain.*;
+import br.com.annuum.capsicum.api.domain.enums.NeedStatus;
 import br.com.annuum.capsicum.api.repository.MovementRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,7 +29,7 @@ class SaveMovementServiceTest {
     private SaveMovementService saveMovementService;
 
     @Mock
-    private FindCauseByDescriptionService findCauseByDescriptionService;
+    private FindCauseByIdService findCauseByIdService;
 
     @Mock
     private FindUserByIdService findUserByIdService;
@@ -64,13 +65,12 @@ class SaveMovementServiceTest {
             .setDescription("someDescription")
             .setQuantity(1)
             .setAvailability(new Availability())
-            .setIsActive(true);
+            .setNeedStatus(NeedStatus.ACTIVE);
 
         final NeedRequest needRequest = new NeedRequest()
-            .setSkill("someSkill")
+            .setSkill(1L)
             .setDescription("someDescription")
-            .setQuantity(1)
-            .setIsActive(true);
+            .setQuantity(1);
 
         final List<Need> needs = Collections.singletonList(need);
 
@@ -80,7 +80,7 @@ class SaveMovementServiceTest {
             .setUserAuthorId(1L)
             .setAddressRequest(Mockito.mock(AddressRequest.class))
             .setNeedsRequest(needRequests)
-            .setCauseThatSupport(Collections.singletonList("someCause"))
+            .setCauseThatSupport(Collections.singletonList(1L))
             .setDateTimeStart(LocalDateTime.of(2021, 10, 10, 10, 10))
             .setDateTimeEnd(LocalDateTime.of(2021, 10, 11, 10, 10))
             .setDescription("someDescription")
@@ -102,13 +102,13 @@ class SaveMovementServiceTest {
             .setDescription("someDescription")
             .setTitle("someTitle");
 
-        Mockito.when(saveAddressService.saveAddress(movementRequest.getAddressRequest()))
+        Mockito.when(saveAddressService.save(movementRequest.getAddressRequest()))
             .thenReturn(address);
         Mockito.when(findUserByIdService.find(movementRequest.getUserAuthorId()))
             .thenReturn(userGroup);
         Mockito.when(saveNeedService.save(needRequest))
             .thenReturn(need);
-        Mockito.when(findCauseByDescriptionService.find(cause.getDescription()))
+        Mockito.when(findCauseByIdService.find(cause.getId()))
             .thenReturn(cause);
         Mockito.when(movementRepository.save(expectedMovement))
             .thenReturn(expectedMovement);

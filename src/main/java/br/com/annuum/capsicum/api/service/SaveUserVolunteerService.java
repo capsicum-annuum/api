@@ -2,7 +2,11 @@ package br.com.annuum.capsicum.api.service;
 
 import br.com.annuum.capsicum.api.controller.request.UserVolunteerRequest;
 import br.com.annuum.capsicum.api.controller.response.UserVolunteerResponse;
-import br.com.annuum.capsicum.api.domain.*;
+import br.com.annuum.capsicum.api.domain.Address;
+import br.com.annuum.capsicum.api.domain.Cause;
+import br.com.annuum.capsicum.api.domain.Skill;
+import br.com.annuum.capsicum.api.domain.UserVolunteer;
+import br.com.annuum.capsicum.api.mapper.AvailabilityMapper;
 import br.com.annuum.capsicum.api.repository.UserVolunteerRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -18,10 +22,10 @@ import java.util.stream.Collectors;
 public class SaveUserVolunteerService {
 
     @Autowired
-    private FindSkillByDescriptionService findSkillByDescriptionService;
+    private FindSkillByIdService findSkillByIdService;
 
     @Autowired
-    private FindCauseByDescriptionService findCauseByDescriptionService;
+    private FindCauseByIdService findCauseByIdService;
 
     @Autowired
     private UserVolunteerRepository userVolunteerRepository;
@@ -32,24 +36,22 @@ public class SaveUserVolunteerService {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private AvailabilityMapper availabilityMapper;
+
     @Transactional
     public UserVolunteerResponse save(final UserVolunteerRequest userVolunteerRequest) {
         log.info("Start to create an UserVolunteer for: '{}'", userVolunteerRequest);
-        final Address address = saveAddressService.saveAddress(userVolunteerRequest.getAddressRequest());
+        final Address address = saveAddressService.save(userVolunteerRequest.getAddressRequest());
 
         final List<Cause> causesThatSupport = userVolunteerRequest.getCauseThatSupport()
             .stream()
-            .map(cause -> findCauseByDescriptionService.find(cause))
+            .map(cause -> findCauseByIdService.find(cause))
             .collect(Collectors.toList());
 
         final List<Skill> userSkills = userVolunteerRequest.getUserSkills()
             .stream()
-            .map(skill -> findSkillByDescriptionService.find(skill))
-            .collect(Collectors.toList());
-
-        final List<DayShiftAvailability> availability = userVolunteerRequest.getAvailability().getDayShiftAvailabilities()
-            .stream()
-            .map(dayShft -> modelMapper.map(dayShft, DayShiftAvailability.class))
+            .map(skill -> findSkillByIdService.find(skill))
             .collect(Collectors.toList());
 
         log.info("Building UserVolunteer to persist");
@@ -57,7 +59,7 @@ public class SaveUserVolunteerService {
             .setAddress(address)
             .setCauseThatSupport(causesThatSupport)
             .setUserSkills(userSkills)
-            .setAvailability(new Availability().setDayShiftAvailabilities(availability));
+            .setAvailability(availabilityMapper.map(userVolunteerRequest.getAvailability()));
 
         log.info("Creating a new UserVolunteer: '{}'", userVolunteer);
         return modelMapper.map(userVolunteerRepository.save(userVolunteer), UserVolunteerResponse.class);

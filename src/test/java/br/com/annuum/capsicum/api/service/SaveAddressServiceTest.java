@@ -63,12 +63,11 @@ class SaveAddressServiceTest {
             .thenReturn(expectedAddress);
 
         // Act
-        final Address returnedAddress = saveAddressService.saveAddress(addressRequest);
+        final Address returnedAddress = saveAddressService.save(addressRequest);
 
         // Assert
         Assertions.assertEquals(expectedAddress, returnedAddress);
         Mockito.verify(addressRepository, times(1)).save(expectedAddress);
     }
-
 
 }

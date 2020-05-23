@@ -11,10 +11,10 @@ import javax.validation.constraints.NotNull;
 @Accessors(chain = true)
 public class NeedRequest {
 
-    @NotBlank(message = "A habilidade não pode estar vazia.")
-    private String skill;
+    @NotNull(message = "O id da habilidade não pode ser nulo.")
+    private Long skill;
 
-    @NotNull(message = "O id do usuário autor não pode ser nulo.")
+    @NotNull(message = "A quantidade não pode ser nula.")
     private Integer quantity;
 
     @NotBlank(message = "A descrição não pode estar vazia.")
@@ -22,8 +22,5 @@ public class NeedRequest {
 
     @Nullable
     private AvailabilityRequest availabilityRequest;
-
-    @NotNull(message = "A boolean isActive não pode estar nula.")
-    private Boolean isActive;
 
 }

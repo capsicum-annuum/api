@@ -2,7 +2,7 @@ package br.com.annuum.capsicum.api.domain;
 
 import br.com.annuum.capsicum.api.converter.AvailabilityConverter;
 import br.com.annuum.capsicum.api.domain.enums.Profile;
-import br.com.annuum.capsicum.api.listener.AttributeEncodeListener;
+import br.com.annuum.capsicum.api.listener.UserVolunteerListener;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -21,7 +21,7 @@ import static br.com.annuum.capsicum.api.domain.enums.Profile.VOLUNTEER;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-@EntityListeners(AttributeEncodeListener.class)
+@EntityListeners(UserVolunteerListener.class)
 @Entity
 public class UserVolunteer extends AbstractUser {
 

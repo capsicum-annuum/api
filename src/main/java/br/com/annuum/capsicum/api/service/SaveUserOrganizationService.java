@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 public class SaveUserOrganizationService {
 
     @Autowired
-    private FindCauseByDescriptionService findCauseByDescriptionService;
+    private FindCauseByIdService findCauseByIdService;
 
     @Autowired
     private UserOrganizationRepository userOrganizationRepository;
@@ -35,10 +35,10 @@ public class SaveUserOrganizationService {
     public UserOrganizationResponse save(final UserOrganizationRequest userOrganizationRequest) {
 
         log.info("Start to create an UserOrganization for: '{}'", userOrganizationRequest);
-        final Address address = saveAddressService.saveAddress(userOrganizationRequest.getAddressRequest());
+        final Address address = saveAddressService.save(userOrganizationRequest.getAddressRequest());
 
         final List<Cause> causesThatSupport = userOrganizationRequest.getCauseThatSupport().stream()
-            .map(cause -> findCauseByDescriptionService.find(cause))
+            .map(cause -> findCauseByIdService.find(cause))
             .collect(Collectors.toList());
 
         log.info("Building UserOrganization to persist");

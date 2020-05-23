@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 public class SaveUserGroupService {
 
     @Autowired
-    private FindCauseByDescriptionService findCauseByDescriptionService;
+    private FindCauseByIdService findCauseByIdService;
 
     @Autowired
     private UserGroupRepository userGroupRepository;
@@ -35,10 +35,10 @@ public class SaveUserGroupService {
     public UserGroupResponse save(final UserGroupRequest userGroupRequest) {
 
         log.info("Start to create an UserGroup for: '{}'", userGroupRequest);
-        final Address address = saveAddressService.saveAddress(userGroupRequest.getAddressRequest());
+        final Address address = saveAddressService.save(userGroupRequest.getAddressRequest());
 
         final List<Cause> causesThatSupport = userGroupRequest.getCauseThatSupport().stream()
-            .map(cause -> findCauseByDescriptionService.find(cause))
+            .map(cause -> findCauseByIdService.find(cause))
             .collect(Collectors.toList());
 
         log.info("Building UserGroup to persist");

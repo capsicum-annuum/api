@@ -8,6 +8,8 @@ import br.com.annuum.capsicum.api.domain.DayShiftAvailability;
 import br.com.annuum.capsicum.api.domain.Need;
 import br.com.annuum.capsicum.api.domain.Skill;
 import br.com.annuum.capsicum.api.domain.enums.DayShift;
+import br.com.annuum.capsicum.api.domain.enums.NeedStatus;
+import br.com.annuum.capsicum.api.mapper.AvailabilityMapper;
 import br.com.annuum.capsicum.api.repository.NeedRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,13 +32,16 @@ class SaveNeedServiceTest {
     private SaveNeedService saveNeedService;
 
     @Mock
-    private FindSkillByDescriptionService findSkillByDescriptionService;
+    private FindSkillByIdService findSkillByIdService;
 
     @Mock
     private NeedRepository needRepository;
 
     @Mock
     private ModelMapper modelMapper;
+
+    @Mock
+    private AvailabilityMapper availabilityMapper;
 
     @Test
     public void mustSaveNeed_withSuccess() {
@@ -66,19 +71,18 @@ class SaveNeedServiceTest {
             .setDescription("someDescription")
             .setQuantity(1)
             .setAvailability(availability)
-            .setIsActive(true);
+            .setNeedStatus(NeedStatus.ACTIVE);
 
         final NeedRequest needRequest = new NeedRequest()
-            .setSkill("someSkill")
+            .setSkill(1L)
             .setDescription("someDescription")
             .setQuantity(1)
-            .setAvailabilityRequest(availabilityRequest)
-            .setIsActive(true);
+            .setAvailabilityRequest(availabilityRequest);
 
-        Mockito.when(findSkillByDescriptionService.find(skill.getDescription()))
+        Mockito.when(findSkillByIdService.find(skill.getId()))
             .thenReturn(skill);
-        Mockito.when(modelMapper.map(dayShiftAvailabilityRequest, DayShiftAvailability.class))
-            .thenReturn(dayShiftAvailability);
+        Mockito.when(availabilityMapper.map(availabilityRequest))
+            .thenReturn(availability);
         Mockito.when(modelMapper.map(needRequest, Need.class))
             .thenReturn(expectedNeed);
         Mockito.when(needRepository.save(expectedNeed))

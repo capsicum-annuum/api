@@ -25,10 +25,10 @@ public class UserVolunteerRequest {
     private String password;
 
     @NotEmpty(message = "A lista de Causas não pode estar vazia.")
-    private List<String> causeThatSupport;
+    private List<Long> causeThatSupport;
 
     @NotEmpty(message = "A lista de Habilidades não pode estar vazia.")
-    private List<String> userSkills;
+    private List<Long> userSkills;
 
     @NotNull(message = "A Disponibilidade não pode ser nula.")
     private AvailabilityRequest availability;

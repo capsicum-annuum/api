@@ -16,10 +16,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
-class FindCauseByDescriptionServiceTest {
+class FindCauseByIdServiceTest {
 
     @InjectMocks
-    FindCauseByDescriptionService findCauseByDescriptionService;
+    FindCauseByIdService findCauseByIdService;
 
     @Mock
     private CauseRepository causeRepository;
@@ -27,16 +27,16 @@ class FindCauseByDescriptionServiceTest {
     @Test
     public void mustReturnCauseThatDescriptionGivenMatchWithPersistedCauses_withSuccess() {
         // Arrange
-        final String causeDescription = "someCause";
+        final Long causeId = 1L;
         final Cause expectedCause = new Cause()
             .setId(1L)
             .setDescription("someCause");
 
-        Mockito.when(causeRepository.findByDescription(causeDescription))
+        Mockito.when(causeRepository.findById(causeId))
             .thenReturn(Optional.of(expectedCause));
 
         // Act
-        final Cause returnedCause = findCauseByDescriptionService.find(causeDescription);
+        final Cause returnedCause = findCauseByIdService.find(causeId);
 
         // Assert
         assertEquals(expectedCause, returnedCause);
@@ -45,12 +45,12 @@ class FindCauseByDescriptionServiceTest {
     @Test
     public void mustThrowRegisterNotFoundExceptionWhenDescriptionGivenNotMatchWithPersistedCauses_withSuccess() {
         // Arrange
-        final String causeDescription = "someCause";
-        Mockito.when(causeRepository.findByDescription(causeDescription))
+        final Long causeId = 1L;
+        Mockito.when(causeRepository.findById(causeId))
             .thenReturn(Optional.empty());
 
         // Act and Assert
-        assertThrows(RegisterNotFoundException.class, () -> findCauseByDescriptionService.find(causeDescription));
+        assertThrows(RegisterNotFoundException.class, () -> findCauseByIdService.find(causeId));
     }
 
 }

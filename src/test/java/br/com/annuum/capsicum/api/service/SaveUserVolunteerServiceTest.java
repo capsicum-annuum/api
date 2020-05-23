@@ -7,6 +7,7 @@ import br.com.annuum.capsicum.api.controller.request.UserVolunteerRequest;
 import br.com.annuum.capsicum.api.controller.response.UserVolunteerResponse;
 import br.com.annuum.capsicum.api.domain.*;
 import br.com.annuum.capsicum.api.domain.enums.DayShift;
+import br.com.annuum.capsicum.api.mapper.AvailabilityMapper;
 import br.com.annuum.capsicum.api.repository.UserVolunteerRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,10 +31,10 @@ class SaveUserVolunteerServiceTest {
     private SaveUserVolunteerService saveUserVolunteerService;
 
     @Mock
-    private FindCauseByDescriptionService findCauseByDescriptionService;
+    private FindCauseByIdService findCauseByIdService;
 
     @Mock
-    private FindSkillByDescriptionService findSkillByDescriptionService;
+    private FindSkillByIdService findSkillByIdService;
 
     @Mock
     private UserVolunteerRepository userVolunteerRepository;
@@ -43,6 +44,9 @@ class SaveUserVolunteerServiceTest {
 
     @Mock
     private ModelMapper modelMapper;
+
+    @Mock
+    private AvailabilityMapper availabilityMapper;
 
     @Test
     public void mustSaveAndReturnNewUserVolunteer_withSuccess() {
@@ -80,8 +84,8 @@ class SaveUserVolunteerServiceTest {
 
         final UserVolunteerRequest userVolunteerRequest = new UserVolunteerRequest()
             .setAddressRequest(Mockito.mock(AddressRequest.class))
-            .setCauseThatSupport(Collections.singletonList("someCause"))
-            .setUserSkills(Collections.singletonList("someSkill"))
+            .setCauseThatSupport(Collections.singletonList(1L))
+            .setUserSkills(Collections.singletonList(1L))
             .setAvailability(availabilityRequest);
 
         final UserVolunteerResponse expectedUserVolunteerResponse = new UserVolunteerResponse()
@@ -89,11 +93,11 @@ class SaveUserVolunteerServiceTest {
             .setDescription("someDescription")
             .setEmail("someEmail");
 
-        Mockito.when(findCauseByDescriptionService.find(cause.getDescription()))
+        Mockito.when(findCauseByIdService.find(cause.getId()))
             .thenReturn(cause);
-        Mockito.when(findSkillByDescriptionService.find(skill.getDescription()))
+        Mockito.when(findSkillByIdService.find(skill.getId()))
             .thenReturn(skill);
-        Mockito.when(saveAddressService.saveAddress(userVolunteerRequest.getAddressRequest()))
+        Mockito.when(saveAddressService.save(userVolunteerRequest.getAddressRequest()))
             .thenReturn(address);
         Mockito.when(modelMapper.map(userVolunteerRequest, UserVolunteer.class))
             .thenReturn(userVolunteer);
@@ -101,8 +105,8 @@ class SaveUserVolunteerServiceTest {
             .thenReturn(userVolunteer);
         Mockito.when(modelMapper.map(userVolunteer, UserVolunteerResponse.class))
             .thenReturn(expectedUserVolunteerResponse);
-        Mockito.when(modelMapper.map(dayShiftAvailabilityRequest, DayShiftAvailability.class))
-            .thenReturn(dayShiftAvailability);
+        Mockito.when(availabilityMapper.map(availabilityRequest))
+            .thenReturn(availability);
 
         // Act
         final UserVolunteerResponse returnedUserVolunteerResponse = saveUserVolunteerService.save(userVolunteerRequest);

@@ -27,7 +27,7 @@ class SaveUserGroupServiceTest {
     private SaveUserGroupService saveUserGroupService;
 
     @Mock
-    private FindCauseByDescriptionService findCauseByDescriptionService;
+    private FindCauseByIdService findCauseByIdService;
 
     @Mock
     private UserGroupRepository userGroupRepository;
@@ -50,15 +50,15 @@ class SaveUserGroupServiceTest {
             .setCauseThatSupport(Collections.singletonList(cause));
         final UserGroupRequest userGroupRequest = new UserGroupRequest()
             .setAddressRequest(Mockito.mock(AddressRequest.class))
-            .setCauseThatSupport(Collections.singletonList("someCause"));
+            .setCauseThatSupport(Collections.singletonList(1L));
         final UserGroupResponse expectedUserGroupResponse = new UserGroupResponse()
             .setName("someUserName")
             .setDescription("someDescription")
             .setEmail("someEmail");
 
-        Mockito.when(findCauseByDescriptionService.find(cause.getDescription()))
+        Mockito.when(findCauseByIdService.find(cause.getId()))
             .thenReturn(cause);
-        Mockito.when(saveAddressService.saveAddress(userGroupRequest.getAddressRequest()))
+        Mockito.when(saveAddressService.save(userGroupRequest.getAddressRequest()))
             .thenReturn(address);
         Mockito.when(modelMapper.map(userGroupRequest, UserGroup.class))
             .thenReturn(userGroup);

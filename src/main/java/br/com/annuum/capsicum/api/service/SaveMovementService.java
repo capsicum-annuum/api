@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public class SaveMovementService {
 
     @Autowired
-    private FindCauseByDescriptionService findCauseByDescriptionService;
+    private FindCauseByIdService findCauseByIdService;
 
     @Autowired
     private FindUserByIdService findUserByIdService;
@@ -37,8 +37,8 @@ public class SaveMovementService {
 
     @Transactional
     public MovementResponse save(final MovementRequest movementRequest) {
-        log.info("Start to create an UserOrganization for: '{}'", movementRequest);
-        final Address address = saveAddressService.saveAddress(movementRequest.getAddressRequest());
+        log.info("Start to create a Movement for: '{}'", movementRequest);
+        final Address address = saveAddressService.save(movementRequest.getAddressRequest());
 
         final AbstractUser abstractUser = findUserByIdService.find(movementRequest.getUserAuthorId());
 
@@ -47,7 +47,7 @@ public class SaveMovementService {
             .collect(Collectors.toList());
 
         final List<Cause> causeThatSupport = movementRequest.getCauseThatSupport().stream()
-            .map(cause -> findCauseByDescriptionService.find(cause))
+            .map(cause -> findCauseByIdService.find(cause))
             .collect(Collectors.toList());
 
         log.info("Building Movement to persist");
