@@ -25,7 +25,7 @@ class FindCityByIdServiceTest {
     private CityRepository cityRepository;
 
     @Test
-    public void mustFindAndReturnCityThatWasRegistered_withSuccess() {
+    public void mustFindAndReturnCity_withSuccess() {
         // Arrange
         final Long idCity = 1L;
 
