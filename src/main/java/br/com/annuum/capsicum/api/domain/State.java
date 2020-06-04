@@ -5,15 +5,16 @@ import lombok.experimental.Accessors;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 @Data
 @Accessors(chain = true)
 @Entity
-public class City {
+public class State {
 
     @Id
     private Long id;
+
+    private String uf;
 
     private String name;
 
@@ -21,8 +22,4 @@ public class City {
 
     private Double longitude;
 
-    private Boolean capital;
-
-    @ManyToOne
-    private State state;
 }

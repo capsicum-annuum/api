@@ -4,6 +4,7 @@ import br.com.annuum.capsicum.api.component.PointFactory;
 import br.com.annuum.capsicum.api.controller.request.AddressRequest;
 import br.com.annuum.capsicum.api.domain.Address;
 import br.com.annuum.capsicum.api.domain.City;
+import br.com.annuum.capsicum.api.domain.State;
 import br.com.annuum.capsicum.api.repository.AddressRepository;
 import com.vividsolutions.jts.geom.Point;
 import org.junit.jupiter.api.Assertions;
@@ -25,7 +26,7 @@ class SaveAddressServiceTest {
     private SaveAddressService saveAddressService;
 
     @Mock
-    private FindOrCreateNewCityService findOrCreateNewCityService;
+    private FindCityByIdService findCityByIdService;
 
     @Mock
     private AddressRepository addressRepository;
@@ -42,7 +43,7 @@ class SaveAddressServiceTest {
         final City city = new City()
             .setId(1L)
             .setName("someCityName")
-            .setState(RS);
+            .setState(Mockito.mock(State.class));
         final Point geolocation = Mockito.mock(Point.class);
         final Address expectedAddress = new Address()
             .setId(1L)
@@ -53,7 +54,7 @@ class SaveAddressServiceTest {
             .setGeolocation(geolocation);
         final AddressRequest addressRequest = Mockito.mock(AddressRequest.class);
 
-        Mockito.when(findOrCreateNewCityService.findOrCreateNewCity(addressRequest.getCityRequest()))
+        Mockito.when(findCityByIdService.find(addressRequest.getIdCity()))
             .thenReturn(city);
         Mockito.when(modelMapper.map(addressRequest, Address.class))
             .thenReturn(expectedAddress);

@@ -17,7 +17,7 @@ import javax.transaction.Transactional;
 public class SaveAddressService {
 
     @Autowired
-    private FindOrCreateNewCityService findOrCreateNewCityService;
+    private FindCityByIdService findCityByIdService;
 
     @Autowired
     private AddressRepository addressRepository;
@@ -31,7 +31,7 @@ public class SaveAddressService {
     @Transactional
     public Address save(final AddressRequest addressRequest) {
         log.info("Start to create an Address for: '{}'", addressRequest);
-        final City city = findOrCreateNewCityService.findOrCreateNewCity(addressRequest.getCityRequest());
+        final City city = findCityByIdService.find(addressRequest.getIdCity());
 
         log.info("Building Address to persist");
         final Address addressToPersist = modelMapper.map(addressRequest, Address.class)

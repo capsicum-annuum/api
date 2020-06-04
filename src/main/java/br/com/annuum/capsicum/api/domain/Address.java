@@ -31,8 +31,6 @@ public class Address {
     @ManyToOne
     private City city;
 
-    private String googlePlaceAddressIdentifier;
-
     private String district;
 
     private String streetName;
