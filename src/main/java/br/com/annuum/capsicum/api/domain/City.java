@@ -24,5 +24,5 @@ public class City {
     private Boolean capital;
 
     @ManyToOne
-    private State state;
+    private FederatedUnity federatedUnity;
 }

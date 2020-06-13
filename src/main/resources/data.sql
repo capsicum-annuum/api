@@ -30,7 +30,7 @@ INSERT INTO skill(id, description, binary_identifier) VALUES
 (nextval('skill_sequence'), 'Doador', 30);
 
 
-INSERT INTO state(id, uf, name, latitude, longitude) VALUES
+INSERT INTO federated_unity(id, acronym, name, latitude, longitude) VALUES
 (11,'RO','Rondônia',-10.83,-63.34),
 (12,'AC','Acre',-8.77,-70.55),
 (13,'AM','Amazonas',-3.47,-65.1),
@@ -59,7 +59,7 @@ INSERT INTO state(id, uf, name, latitude, longitude) VALUES
 (52,'GO','Goiás',-15.98,-49.86),
 (53,'DF','Distrito Federal',-15.83,-47.86);
 
-INSERT INTO city(id, name, latitude, longitude, capital, state_id) VALUES
+INSERT INTO city(id, name, latitude, longitude, capital, federated_unity_id) VALUES
 (5200050, 'Abadia de Goiás', -16.7573, -49.4412, FALSE, 52),
 (3100104, 'Abadia dos Dourados', -18.4831, -47.3916, FALSE, 31),
 (5200100, 'Abadiânia', -16.197, -48.7057, FALSE, 52),

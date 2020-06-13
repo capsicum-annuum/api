@@ -66,7 +66,7 @@ ALTER TABLE public.city_sequence OWNER TO ygmfurlunobgmc;
 
 --
 -- TOC entry 210 (class 1259 OID 9381345)
--- Name: state; Type: TABLE; Schema: public; Owner: ygmfurlunobgmc
+-- Name: federatedUnity; Type: TABLE; Schema: public; Owner: ygmfurlunobgmc
 --
 
 CREATE TABLE public.state (
@@ -292,10 +292,10 @@ COPY public.city (id, name, state_id) FROM stdin;
 --
 -- TOC entry 3918 (class 0 OID 9381345)
 -- Dependencies: 210
--- Data for Name: state; Type: TABLE DATA; Schema: public; Owner: ygmfurlunobgmc
+-- Data for Name: federatedUnity; Type: TABLE DATA; Schema: public; Owner: ygmfurlunobgmc
 --
 
-COPY public.state (id, name, uf_code) FROM stdin;
+COPY public.federatedUnity (id, name, uf_code) FROM stdin;
 \.
 
 
@@ -453,10 +453,10 @@ ALTER TABLE ONLY public.city
 
 --
 -- TOC entry 3762 (class 2606 OID 9381352)
--- Name: state state_pkey; Type: CONSTRAINT; Schema: public; Owner: ygmfurlunobgmc
+-- Name: federatedUnity state_pkey; Type: CONSTRAINT; Schema: public; Owner: ygmfurlunobgmc
 --
 
-ALTER TABLE ONLY public.state
+ALTER TABLE ONLY public.federatedUnity
     ADD CONSTRAINT state_pkey PRIMARY KEY (id);
 
 
@@ -547,7 +547,7 @@ ALTER TABLE ONLY public.user_address
 --
 
 ALTER TABLE ONLY public.city
-    ADD CONSTRAINT "FKihijj5d7rtf9249lma9rr241y" FOREIGN KEY (state_id) REFERENCES public.state(id);
+    ADD CONSTRAINT "FKihijj5d7rtf9249lma9rr241y" FOREIGN KEY (state_id) REFERENCES public.federatedUnity(id);
 
 
 --

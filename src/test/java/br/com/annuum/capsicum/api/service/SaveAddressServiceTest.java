@@ -4,7 +4,7 @@ import br.com.annuum.capsicum.api.component.PointFactory;
 import br.com.annuum.capsicum.api.controller.request.AddressRequest;
 import br.com.annuum.capsicum.api.domain.Address;
 import br.com.annuum.capsicum.api.domain.City;
-import br.com.annuum.capsicum.api.domain.State;
+import br.com.annuum.capsicum.api.domain.FederatedUnity;
 import br.com.annuum.capsicum.api.repository.AddressRepository;
 import com.vividsolutions.jts.geom.Point;
 import org.junit.jupiter.api.Assertions;
@@ -16,7 +16,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
-import static br.com.annuum.capsicum.api.domain.enums.State.RS;
 import static org.mockito.Mockito.times;
 
 @ExtendWith(MockitoExtension.class)
@@ -43,7 +42,7 @@ class SaveAddressServiceTest {
         final City city = new City()
             .setId(1L)
             .setName("someCityName")
-            .setState(Mockito.mock(State.class));
+            .setFederatedUnity(Mockito.mock(FederatedUnity.class));
         final Point geolocation = Mockito.mock(Point.class);
         final Address expectedAddress = new Address()
             .setId(1L)

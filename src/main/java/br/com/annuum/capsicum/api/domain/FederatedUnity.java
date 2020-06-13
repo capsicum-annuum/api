@@ -9,12 +9,12 @@ import javax.persistence.Id;
 @Data
 @Accessors(chain = true)
 @Entity
-public class State {
+public class FederatedUnity {
 
     @Id
     private Long id;
 
-    private String uf;
+    private String acronym;
 
     private String name;
 

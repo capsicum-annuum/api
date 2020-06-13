@@ -1,7 +1,7 @@
 package br.com.annuum.capsicum.api.service;
 
 import br.com.annuum.capsicum.api.domain.City;
-import br.com.annuum.capsicum.api.domain.State;
+import br.com.annuum.capsicum.api.domain.FederatedUnity;
 import br.com.annuum.capsicum.api.repository.CityRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -12,8 +12,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
-
-import static br.com.annuum.capsicum.api.domain.enums.State.RS;
 
 @ExtendWith(MockitoExtension.class)
 class FindCityByIdServiceTest {
@@ -32,7 +30,7 @@ class FindCityByIdServiceTest {
         final City expectedCity = new City()
             .setId(1L)
             .setName("someName")
-            .setState(Mockito.mock(State.class));
+            .setFederatedUnity(Mockito.mock(FederatedUnity.class));
 
         Mockito.when(cityRepository.findById(idCity))
             .thenReturn(Optional.of(expectedCity));
