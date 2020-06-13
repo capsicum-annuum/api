@@ -1,6 +1,7 @@
 package br.com.annuum.capsicum.api.service;
 
-import br.com.annuum.capsicum.api.controller.response.FederatedUnityResponse;
+import br.com.annuum.capsicum.api.controller.response.FederatedUnitiesListResponse;
+import br.com.annuum.capsicum.api.domain.dto.FederatedUnityDto;
 import br.com.annuum.capsicum.api.domain.FederatedUnity;
 import br.com.annuum.capsicum.api.mapper.FederatedUnityMapper;
 import br.com.annuum.capsicum.api.repository.FederatedUnityRepository;
@@ -21,9 +22,11 @@ public class FindAllFederatedUnityService {
     @Resource
     private FederatedUnityMapper federatedUnityMapper;
 
-    public List<FederatedUnityResponse> find() {
-        log.info("Searching for all FederatedUnity");
+    public FederatedUnitiesListResponse find() {
+        log.info("Searching for all Federated Unities");
         List<FederatedUnity> federatedUnities = (List<FederatedUnity>) federatedUnityRepository.findAll();
-        return federatedUnityMapper.toFederatedUnityList(federatedUnities);
+        return new FederatedUnitiesListResponse()
+            .setFederatedUnityList(federatedUnityMapper.toFederatedUnityList(federatedUnities));
     }
+
 }

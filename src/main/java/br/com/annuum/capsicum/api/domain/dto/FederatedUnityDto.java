@@ -1,9 +1,9 @@
-package br.com.annuum.capsicum.api.controller.response;
+package br.com.annuum.capsicum.api.domain.dto;
 
 import lombok.Data;
 
 @Data
-public class FederatedUnityResponse {
+public class FederatedUnityDto {
 
     private Long id;
 
