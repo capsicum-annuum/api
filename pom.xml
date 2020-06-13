@@ -174,7 +174,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>cbr.com.annuum.capsicum.api.ApiApplication</mainClass>
+                            <mainClass>br.com.annuum.capsicum.api.ApiApplication</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
