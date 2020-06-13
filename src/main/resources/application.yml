@@ -28,6 +28,5 @@ spring:
     hikari:
       maximum-pool-size: 2
 server:
-  port: 8080
   servlet:
     context-path: "/annuum-api"
