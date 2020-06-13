@@ -10,6 +10,6 @@ import java.util.List;
 @Accessors(chain = true)
 public class CityListResponse {
 
-    List<CityDto> cities;
+    private List<CityDto> cities;
 
 }
