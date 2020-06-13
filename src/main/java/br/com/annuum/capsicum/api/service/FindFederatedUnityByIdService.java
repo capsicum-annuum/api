@@ -14,9 +14,9 @@ public class FindFederatedUnityByIdService {
     @Autowired
     private FederatedUnityRepository federatedUnityRepository;
 
-    public FederatedUnity find(final Long idState) {
-        log.info("Searching for FederatedUnity with id '{}'", idState);
-        return federatedUnityRepository.findById(idState)
+    public FederatedUnity find(final Long idFederatedUnity) {
+        log.info("Searching for FederatedUnity with id '{}'", idFederatedUnity);
+        return federatedUnityRepository.findById(idFederatedUnity)
             .orElseThrow(() -> new RegisterNotFoundException("Estado não encontrado!"));
     }
 
