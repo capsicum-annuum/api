@@ -21,7 +21,7 @@ public class LocalityController {
     @Autowired
     private FindAllCitiesByFederatedUnityService findAllCitiesByFederatedUnityService;
 
-    @GetMapping("/federated-unities")
+    @GetMapping("/federated-unity")
     @ResponseStatus(HttpStatus.OK)
     public FederatedUnitiesListResponse findAllFederatedUnities() {
         return findAllFederatedUnityService.find();
