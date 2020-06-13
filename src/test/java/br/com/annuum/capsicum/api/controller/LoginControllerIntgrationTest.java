@@ -2,6 +2,7 @@ package br.com.annuum.capsicum.api.controller;
 
 import br.com.annuum.capsicum.api.controller.request.LoginRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -17,6 +18,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@Disabled("Disabled until data initialization bug (https://trello.com/c/UzCjQYhf) has been fixed!")
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")

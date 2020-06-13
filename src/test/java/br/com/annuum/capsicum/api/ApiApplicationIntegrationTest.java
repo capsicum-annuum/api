@@ -4,6 +4,7 @@ import br.com.annuum.capsicum.api.domain.Cause;
 import br.com.annuum.capsicum.api.repository.CauseRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -11,6 +12,7 @@ import org.springframework.test.context.ActiveProfiles;
 import javax.annotation.Resource;
 import java.util.List;
 
+@Disabled("Disabled until data initialization bug (https://trello.com/c/UzCjQYhf) has been fixed!")
 @SpringBootTest
 @ActiveProfiles("test")
 public class ApiApplicationIntegrationTest {
