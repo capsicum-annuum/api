@@ -27,7 +27,6 @@ public class Address {
     @Column(columnDefinition = "geography(POINT, 4326)")
     private Point geolocation;
 
-    @NotNull
     @ManyToOne
     private City city;
 
