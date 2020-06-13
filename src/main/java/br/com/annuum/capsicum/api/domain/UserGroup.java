@@ -37,9 +37,6 @@ public class UserGroup extends AbstractUser {
     @Size(max = 1000)
     private String mission;
 
-    @Size(max = 15)
-    private String phone;
-
     @Size(max = 100)
     private String webSiteUrl;
 
