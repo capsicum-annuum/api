@@ -1,5 +1,6 @@
 package br.com.annuum.capsicum.api.controller;
 
+import br.com.annuum.capsicum.api.controller.response.CauseListResponse;
 import br.com.annuum.capsicum.api.domain.dto.CauseDto;
 import br.com.annuum.capsicum.api.domain.dto.SkillDto;
 import br.com.annuum.capsicum.api.service.FindAllCausesService;
@@ -22,7 +23,7 @@ public class CauseController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<CauseDto> findAllCauses() {
+    public CauseListResponse findAllCauses() {
         return findAllCausesService.find();
     }
 

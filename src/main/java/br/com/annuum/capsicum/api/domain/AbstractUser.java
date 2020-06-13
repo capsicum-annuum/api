@@ -1,5 +1,6 @@
 package br.com.annuum.capsicum.api.domain;
 
+import br.com.annuum.capsicum.api.annotation.Phone;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Data
@@ -31,7 +33,13 @@ public abstract class AbstractUser implements User {
 
     @NotBlank
     @Email
+    @Column(unique = true)
     private String email;
+
+    @NotBlank
+    @Phone
+    @Column(unique = true)
+    private String phone;
 
     @NotBlank
     private String password;

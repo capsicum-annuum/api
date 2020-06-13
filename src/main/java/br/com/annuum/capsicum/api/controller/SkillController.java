@@ -1,5 +1,6 @@
 package br.com.annuum.capsicum.api.controller;
 
+import br.com.annuum.capsicum.api.controller.response.SkillListResponse;
 import br.com.annuum.capsicum.api.domain.dto.SkillDto;
 import br.com.annuum.capsicum.api.service.FindAllSkillsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class SkillController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<SkillDto> findAllSkills() {
+    public SkillListResponse findAllSkills() {
         return findAllSkillsService.find();
     }
 
