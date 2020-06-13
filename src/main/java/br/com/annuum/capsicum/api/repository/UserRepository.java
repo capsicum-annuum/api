@@ -12,4 +12,6 @@ public interface UserRepository extends Repository<AbstractUser, Long> {
 
     Optional<User> findByEmail(final String username);
 
+    Optional<User> findByPhone(final String phone);
+
 }

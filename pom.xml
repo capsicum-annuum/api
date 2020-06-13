@@ -140,6 +140,12 @@
             <version>5.3.16.Final</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.googlecode.libphonenumber</groupId>
+            <artifactId>libphonenumber</artifactId>
+            <version>8.12.5</version>
+        </dependency>
+
     </dependencies>
 
     <build>
