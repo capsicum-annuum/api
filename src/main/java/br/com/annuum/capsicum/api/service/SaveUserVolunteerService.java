@@ -1,5 +1,6 @@
 package br.com.annuum.capsicum.api.service;
 
+import br.com.annuum.capsicum.api.controller.request.UniqueUserInformationRequest;
 import br.com.annuum.capsicum.api.controller.request.UserVolunteerRequest;
 import br.com.annuum.capsicum.api.controller.response.UserVolunteerResponse;
 import br.com.annuum.capsicum.api.domain.Address;
@@ -22,6 +23,9 @@ import java.util.stream.Collectors;
 public class SaveUserVolunteerService {
 
     @Autowired
+    private  UniqueUserService uniqueUserService;
+
+    @Autowired
     private FindSkillByIdService findSkillByIdService;
 
     @Autowired
@@ -42,6 +46,11 @@ public class SaveUserVolunteerService {
     @Transactional
     public UserVolunteerResponse save(final UserVolunteerRequest userVolunteerRequest) {
         log.info("Start to create an UserVolunteer for: '{}'", userVolunteerRequest);
+
+        uniqueUserService.validate(new UniqueUserInformationRequest()
+            .setEmail(userVolunteerRequest.getEmail())
+            .setPhone(userVolunteerRequest.getPhone()));
+
         final Address address = saveAddressService.save(userVolunteerRequest.getAddressRequest());
 
         final List<Cause> causesThatSupport = userVolunteerRequest.getCauseThatSupport()

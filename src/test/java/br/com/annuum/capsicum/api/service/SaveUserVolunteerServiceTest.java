@@ -1,12 +1,10 @@
 package br.com.annuum.capsicum.api.service;
 
-import br.com.annuum.capsicum.api.controller.request.AddressRequest;
-import br.com.annuum.capsicum.api.controller.request.AvailabilityRequest;
-import br.com.annuum.capsicum.api.controller.request.DayShiftAvailabilityRequest;
-import br.com.annuum.capsicum.api.controller.request.UserVolunteerRequest;
+import br.com.annuum.capsicum.api.controller.request.*;
 import br.com.annuum.capsicum.api.controller.response.UserVolunteerResponse;
 import br.com.annuum.capsicum.api.domain.*;
 import br.com.annuum.capsicum.api.domain.enums.DayShift;
+import br.com.annuum.capsicum.api.exceptions.AlreadyInUseException;
 import br.com.annuum.capsicum.api.mapper.AvailabilityMapper;
 import br.com.annuum.capsicum.api.repository.UserVolunteerRepository;
 import org.junit.jupiter.api.Test;
@@ -16,19 +14,26 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.DayOfWeek;
 import java.util.Collections;
 import java.util.List;
 
+import static org.apache.commons.lang3.RandomStringUtils.randomAlphanumeric;
+import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.times;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class SaveUserVolunteerServiceTest {
 
     @InjectMocks
     private SaveUserVolunteerService saveUserVolunteerService;
+
+    @Mock
+    private  UniqueUserService uniqueUserService;
 
     @Mock
     private FindCauseByIdService findCauseByIdService;
@@ -93,19 +98,19 @@ class SaveUserVolunteerServiceTest {
             .setDescription("someDescription")
             .setEmail("someEmail");
 
-        Mockito.when(findCauseByIdService.find(cause.getId()))
+        when(findCauseByIdService.find(cause.getId()))
             .thenReturn(cause);
-        Mockito.when(findSkillByIdService.find(skill.getId()))
+        when(findSkillByIdService.find(skill.getId()))
             .thenReturn(skill);
-        Mockito.when(saveAddressService.save(userVolunteerRequest.getAddressRequest()))
+        when(saveAddressService.save(userVolunteerRequest.getAddressRequest()))
             .thenReturn(address);
-        Mockito.when(modelMapper.map(userVolunteerRequest, UserVolunteer.class))
+        when(modelMapper.map(userVolunteerRequest, UserVolunteer.class))
             .thenReturn(userVolunteer);
-        Mockito.when(userVolunteerRepository.save(userVolunteer))
+        when(userVolunteerRepository.save(userVolunteer))
             .thenReturn(userVolunteer);
-        Mockito.when(modelMapper.map(userVolunteer, UserVolunteerResponse.class))
+        when(modelMapper.map(userVolunteer, UserVolunteerResponse.class))
             .thenReturn(expectedUserVolunteerResponse);
-        Mockito.when(availabilityMapper.map(availabilityRequest))
+        when(availabilityMapper.map(availabilityRequest))
             .thenReturn(availability);
 
         // Act
@@ -114,5 +119,31 @@ class SaveUserVolunteerServiceTest {
         // Assert
         assertEquals(expectedUserVolunteerResponse, returnedUserVolunteerResponse);
         Mockito.verify(userVolunteerRepository, times(1)).save(userVolunteer);
+    }
+
+    @Test
+    public void mustThrowAlreadyInUseExceptionWhenUserVolunteerEmailAlreadyInUse() {
+        final String email = randomAlphanumeric(10);
+        final String phone = randomNumeric(11);
+
+        final UserVolunteerRequest userVolunteerRequest = new UserVolunteerRequest()
+            .setEmail(email)
+            .setPhone(phone);
+
+        final UniqueUserInformationRequest uniqueUser = new UniqueUserInformationRequest()
+            .setEmail(email)
+            .setPhone(phone);
+
+        doThrow(AlreadyInUseException.class).when(uniqueUserService).validate(uniqueUser);
+
+        assertThrows(AlreadyInUseException.class, () -> saveUserVolunteerService.save(userVolunteerRequest));
+
+        verifyNoInteractions(findCauseByIdService);
+        verifyNoInteractions(findSkillByIdService);
+        verifyNoInteractions(saveAddressService);
+        verifyNoInteractions(modelMapper);
+        verifyNoInteractions(userVolunteerRepository);
+        verifyNoInteractions(availabilityMapper);
+
     }
 }
