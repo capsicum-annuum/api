@@ -1,16 +1,15 @@
 package br.com.annuum.capsicum.api.controller.response;
 
+import br.com.annuum.capsicum.api.domain.dto.SkillDto;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.util.List;
+
 @Data
 @Accessors(chain = true)
-public class UserGroupResponse {
+public class SkillListResponse {
 
-    private String email;
-
-    private String name;
-
-    private String description;
+    List<SkillDto> skillDtoList;
 
 }
