@@ -38,4 +38,5 @@ public class Address {
     private String addressNumber;
 
     private String complement;
+
 }
