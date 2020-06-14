@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
+import static java.util.Optional.ofNullable;
+
 @Service
 @Slf4j
 public class SaveAddressService {
@@ -31,7 +33,10 @@ public class SaveAddressService {
     @Transactional
     public Address save(final AddressRequest addressRequest) {
         log.info("Start to create an Address for: '{}'", addressRequest);
-        final City city = findCityByIdService.find(addressRequest.getIdCity());
+
+        final City city = ofNullable(addressRequest.getIdCity())
+            .map(findCityByIdService::find)
+            .orElse(null);
 
         log.info("Building Address to persist");
         final Address addressToPersist = modelMapper.map(addressRequest, Address.class)
