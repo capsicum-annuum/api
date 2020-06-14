@@ -1,5 +1,6 @@
 package br.com.annuum.capsicum.api.controller.request;
 
+import br.com.annuum.capsicum.api.annotation.Phone;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.hibernate.validator.constraints.br.CNPJ;
@@ -41,6 +42,7 @@ public class UserOrganizationRequest {
     private String description;
 
     @Nullable
+    @Phone
     private String phone;
 
     @Nullable
