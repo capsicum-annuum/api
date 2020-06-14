@@ -1,7 +1,6 @@
 package br.com.annuum.capsicum.api.controller.response;
 
-import br.com.annuum.capsicum.api.domain.dto.CauseDto;
-import br.com.annuum.capsicum.api.domain.dto.SkillDto;
+import br.com.annuum.capsicum.api.domain.dto.CityDto;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -9,8 +8,8 @@ import java.util.List;
 
 @Data
 @Accessors(chain = true)
-public class CauseListResponse {
+public class CityListResponse {
 
-    List<CauseDto> causes;
+    private List<CityDto> cities;
 
 }
