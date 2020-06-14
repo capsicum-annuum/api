@@ -1,5 +1,6 @@
 package br.com.annuum.capsicum.api.controller.request;
 
+import br.com.annuum.capsicum.api.annotation.Phone;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.lang.Nullable;
@@ -33,6 +34,7 @@ public class UserGroupRequest {
     private AddressRequest addressRequest;
 
     @Nullable
+    @Phone
     private String phone;
 
     @Nullable
