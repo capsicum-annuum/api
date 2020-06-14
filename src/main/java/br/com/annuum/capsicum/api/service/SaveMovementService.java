@@ -58,7 +58,7 @@ public class SaveMovementService {
             .setNeeds(needs)
             .setDateTimeStart(movementRequest.getDateTimeStart())
             .setDateTimeEnd(movementRequest.getDateTimeEnd())
-            .setPictureId(movementRequest.getPictureId())
+            .setPictureUrl(movementRequest.getPictureUrl())
             .setTitle(movementRequest.getTitle())
             .setDescription(movementRequest.getDescription());
 

@@ -36,7 +36,7 @@ public class UserGroupRequest {
     private String phone;
 
     @Nullable
-    private Long profilePictureId;
+    private String profilePictureUrl;
 
     @Nullable
     private String description;

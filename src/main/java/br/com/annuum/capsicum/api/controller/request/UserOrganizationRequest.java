@@ -44,10 +44,10 @@ public class UserOrganizationRequest {
     private String phone;
 
     @Nullable
-    private Long profilePictureId;
+    private String profilePictureUrl;
 
     @Nullable
-    private Long backgroundPictureId;
+    private String backgroundPictureUrl;
 
     @Nullable
     private String webSiteUrl;

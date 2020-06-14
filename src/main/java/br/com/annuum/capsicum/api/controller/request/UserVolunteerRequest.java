@@ -43,7 +43,7 @@ public class UserVolunteerRequest {
     private String phone;
 
     @Nullable
-    private Long profilePictureId;
+    private String profilePictureUrl;
 
     @Nullable
     private String facebookUrl;
