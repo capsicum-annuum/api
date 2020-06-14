@@ -49,9 +49,9 @@ public class UserGroup extends AbstractUser {
     @Size(max = 100)
     private String twitterUrl;
 
-    private Long profilePictureId;
+    private String profilePictureUrl;
 
-    private Long backgroundPictureId;
+    private String backgroundPictureUrl;
 
     @Override
     public Profile getProfile() {

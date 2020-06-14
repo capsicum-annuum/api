@@ -57,7 +57,7 @@ public class UserVolunteer extends AbstractUser {
     @Size(max = 100)
     private String twitterUrl;
 
-    private Long profilePictureId;
+    private String profilePictureUrl;
 
     @Override
     public Profile getProfile() {

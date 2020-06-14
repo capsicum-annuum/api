@@ -54,9 +54,9 @@ public class UserOrganization extends AbstractUser {
     @Size(max = 100)
     private String twitterUrl;
 
-    private Long profilePictureId;
+    private String profilePictureId;
 
-    private Long backgroundPictureId;
+    private String backgroundPictureId;
 
     @Override
     public Profile getProfile() {
