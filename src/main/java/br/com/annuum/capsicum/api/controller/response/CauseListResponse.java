@@ -11,6 +11,6 @@ import java.util.List;
 @Accessors(chain = true)
 public class CauseListResponse {
 
-    List<CauseDto> causeList;
+    List<CauseDto> causes;
 
 }

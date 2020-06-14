@@ -10,6 +10,6 @@ import java.util.List;
 @Accessors(chain = true)
 public class SkillListResponse {
 
-    List<SkillDto> skillList;
+    List<SkillDto> skills;
 
 }

@@ -2,21 +2,18 @@ package br.com.annuum.capsicum.api.controller;
 
 import br.com.annuum.capsicum.api.controller.response.CityListResponse;
 import br.com.annuum.capsicum.api.controller.response.FederatedUnitiesListResponse;
-import br.com.annuum.capsicum.api.domain.dto.FederatedUnityDto;
 import br.com.annuum.capsicum.api.service.FindAllCitiesByFederatedUnityService;
-import br.com.annuum.capsicum.api.service.FindAllFederatedUnityService;
+import br.com.annuum.capsicum.api.service.FindAllFederatedUnitiesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/locality")
 public class LocalityController {
 
     @Autowired
-    private FindAllFederatedUnityService findAllFederatedUnityService;
+    private FindAllFederatedUnitiesService findAllFederatedUnitiesService;
 
     @Autowired
     private FindAllCitiesByFederatedUnityService findAllCitiesByFederatedUnityService;
@@ -24,7 +21,7 @@ public class LocalityController {
     @GetMapping("/federated-unity")
     @ResponseStatus(HttpStatus.OK)
     public FederatedUnitiesListResponse findAllFederatedUnities() {
-        return findAllFederatedUnityService.find();
+        return findAllFederatedUnitiesService.find();
     }
 
     @GetMapping("/city")

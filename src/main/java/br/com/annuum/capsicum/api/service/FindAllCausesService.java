@@ -16,7 +16,7 @@ public class FindAllCausesService {
     public CauseListResponse find() {
         log.info("Searching for all Causes.");
         return new CauseListResponse()
-            .setCauseList(causeRepository.retrieveAllCausesAsCausesDto());
+            .setCauses(causeRepository.retrieveAllCausesAsCausesDto());
     }
 
 }

@@ -16,7 +16,7 @@ public class FindAllCitiesByFederatedUnityService {
     public CityListResponse find(Long idFederatedUnity) {
         log.info("Searching for all Cities with Federated Unity id '{}'", idFederatedUnity);
         return new CityListResponse()
-            .setCities(cityRepository.retrieveAllCitiesAsCityDtoByFederatedUnity(idFederatedUnity));
+            .setCities(cityRepository.findAllCitiesAsCityDtoByFederatedUnity(idFederatedUnity));
     }
 
 }

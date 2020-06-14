@@ -10,6 +10,6 @@ import java.util.List;
 @Accessors(chain = true)
 public class FederatedUnitiesListResponse {
 
-    List<FederatedUnityDto> federatedUnityList;
+    List<FederatedUnityDto> federatedUnities;
 
 }

@@ -16,7 +16,7 @@ public class FindAllSkillsService {
     public SkillListResponse find() {
         log.info("Searching for all Skills.");
         return new SkillListResponse()
-            .setSkillList(skillRepository.retrieveAllSkillsAsSkillsDto());
+            .setSkills(skillRepository.retrieveAllSkillsAsSkillsDto());
     }
 
 }
