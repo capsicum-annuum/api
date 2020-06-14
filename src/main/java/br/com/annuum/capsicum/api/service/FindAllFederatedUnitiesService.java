@@ -19,14 +19,14 @@ public class FindAllFederatedUnitiesService {
     @Autowired
     private FederatedUnityRepository federatedUnityRepository;
 
-    @Resource
+    @Autowired
     private FederatedUnityMapper federatedUnityMapper;
 
     public FederatedUnitiesListResponse find() {
         log.info("Searching for all Federated Unities");
         List<FederatedUnity> federatedUnities = federatedUnityRepository.findAll();
         return new FederatedUnitiesListResponse()
-            .setFederatedUnities((List<FederatedUnityDto>) federatedUnityMapper.map(federatedUnities));
+            .setFederatedUnities(federatedUnityMapper.map(federatedUnities));
     }
 
 }
