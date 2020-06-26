@@ -1,6 +1,5 @@
 package br.com.annuum.capsicum.api.service;
 
-import br.com.annuum.capsicum.api.controller.request.CandidacyRequest;
 import br.com.annuum.capsicum.api.domain.Candidacy;
 import br.com.annuum.capsicum.api.domain.CandidacyStatusControl;
 import br.com.annuum.capsicum.api.domain.Need;
@@ -26,12 +25,12 @@ public class SaveCandidacyService {
     private CandidacyRepository candidacyRepository;
 
     @Transactional
-    public Candidacy save(final CandidacyRequest candidacyRequest) {
+    public Candidacy save(final Long idUserAuthenticated, final Long idNeed) {
 
-        log.info("Start to create an Candidacy for: '{}'", candidacyRequest);
-        final UserVolunteer userVolunteer = findUserVolunteerByIdService.find(candidacyRequest.getUserVolunteerId());
+        log.info("Start to create an Candidacy");
+        final UserVolunteer userVolunteer = findUserVolunteerByIdService.find(idUserAuthenticated);
 
-        final Need need = findNeedByIdService.find(candidacyRequest.getNeedId());
+        final Need need = findNeedByIdService.find(idNeed);
 
         final Candidacy candidacyToPersist = new Candidacy()
             .setNeed(need)

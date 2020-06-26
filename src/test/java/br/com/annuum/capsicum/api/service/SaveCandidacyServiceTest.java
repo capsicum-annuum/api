@@ -1,6 +1,5 @@
 package br.com.annuum.capsicum.api.service;
 
-import br.com.annuum.capsicum.api.controller.request.CandidacyRequest;
 import br.com.annuum.capsicum.api.domain.*;
 import br.com.annuum.capsicum.api.domain.enums.DayShift;
 import br.com.annuum.capsicum.api.domain.enums.NeedStatus;
@@ -69,23 +68,22 @@ class SaveCandidacyServiceTest {
             .setAvailability(availability)
             .setNeedStatus(NeedStatus.ACTIVE);
 
-        final CandidacyRequest candidacyRequest = new CandidacyRequest()
-            .setNeedId(1L)
-            .setUserVolunteerId(1L);
-
         final Candidacy expectedCandidacy = new Candidacy()
             .setNeed(need)
             .setUserCandidate(userVolunteer)
             .setCandidacyStatusControl(new CandidacyStatusControl());
 
-        Mockito.when(findUserVolunteerByIdService.find(candidacyRequest.getUserVolunteerId()))
+        final Long idUser = 1L;
+        final Long idNeed = 1L;
+
+        Mockito.when(findUserVolunteerByIdService.find(idUser))
             .thenReturn(userVolunteer);
-        Mockito.when(findNeedByIdService.find(candidacyRequest.getNeedId()))
+        Mockito.when(findNeedByIdService.find(idNeed))
             .thenReturn(need);
         Mockito.when(candidacyRepository.save(expectedCandidacy))
             .thenReturn(expectedCandidacy);
 
-        final Candidacy returnedCandidacy = saveCandidacyService.save(candidacyRequest);
+        final Candidacy returnedCandidacy = saveCandidacyService.save(idUser, idNeed);
 
         assertEquals(expectedCandidacy, returnedCandidacy);
         Mockito.verify(candidacyRepository, times(1)).save(expectedCandidacy);
