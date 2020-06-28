@@ -1,10 +1,7 @@
 package br.com.annuum.capsicum.api.controller;
 
-<<<<<<< HEAD
 import br.com.annuum.capsicum.api.domain.enums.CandidacyStatus;
-=======
 import br.com.annuum.capsicum.api.security.UserPrincipal;
->>>>>>> 39d8c10402221cc6496fdbb7fb915ff50c392170
 import br.com.annuum.capsicum.api.service.SaveCandidacyService;
 import br.com.annuum.capsicum.api.service.UpdateCandidacyStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,18 +21,44 @@ public class CandidacyController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-<<<<<<< HEAD
-    public void saveCandidacy(@RequestParam final Long idUserAuthenticated, @RequestParam final Long idNeed) {
-        saveCandidacyService.save(idUserAuthenticated, idNeed);
-=======
     public void saveCandidacy(@AuthenticationPrincipal final UserPrincipal currentUser, @RequestParam final Long idNeed) {
         saveCandidacyService.save(currentUser.getId(), idNeed);
->>>>>>> 39d8c10402221cc6496fdbb7fb915ff50c392170
     }
 
-    @PatchMapping("update/{idCandidacy}/approved")
+    @PutMapping("update/{idCandidacy}/candidate")
     @ResponseStatus(HttpStatus.OK)
-    public void setCandidacyStatusApproved(@RequestParam Long idUserAuthenticated, @PathVariable Long idCandidacy) {
-        updateCandidacyStatusService.update(idUserAuthenticated, idCandidacy, CandidacyStatus.APPROVED);
+    public void setCandidacyStatusCandidate(@AuthenticationPrincipal final UserPrincipal currentUser, @PathVariable Long idCandidacy) {
+        updateCandidacyStatusService.update(currentUser.getId(), idCandidacy, CandidacyStatus.CANDIDATE);
     }
+
+    @PutMapping("update/{idCandidacy}/rejected")
+    @ResponseStatus(HttpStatus.OK)
+    public void setCandidacyStatusRejected(@AuthenticationPrincipal final UserPrincipal currentUser, @PathVariable Long idCandidacy) {
+        updateCandidacyStatusService.update(currentUser.getId(), idCandidacy, CandidacyStatus.REJECTED);
+    }
+
+    @PutMapping("update/{idCandidacy}/approved")
+    @ResponseStatus(HttpStatus.OK)
+    public void setCandidacyStatusApproved(@AuthenticationPrincipal final UserPrincipal currentUser, @PathVariable Long idCandidacy) {
+        updateCandidacyStatusService.update(currentUser.getId(), idCandidacy, CandidacyStatus.APPROVED);
+    }
+
+    @PutMapping("update/{idCandidacy}/declined")
+    @ResponseStatus(HttpStatus.OK)
+    public void setCandidacyStatusDeclined(@AuthenticationPrincipal final UserPrincipal currentUser, @PathVariable Long idCandidacy) {
+        updateCandidacyStatusService.update(currentUser.getId(), idCandidacy, CandidacyStatus.DECLINED);
+    }
+
+    @PutMapping("update/{idCandidacy}/present")
+    @ResponseStatus(HttpStatus.OK)
+    public void setCandidacyStatusPresent(@AuthenticationPrincipal final UserPrincipal currentUser, @PathVariable Long idCandidacy) {
+        updateCandidacyStatusService.update(currentUser.getId(), idCandidacy, CandidacyStatus.PRESENT);
+    }
+
+    @PutMapping("update/{idCandidacy}/absent")
+    @ResponseStatus(HttpStatus.OK)
+    public void setCandidacyStatusAbsent(@AuthenticationPrincipal final UserPrincipal currentUser, @PathVariable Long idCandidacy) {
+        updateCandidacyStatusService.update(currentUser.getId(), idCandidacy, CandidacyStatus.ABSENT);
+    }
+
 }

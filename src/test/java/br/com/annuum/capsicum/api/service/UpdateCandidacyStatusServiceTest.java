@@ -3,6 +3,7 @@ package br.com.annuum.capsicum.api.service;
 import br.com.annuum.capsicum.api.domain.*;
 import br.com.annuum.capsicum.api.domain.enums.CandidacyStatus;
 import br.com.annuum.capsicum.api.domain.enums.MovementStatus;
+import br.com.annuum.capsicum.api.exceptions.AccessControlException;
 import br.com.annuum.capsicum.api.exceptions.StatusUpdateNotAllowedException;
 import br.com.annuum.capsicum.api.repository.CandidacyRepository;
 import com.vividsolutions.jts.util.Assert;
@@ -13,8 +14,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.security.AccessControlException;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.times;
@@ -51,7 +50,7 @@ class UpdateCandidacyStatusServiceTest {
         Mockito.when(findMovimentByNeedService.find(candidacy.getNeed()))
             .thenReturn(movement);
 
-        assertThrows(StatusUpdateNotAllowedException.class, () -> updateCandidacyStatusService.update(1L,1L, candidacyStatus));
+        assertThrows(StatusUpdateNotAllowedException.class, () -> updateCandidacyStatusService.update(1L, 1L, candidacyStatus));
     }
 
 
@@ -72,7 +71,7 @@ class UpdateCandidacyStatusServiceTest {
         Mockito.when(findMovimentByNeedService.find(candidacy.getNeed()))
             .thenReturn(movement);
 
-        assertThrows(StatusUpdateNotAllowedException.class, () -> updateCandidacyStatusService.update(1L,1L, candidacyStatus));
+        assertThrows(StatusUpdateNotAllowedException.class, () -> updateCandidacyStatusService.update(1L, 1L, candidacyStatus));
 
     }
 
@@ -95,7 +94,7 @@ class UpdateCandidacyStatusServiceTest {
         Mockito.when(candidacyRepository.save(candidacy))
             .thenReturn(candidacy);
 
-        final Candidacy returnedCandidacy = updateCandidacyStatusService.update(1L,1L, candidacyStatus);
+        final Candidacy returnedCandidacy = updateCandidacyStatusService.update(1L, 1L, candidacyStatus);
 
         Assert.equals(returnedCandidacy.getCandidacyStatusControl().getStatusEnum(), candidacyStatus);
         Mockito.verify(candidacyRepository, times(1)).save(candidacy);
@@ -121,7 +120,7 @@ class UpdateCandidacyStatusServiceTest {
         Mockito.when(candidacyRepository.save(candidacy))
             .thenReturn(candidacy);
 
-        final Candidacy returnedCandidacy = updateCandidacyStatusService.update(1L,1L, candidacyStatus);
+        final Candidacy returnedCandidacy = updateCandidacyStatusService.update(1L, 1L, candidacyStatus);
 
         Assert.equals(returnedCandidacy.getCandidacyStatusControl().getStatusEnum(), candidacyStatus);
         Mockito.verify(candidacyRepository, times(1)).save(candidacy);
@@ -147,7 +146,7 @@ class UpdateCandidacyStatusServiceTest {
         Mockito.when(candidacyRepository.save(candidacy))
             .thenReturn(candidacy);
 
-        final Candidacy returnedCandidacy = updateCandidacyStatusService.update(1L,1L, candidacyStatus);
+        final Candidacy returnedCandidacy = updateCandidacyStatusService.update(1L, 1L, candidacyStatus);
 
         Assert.equals(returnedCandidacy.getCandidacyStatusControl().getStatusEnum(), candidacyStatus);
         Mockito.verify(candidacyRepository, times(1)).save(candidacy);
@@ -173,7 +172,7 @@ class UpdateCandidacyStatusServiceTest {
         Mockito.when(candidacyRepository.save(candidacy))
             .thenReturn(candidacy);
 
-        final Candidacy returnedCandidacy = updateCandidacyStatusService.update(1L,1L, candidacyStatus);
+        final Candidacy returnedCandidacy = updateCandidacyStatusService.update(1L, 1L, candidacyStatus);
 
         Assert.equals(returnedCandidacy.getCandidacyStatusControl().getStatusEnum(), candidacyStatus);
         Mockito.verify(candidacyRepository, times(1)).save(candidacy);
@@ -197,7 +196,7 @@ class UpdateCandidacyStatusServiceTest {
         Mockito.when(findMovimentByNeedService.find(candidacy.getNeed()))
             .thenReturn(movement);
 
-        assertThrows(StatusUpdateNotAllowedException.class, () -> updateCandidacyStatusService.update(1L,1L, candidacyStatus));
+        assertThrows(StatusUpdateNotAllowedException.class, () -> updateCandidacyStatusService.update(1L, 1L, candidacyStatus));
     }
 
     @ParameterizedTest
@@ -220,7 +219,7 @@ class UpdateCandidacyStatusServiceTest {
         Mockito.when(candidacyRepository.save(candidacy))
             .thenReturn(candidacy);
 
-        final Candidacy returnedCandidacy = updateCandidacyStatusService.update(1L,1L, candidacyStatus);
+        final Candidacy returnedCandidacy = updateCandidacyStatusService.update(1L, 1L, candidacyStatus);
 
         Assert.equals(returnedCandidacy.getCandidacyStatusControl().getStatusEnum(), candidacyStatus);
         Mockito.verify(candidacyRepository, times(1)).save(candidacy);

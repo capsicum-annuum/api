@@ -4,6 +4,7 @@ import br.com.annuum.capsicum.api.domain.Candidacy;
 import br.com.annuum.capsicum.api.domain.Movement;
 import br.com.annuum.capsicum.api.domain.enums.CandidacyStatus;
 import br.com.annuum.capsicum.api.domain.enums.MovementStatus;
+import br.com.annuum.capsicum.api.exceptions.AccessControlException;
 import br.com.annuum.capsicum.api.exceptions.StatusUpdateNotAllowedException;
 import br.com.annuum.capsicum.api.repository.CandidacyRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.security.AccessControlException;
 import java.util.Arrays;
 import java.util.List;
 
