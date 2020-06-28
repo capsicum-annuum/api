@@ -151,12 +151,6 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-
     </dependencies>
 
     <build>
@@ -167,7 +161,8 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <fork>true</fork>
-                    <mainClass>br.com.annuum.capsicum.api.ApiApplication</mainClass>
+                    <mainClass>br.com.annuum.capsicum.api.ApiApplication
+                    </mainClass>
                 </configuration>
                 <executions>
                     <execution>
@@ -183,7 +178,9 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>br.com.annuum.capsicum.api.ApiApplication</mainClass>
+                            <mainClass>
+                                br.com.annuum.capsicum.api.ApiApplication
+                            </mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

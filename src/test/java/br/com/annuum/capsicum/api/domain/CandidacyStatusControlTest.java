@@ -1,7 +1,11 @@
 package br.com.annuum.capsicum.api.domain;
 
 import br.com.annuum.capsicum.api.domain.enums.CandidacyStatus;
+<<<<<<< HEAD
 import br.com.annuum.capsicum.api.exceptions.StatusOrderViolationException;
+=======
+import br.com.annuum.capsicum.api.exceptions.StatusTransitionException;
+>>>>>>> 39d8c10402221cc6496fdbb7fb915ff50c392170
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.runner.RunWith;
@@ -24,7 +28,11 @@ class CandidacyStatusControlTest {
     @EnumSource(value = CandidacyStatus.class, names = {"ABSENT", "PRESENT"})
     void shouldReturnExceptionWhenSettingNotAvailableNextOptionsOfCandidacyStatusCandidate(CandidacyStatus candidacyStatus) {
         CandidacyStatusControl candidacyStatusControl = new CandidacyStatusControl();
+<<<<<<< HEAD
         assertThrows(StatusOrderViolationException.class, () -> candidacyStatusControl.setStatusEnum(candidacyStatus));
+=======
+        assertThrows(StatusTransitionException.class, () -> candidacyStatusControl.setStatusEnum(candidacyStatus));
+>>>>>>> 39d8c10402221cc6496fdbb7fb915ff50c392170
     }
 
     @ParameterizedTest
@@ -40,7 +48,11 @@ class CandidacyStatusControlTest {
     void shouldReturnExceptionWhenSettingNotAvailableNextOptionsOfCandidacyStatusRejected(CandidacyStatus candidacyStatus) {
         CandidacyStatusControl candidacyStatusControl = new CandidacyStatusControl();
         candidacyStatusControl.setStatusEnum(CandidacyStatus.REJECTED);
+<<<<<<< HEAD
         assertThrows(StatusOrderViolationException.class, () -> candidacyStatusControl.setStatusEnum(candidacyStatus));
+=======
+        assertThrows(StatusTransitionException.class, () -> candidacyStatusControl.setStatusEnum(candidacyStatus));
+>>>>>>> 39d8c10402221cc6496fdbb7fb915ff50c392170
     }
 
     @ParameterizedTest
@@ -64,7 +76,11 @@ class CandidacyStatusControlTest {
     void shouldReturnExceptionWhenSettingNotAvailableNextOptionsOfCandidacyStatusDeclined(CandidacyStatus candidacyStatus) {
         CandidacyStatusControl candidacyStatusControl = new CandidacyStatusControl();
         candidacyStatusControl.setStatusEnum(CandidacyStatus.DECLINED);
+<<<<<<< HEAD
         assertThrows(StatusOrderViolationException.class, () -> candidacyStatusControl.setStatusEnum(candidacyStatus));
+=======
+        assertThrows(StatusTransitionException.class, () -> candidacyStatusControl.setStatusEnum(candidacyStatus));
+>>>>>>> 39d8c10402221cc6496fdbb7fb915ff50c392170
     }
 
     @ParameterizedTest
@@ -82,7 +98,11 @@ class CandidacyStatusControlTest {
         CandidacyStatusControl candidacyStatusControl = new CandidacyStatusControl();
         candidacyStatusControl.setStatusEnum(CandidacyStatus.APPROVED);
         candidacyStatusControl.setStatusEnum(CandidacyStatus.ABSENT);
+<<<<<<< HEAD
         assertThrows(StatusOrderViolationException.class, () -> candidacyStatusControl.setStatusEnum(candidacyStatus));
+=======
+        assertThrows(StatusTransitionException.class, () -> candidacyStatusControl.setStatusEnum(candidacyStatus));
+>>>>>>> 39d8c10402221cc6496fdbb7fb915ff50c392170
     }
 
     @ParameterizedTest
@@ -100,7 +120,11 @@ class CandidacyStatusControlTest {
         CandidacyStatusControl candidacyStatusControl = new CandidacyStatusControl();
         candidacyStatusControl.setStatusEnum(CandidacyStatus.APPROVED);
         candidacyStatusControl.setStatusEnum(CandidacyStatus.PRESENT);
+<<<<<<< HEAD
         assertThrows(StatusOrderViolationException.class, () -> candidacyStatusControl.setStatusEnum(candidacyStatus));
+=======
+        assertThrows(StatusTransitionException.class, () -> candidacyStatusControl.setStatusEnum(candidacyStatus));
+>>>>>>> 39d8c10402221cc6496fdbb7fb915ff50c392170
     }
 
 }

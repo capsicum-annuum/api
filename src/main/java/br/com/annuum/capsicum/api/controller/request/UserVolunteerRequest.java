@@ -41,7 +41,7 @@ public class UserVolunteerRequest {
     private String description;
 
     @Nullable
-    @Phone
+    @Phone(message = "O telefone informado é inválido.")
     private String phone;
 
     @Nullable
