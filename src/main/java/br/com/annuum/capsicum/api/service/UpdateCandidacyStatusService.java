@@ -12,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Arrays;
-import java.util.List;
 
 @Service
 @Slf4j
@@ -46,21 +44,10 @@ public class UpdateCandidacyStatusService {
                 "Não é possível alterar o status da candidatura quando o movimento está cancelado.");
         }
 
-        final List<CandidacyStatus> STATUS_ACCEPTABLE_BY_CONCLUDE_MOVEMENT =
-            Arrays.asList(
-                CandidacyStatus.ABSENT,
-                CandidacyStatus.PRESENT);
-
-        if (movement.getMovementStatus().equals(MovementStatus.ACTIVE)
-            && STATUS_ACCEPTABLE_BY_CONCLUDE_MOVEMENT.contains(candidacyStatus)) {
+        if (!movement.getMovementStatus().getAcceptableCandidacyStatusToSet().contains(candidacyStatus)) {
             throw new StatusUpdateNotAllowedException(
-                String.format("Não é possível alterar o status da candidatura para %s enquanto o movimento não estiver concluído.", candidacyStatus));
-        }
-
-        if (movement.getMovementStatus().equals(MovementStatus.CONCLUDE)
-            && !STATUS_ACCEPTABLE_BY_CONCLUDE_MOVEMENT.contains(candidacyStatus)) {
-            throw new StatusUpdateNotAllowedException(
-                String.format("Não é possível alterar o status da candidatura para %s para um movimento concluído.", candidacyStatus));
+                String.format("Não é possível alterar o status da candidatura para %s com um movimento de status %s.",
+                    candidacyStatus, movement.getMovementStatus()));
         }
 
         candidacy.getCandidacyStatusControl().setStatusEnum(candidacyStatus);
