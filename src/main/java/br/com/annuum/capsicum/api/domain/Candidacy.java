@@ -18,6 +18,9 @@ public class Candidacy {
     private Long id;
 
     @ManyToOne
+    private Need need;
+
+    @ManyToOne
     private UserVolunteer userCandidate;
 
     @Embedded
