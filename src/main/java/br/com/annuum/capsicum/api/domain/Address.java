@@ -27,8 +27,11 @@ public class Address {
     @Column(columnDefinition = "geography(POINT, 4326)")
     private Point geolocation;
 
-    @ManyToOne
-    private City city;
+    @NotNull
+    private String cityName;
+
+    @NotNull
+    private String federatedUnityAcronym;
 
     private String district;
 

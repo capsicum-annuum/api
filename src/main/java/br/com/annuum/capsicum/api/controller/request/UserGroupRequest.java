@@ -41,5 +41,8 @@ public class UserGroupRequest {
     private String profilePictureUrl;
 
     @Nullable
+    private String profilePictureKey;
+
+    @Nullable
     private String description;
 }
