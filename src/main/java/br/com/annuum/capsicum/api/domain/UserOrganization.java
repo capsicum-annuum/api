@@ -54,7 +54,7 @@ public class UserOrganization extends AbstractUser {
     @Size(max = 100)
     private String twitterUrl;
 
-    private String profilePictureId;
+    private String profilePictureUrl;
 
     private String profilePictureKey;
 
