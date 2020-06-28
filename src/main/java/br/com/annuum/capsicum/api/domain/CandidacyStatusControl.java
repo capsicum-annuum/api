@@ -20,13 +20,12 @@ public class CandidacyStatusControl {
     }
 
     public void setStatusEnum(CandidacyStatus statusEnum) {
-        if (this.statusEnum.getNextStatusSupported().contains(statusEnum.name())) {
-            this.statusEnum = statusEnum;
-        } else {
+        if (!this.statusEnum.getNextStatusSupported().contains(statusEnum.name())) {
             throw new StatusOrderViolationException(String.format("Não é possível alterar o status da candidatura de %s para %s",
                 this.statusEnum.name(),
                 statusEnum.name()));
         }
+        this.statusEnum = statusEnum;
     }
 
 }

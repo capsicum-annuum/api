@@ -12,13 +12,38 @@ import java.util.List;
 @NoArgsConstructor
 public enum CandidacyStatus {
 
-    CANDIDATE(Arrays.asList("REJECTED", "APPROVED", "DECLINED")),
-    REJECTED(Arrays.asList("CANDIDATE", "APPROVED")),
-    APPROVED(Arrays.asList("CANDIDATE", "REJECTED", "DECLINED", "ABSENT", "PRESENT")),
-    DECLINED(Arrays.asList("CANDIDATE", "APPROVED")),
-    ABSENT(Arrays.asList("PRESENT", "APPROVED")),
-    PRESENT(Arrays.asList("ABSENT", "APPROVED"));
+    CANDIDATE(Arrays.asList(
+        Names.REJECTED,
+        Names.APPROVED,
+        Names.DECLINED)),
+    REJECTED(Arrays.asList(
+        Names.CANDIDATE,
+        Names.APPROVED)),
+    APPROVED(Arrays.asList(
+        Names.CANDIDATE,
+        Names.REJECTED,
+        Names.DECLINED,
+        Names.ABSENT,
+        Names.PRESENT)),
+    DECLINED(Arrays.asList(
+        Names.CANDIDATE,
+        Names.APPROVED)),
+    ABSENT(Arrays.asList(
+        Names.PRESENT,
+        Names.APPROVED)),
+    PRESENT(Arrays.asList(
+        Names.ABSENT,
+        Names.APPROVED));
 
     private List<String> nextStatusSupported;
+
+    public static class Names {
+        public static final String CANDIDATE = "CANDIDATE";
+        public static final String REJECTED = "REJECTED";
+        public static final String APPROVED = "APPROVED";
+        public static final String DECLINED = "DECLINED";
+        public static final String ABSENT = "ABSENT";
+        public static final String PRESENT = "PRESENT";
+    }
 
 }
