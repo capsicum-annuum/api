@@ -29,42 +29,42 @@ public class CandidacyController {
         saveCandidacyService.save(currentUser.getId(), idNeed);
     }
 
-    @PutMapping("update/{idCandidacy}/candidate")
+    @PatchMapping("{idCandidacy}/candidate")
     @ResponseStatus(HttpStatus.OK)
     @RolesAllowed(Profile.Names.USER)
     public void setCandidacyStatusCandidate(@AuthenticationPrincipal final UserPrincipal currentUser, @PathVariable Long idCandidacy) {
         updateCandidacyStatusService.update(currentUser.getId(), idCandidacy, CandidacyStatus.CANDIDATE);
     }
 
-    @PutMapping("update/{idCandidacy}/rejected")
+    @PatchMapping("{idCandidacy}/reject")
     @ResponseStatus(HttpStatus.OK)
     @RolesAllowed(Profile.Names.USER)
     public void setCandidacyStatusRejected(@AuthenticationPrincipal final UserPrincipal currentUser, @PathVariable Long idCandidacy) {
         updateCandidacyStatusService.update(currentUser.getId(), idCandidacy, CandidacyStatus.REJECTED);
     }
 
-    @PutMapping("update/{idCandidacy}/approved")
+    @PatchMapping("{idCandidacy}/approve")
     @ResponseStatus(HttpStatus.OK)
     @RolesAllowed(Profile.Names.USER)
     public void setCandidacyStatusApproved(@AuthenticationPrincipal final UserPrincipal currentUser, @PathVariable Long idCandidacy) {
         updateCandidacyStatusService.update(currentUser.getId(), idCandidacy, CandidacyStatus.APPROVED);
     }
 
-    @PutMapping("update/{idCandidacy}/declined")
+    @PatchMapping("{idCandidacy}/decline")
     @ResponseStatus(HttpStatus.OK)
     @RolesAllowed(Profile.Names.USER)
     public void setCandidacyStatusDeclined(@AuthenticationPrincipal final UserPrincipal currentUser, @PathVariable Long idCandidacy) {
         updateCandidacyStatusService.update(currentUser.getId(), idCandidacy, CandidacyStatus.DECLINED);
     }
 
-    @PutMapping("update/{idCandidacy}/present")
+    @PatchMapping("{idCandidacy}/present")
     @ResponseStatus(HttpStatus.OK)
     @RolesAllowed(Profile.Names.USER)
     public void setCandidacyStatusPresent(@AuthenticationPrincipal final UserPrincipal currentUser, @PathVariable Long idCandidacy) {
         updateCandidacyStatusService.update(currentUser.getId(), idCandidacy, CandidacyStatus.PRESENT);
     }
 
-    @PutMapping("update/{idCandidacy}/absent")
+    @PatchMapping("{idCandidacy}/absent")
     @ResponseStatus(HttpStatus.OK)
     @RolesAllowed(Profile.Names.USER)
     public void setCandidacyStatusAbsent(@AuthenticationPrincipal final UserPrincipal currentUser, @PathVariable Long idCandidacy) {
