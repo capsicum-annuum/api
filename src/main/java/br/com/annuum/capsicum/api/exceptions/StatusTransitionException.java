@@ -4,9 +4,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.BAD_REQUEST)
-public class StatusTransitionExcepetion extends RuntimeException {
+public class StatusTransitionException extends RuntimeException {
 
-    public StatusTransitionExcepetion(final String description) {
+    public StatusTransitionException(final String description) {
         super(description);
     }
 }

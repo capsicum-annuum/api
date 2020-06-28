@@ -1,7 +1,7 @@
 package br.com.annuum.capsicum.api.domain;
 
 import br.com.annuum.capsicum.api.domain.enums.CandidacyStatus;
-import br.com.annuum.capsicum.api.exceptions.StatusTransitionExcepetion;
+import br.com.annuum.capsicum.api.exceptions.StatusTransitionException;
 import lombok.Data;
 
 import javax.persistence.Embeddable;
@@ -23,7 +23,7 @@ public class CandidacyStatusControl {
         if (this.statusEnum.getNextStatusSupported().contains(statusEnum.name())) {
             this.statusEnum = statusEnum;
         } else {
-            throw new StatusTransitionExcepetion(String.format("Não é possível alterar o status da candidatura de %s para %s",
+            throw new StatusTransitionException(String.format("Não é possível alterar o status da candidatura de %s para %s",
                 this.statusEnum.name(),
                 statusEnum.name()));
         }
