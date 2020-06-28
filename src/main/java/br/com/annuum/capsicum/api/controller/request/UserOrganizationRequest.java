@@ -49,6 +49,9 @@ public class UserOrganizationRequest {
     private String profilePictureUrl;
 
     @Nullable
+    private String profilePictureKey;
+
+    @Nullable
     private String backgroundPictureUrl;
 
     @Nullable

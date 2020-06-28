@@ -59,6 +59,8 @@ public class UserVolunteer extends AbstractUser {
 
     private String profilePictureUrl;
 
+    private String profilePictureKey;
+
     @Override
     public Profile getProfile() {
         return VOLUNTEER;

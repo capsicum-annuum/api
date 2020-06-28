@@ -48,6 +48,9 @@ public class UserVolunteerRequest {
     private String profilePictureUrl;
 
     @Nullable
+    private String profilePictureKey;
+
+    @Nullable
     private String facebookUrl;
 
     @Nullable

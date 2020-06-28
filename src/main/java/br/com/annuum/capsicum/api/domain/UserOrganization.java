@@ -56,6 +56,8 @@ public class UserOrganization extends AbstractUser {
 
     private String profilePictureId;
 
+    private String profilePictureKey;
+
     private String backgroundPictureId;
 
     @Override

@@ -10,13 +10,17 @@ import javax.validation.constraints.NotNull;
 @Accessors(chain = true)
 public class AddressRequest {
 
-    private Long idCity;
-
     @NotNull(message = "A latitude precisa ser informada.")
     private Double latitude;
 
     @NotNull(message = "A longitude precisa ser informada.")
     private Double longitude;
+
+    @NotNull
+    private String cityName;
+
+    @NotNull
+    private String federatedUnityAcronym;
 
     @Nullable
     private String district;

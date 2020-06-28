@@ -25,9 +25,6 @@ class SaveAddressServiceTest {
     private SaveAddressService saveAddressService;
 
     @Mock
-    private FindCityByIdService findCityByIdService;
-
-    @Mock
     private AddressRepository addressRepository;
 
     @Mock
@@ -38,23 +35,18 @@ class SaveAddressServiceTest {
 
     @Test
     public void mustSaveAndReturnPersistedAddress_withSuccess() {
-        // Arrange
-        final City city = new City()
-            .setId(1L)
-            .setName("someCityName")
-            .setFederatedUnity(Mockito.mock(FederatedUnity.class));
+        // Arrang
         final Point geolocation = Mockito.mock(Point.class);
         final Address expectedAddress = new Address()
             .setId(1L)
-            .setCity(city)
+            .setCityName("someCityName")
+            .setFederatedUnityAcronym("someFederatedUnityAcronym")
             .setStreetName("someStreet")
             .setLatitude(1D)
             .setLongitude(1D)
             .setGeolocation(geolocation);
         final AddressRequest addressRequest = Mockito.mock(AddressRequest.class);
 
-        when(findCityByIdService.find(addressRequest.getIdCity()))
-            .thenReturn(city);
         when(modelMapper.map(addressRequest, Address.class))
             .thenReturn(expectedAddress);
         when(pointFactory.createPointFromCoordinates(addressRequest.getLatitude(), addressRequest.getLongitude()))
@@ -82,7 +74,6 @@ class SaveAddressServiceTest {
             .setGeolocation(geolocation);
         final AddressRequest addressRequest = Mockito.mock(AddressRequest.class);
 
-        verifyNoMoreInteractions(findCityByIdService);
         when(modelMapper.map(addressRequest, Address.class))
             .thenReturn(expectedAddress);
         when(pointFactory.createPointFromCoordinates(addressRequest.getLatitude(), addressRequest.getLongitude()))

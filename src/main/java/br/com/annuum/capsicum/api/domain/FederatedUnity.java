@@ -3,6 +3,7 @@ package br.com.annuum.capsicum.api.domain;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -14,6 +15,7 @@ public class FederatedUnity {
     @Id
     private Long id;
 
+    @Column(unique=true)
     private String acronym;
 
     private String name;

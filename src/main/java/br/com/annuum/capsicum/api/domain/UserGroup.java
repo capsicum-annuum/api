@@ -51,6 +51,8 @@ public class UserGroup extends AbstractUser {
 
     private String profilePictureUrl;
 
+    private String profilePictureKey;
+
     private String backgroundPictureUrl;
 
     @Override
