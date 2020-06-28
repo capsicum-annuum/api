@@ -4,6 +4,7 @@ import br.com.annuum.capsicum.api.annotation.Phone;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.hibernate.validator.constraints.br.CNPJ;
+import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -12,15 +13,16 @@ import javax.validation.constraints.NotBlank;
 @Accessors(chain = true)
 public class UniqueUserInformationRequest {
 
-    @Phone
+    @Phone(message = "O telefone informado é inválido.")
     @NotBlank
     private String phone;
 
-    @Email
+    @Email(message = "O email informado é inválido.")
     @NotBlank
     private String email;
 
-    @CNPJ
+    @CNPJ(message = "É preciso informar um CNPJ válido.")
+    @Nullable
     private String cnpj;
 
 }

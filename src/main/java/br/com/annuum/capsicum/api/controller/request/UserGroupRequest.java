@@ -34,7 +34,7 @@ public class UserGroupRequest {
     private AddressRequest addressRequest;
 
     @Nullable
-    @Phone
+    @Phone(message = "O telefone informado é inválido.")
     private String phone;
 
     @Nullable
