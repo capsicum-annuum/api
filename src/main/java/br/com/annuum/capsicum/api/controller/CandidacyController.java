@@ -1,5 +1,6 @@
 package br.com.annuum.capsicum.api.controller;
 
+import br.com.annuum.capsicum.api.controller.response.CandidacyListResponse;
 import br.com.annuum.capsicum.api.domain.enums.CandidacyStatus;
 import br.com.annuum.capsicum.api.domain.enums.Profile;
 import br.com.annuum.capsicum.api.security.UserPrincipal;
@@ -78,8 +79,8 @@ public class CandidacyController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @RolesAllowed(Profile.Names.USER)
-    public void findAllCandidaciesByNeed(@AuthenticationPrincipal final UserPrincipal currentUser, @RequestParam final Long idNeed) {
-        findAllCandidaciesByNeed.find(currentUser.getId(), idNeed);
+    public CandidacyListResponse findAllCandidaciesByNeed(@AuthenticationPrincipal final UserPrincipal currentUser, @RequestParam final Long idNeed) {
+        return findAllCandidaciesByNeed.find(currentUser.getId(), idNeed);
     }
 
 }
