@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Getter
@@ -25,9 +26,8 @@ public enum CandidacyStatus {
         Names.DECLINED,
         Names.ABSENT,
         Names.PRESENT)),
-    DECLINED(Arrays.asList(
-        Names.CANDIDATE,
-        Names.APPROVED)),
+    DECLINED(Collections.singletonList(
+        Names.CANDIDATE)),
     ABSENT(Arrays.asList(
         Names.PRESENT,
         Names.APPROVED)),

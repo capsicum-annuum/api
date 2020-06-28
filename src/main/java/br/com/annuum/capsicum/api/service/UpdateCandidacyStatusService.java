@@ -74,7 +74,6 @@ public class UpdateCandidacyStatusService {
                 "Alteração de Status restrita ao administrador do movimento.");
         }
 
-
         if (!movement.getMovementStatus().getAcceptableCandidacyStatusToSet().contains(candidacyStatus)) {
             throw new StatusUpdateNotAllowedException(
                 String.format("Não é possível alterar o status da candidatura para %s com um movimento de status %s.",

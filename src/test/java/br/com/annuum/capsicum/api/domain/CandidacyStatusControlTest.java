@@ -2,6 +2,7 @@ package br.com.annuum.capsicum.api.domain;
 
 import br.com.annuum.capsicum.api.domain.enums.CandidacyStatus;
 import br.com.annuum.capsicum.api.exceptions.StatusOrderViolationException;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.runner.RunWith;
@@ -51,12 +52,11 @@ class CandidacyStatusControlTest {
         assertDoesNotThrow(() -> candidacyStatusControl.setStatusEnum(candidacyStatus));
     }
 
-    @ParameterizedTest
-    @EnumSource(value = CandidacyStatus.class, names = {"CANDIDATE", "APPROVED"})
-    void shouldSetAvailableNextOptionsOfCandidacyStatusDeclined(CandidacyStatus candidacyStatus) {
+    @Test
+    void shouldSetToCandidateWhenCandidacyStatusIsDeclined() {
         CandidacyStatusControl candidacyStatusControl = new CandidacyStatusControl();
         candidacyStatusControl.setStatusEnum(CandidacyStatus.DECLINED);
-        assertDoesNotThrow(() -> candidacyStatusControl.setStatusEnum(candidacyStatus));
+        assertDoesNotThrow(() -> candidacyStatusControl.setStatusEnum(CandidacyStatus.CANDIDATE));
     }
 
     @ParameterizedTest
