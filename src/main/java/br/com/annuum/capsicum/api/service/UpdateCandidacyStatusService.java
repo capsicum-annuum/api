@@ -47,7 +47,8 @@ public class UpdateCandidacyStatusService {
         if (!movement.getMovementStatus().getAcceptableCandidacyStatusToSet().contains(candidacyStatus)) {
             throw new StatusUpdateNotAllowedException(
                 String.format("Não é possível alterar o status da candidatura para %s com um movimento de status %s.",
-                    candidacyStatus, movement.getMovementStatus()));
+                    candidacyStatus,
+                    movement.getMovementStatus()));
         }
 
         candidacy.getCandidacyStatusControl().setStatusEnum(candidacyStatus);
