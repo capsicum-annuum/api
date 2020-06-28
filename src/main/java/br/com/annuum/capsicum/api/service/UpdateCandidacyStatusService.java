@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Arrays;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -26,6 +28,19 @@ public class UpdateCandidacyStatusService {
     @Autowired
     private CandidacyRepository candidacyRepository;
 
+    private static final List<CandidacyStatus> STATUS_SETTABLE_BY_MOVEMENT_AUTHOR =
+        Arrays.asList(
+            CandidacyStatus.CANDIDATE,
+            CandidacyStatus.APPROVED,
+            CandidacyStatus.REJECTED,
+            CandidacyStatus.ABSENT,
+            CandidacyStatus.PRESENT);
+
+    private static final List<CandidacyStatus> STATUS_SETTABLE_BY_CANDIDATE =
+        Arrays.asList(
+            CandidacyStatus.DECLINED,
+            CandidacyStatus.CANDIDATE);
+
     @Transactional
     public Candidacy update(final Long idUserAuthenticated, final Long idCandidacy, CandidacyStatus candidacyStatus) {
 
@@ -34,15 +49,31 @@ public class UpdateCandidacyStatusService {
 
         final Movement movement = findMovimentByNeedService.find(candidacy.getNeed());
 
-        if (!movement.getUserAuthor().getId().equals(idUserAuthenticated)) {
-            throw new AccessControlException(
-                "O usuário autenticado não é o administrador do movimento.");
-        }
-
         if (movement.getMovementStatus().equals(MovementStatus.CANCELLED)) {
             throw new StatusUpdateNotAllowedException(
                 "Não é possível alterar o status da candidatura quando o movimento está cancelado.");
         }
+
+        final boolean isMovementAuthor = movement.getUserAuthor().getId().equals(idUserAuthenticated);
+        final boolean isCandidate = candidacy.getUserCandidate().getId().equals(idUserAuthenticated);
+
+        if (!isMovementAuthor && !isCandidate) {
+            throw new AccessControlException(
+                "O usuário autenticado não possui autorização para alterar o Status desta Candidatura.");
+        }
+
+        if (isMovementAuthor &&
+            (!STATUS_SETTABLE_BY_MOVEMENT_AUTHOR.contains(candidacyStatus) ||
+                candidacy.getCandidacyStatusControl().getStatusEnum().equals(CandidacyStatus.DECLINED))) {
+            throw new AccessControlException(
+                "Alteração de Status restrita ao candidato.");
+        }
+
+        if (isCandidate && !STATUS_SETTABLE_BY_CANDIDATE.contains(candidacyStatus)) {
+            throw new AccessControlException(
+                "Alteração de Status restrita ao administrador do movimento.");
+        }
+
 
         if (!movement.getMovementStatus().getAcceptableCandidacyStatusToSet().contains(candidacyStatus)) {
             throw new StatusUpdateNotAllowedException(
