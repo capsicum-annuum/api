@@ -1,5 +1,6 @@
 package br.com.annuum.capsicum.api.controller;
 
+import br.com.annuum.capsicum.api.domain.enums.Profile;
 import br.com.annuum.capsicum.api.security.UserPrincipal;
 import br.com.annuum.capsicum.api.service.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,25 +26,25 @@ public class ApplicationController {
     }
 
     @GetMapping("/user")
-    @RolesAllowed("USER")
+    @RolesAllowed(Profile.Names.USER)
     public ResponseEntity verifyUser(@AuthenticationPrincipal final UserPrincipal currentUser) {
         return ResponseEntity.ok().body(service.greetings(of(currentUser)));
     }
 
     @GetMapping("/group")
-    @RolesAllowed("GROUP")
+    @RolesAllowed(Profile.Names.GROUP)
     public ResponseEntity verifyGroup(@AuthenticationPrincipal final UserPrincipal currentUser) {
         return ResponseEntity.ok().body(service.greetings(of(currentUser)));
     }
 
     @GetMapping("/organization")
-    @RolesAllowed("ORGANIZATION")
+    @RolesAllowed(Profile.Names.ORGANIZATION)
     public ResponseEntity verifyOrganization(@AuthenticationPrincipal final UserPrincipal currentUser) {
         return ResponseEntity.ok().body(service.greetings(of(currentUser)));
     }
 
     @GetMapping("/volunteer")
-    @RolesAllowed("VOLUNTEER")
+    @RolesAllowed(Profile.Names.VOLUNTEER)
     public ResponseEntity verifyVolunteer(@AuthenticationPrincipal final UserPrincipal currentUser) {
         return ResponseEntity.ok().body(service.greetings(of(currentUser)));
     }

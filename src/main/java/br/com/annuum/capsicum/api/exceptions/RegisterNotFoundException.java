@@ -11,4 +11,5 @@ public class RegisterNotFoundException extends RuntimeException {
     public RegisterNotFoundException(final String description) {
         super(description);
     }
+
 }

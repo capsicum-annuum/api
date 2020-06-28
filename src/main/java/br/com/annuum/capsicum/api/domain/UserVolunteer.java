@@ -48,9 +48,6 @@ public class UserVolunteer extends AbstractUser {
     @Size(max = 1000)
     private String description;
 
-    @Size(max = 15)
-    private String phone;
-
     @Size(max = 100)
     private String facebookUrl;
 
@@ -60,7 +57,9 @@ public class UserVolunteer extends AbstractUser {
     @Size(max = 100)
     private String twitterUrl;
 
-    private Long profilePictureId;
+    private String profilePictureUrl;
+
+    private String profilePictureKey;
 
     @Override
     public Profile getProfile() {

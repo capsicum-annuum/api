@@ -10,17 +10,17 @@ import javax.validation.constraints.NotNull;
 @Accessors(chain = true)
 public class AddressRequest {
 
-    @NotNull(message = "A cidade precisa ser informada.")
-    private CityRequest cityRequest;
-
-    @NotNull(message = "A localização espacial precisa ser informada.")
+    @NotNull(message = "A latitude precisa ser informada.")
     private Double latitude;
 
-    @NotNull
+    @NotNull(message = "A longitude precisa ser informada.")
     private Double longitude;
 
-    @Nullable
-    private String googlePlaceAddressIdentifier;
+    @NotNull
+    private String cityName;
+
+    @NotNull
+    private String federatedUnityAcronym;
 
     @Nullable
     private String district;

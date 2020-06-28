@@ -12,4 +12,5 @@ public class UserGroupResponse {
     private String name;
 
     private String description;
+
 }

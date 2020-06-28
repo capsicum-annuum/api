@@ -15,8 +15,8 @@ public class FindUserVolunteerByIdService {
     private UserVolunteerRepository userVolunteerRepository;
 
     public UserVolunteer find(final Long id) {
-        log.info("Searching for UserVolunteer with id '{}'", id);
+        log.info("Searching for User with id '{}'", id);
         return userVolunteerRepository.findById(id)
-            .orElseThrow(() -> new RegisterNotFoundException("Voluntário não encontrado!"));
+            .orElseThrow(() -> new RegisterNotFoundException("Usuário não encontrado!"));
     }
 }

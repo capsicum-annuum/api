@@ -4,6 +4,7 @@ import br.com.annuum.capsicum.api.controller.request.UserVolunteerEvaluationRequ
 import br.com.annuum.capsicum.api.controller.request.UserVolunteerRequest;
 import br.com.annuum.capsicum.api.controller.response.UserVolunteerResponse;
 import br.com.annuum.capsicum.api.service.SaveUserVolunteerEvaluationService;
+import br.com.annuum.capsicum.api.service.ClearImageRepoService;
 import br.com.annuum.capsicum.api.service.SaveUserVolunteerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,10 +22,15 @@ public class UserVolunteerController {
     @Autowired
     private SaveUserVolunteerEvaluationService saveUserVolunteerEvaluationService;
 
+    @Autowired
+    private ClearImageRepoService clearImageRepoService;
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UserVolunteerResponse saveUserVolunteer(@Valid @RequestBody final UserVolunteerRequest userVolunteerRequest) {
-        return saveUserVolunteerService.save(userVolunteerRequest);
+        return clearImageRepoService.clear(userVolunteerRequest.getProfilePictureKey(),
+            () -> saveUserVolunteerService.save(userVolunteerRequest)
+        );
     }
 
     @PostMapping("/evaluation")

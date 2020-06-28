@@ -1,12 +1,10 @@
 package br.com.annuum.capsicum.api.domain;
 
-import br.com.annuum.capsicum.api.domain.enums.CandidacyStatus;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Data
@@ -20,11 +18,13 @@ public class Candidacy {
     private Long id;
 
     @ManyToOne
+    private Need need;
+
+    @ManyToOne
     private UserVolunteer userCandidate;
 
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    private CandidacyStatus candidacyStatus;
+    @Embedded
+    private CandidacyStatusControl candidacyStatusControl;
 
     @CreatedDate
     private LocalDateTime createdAt;

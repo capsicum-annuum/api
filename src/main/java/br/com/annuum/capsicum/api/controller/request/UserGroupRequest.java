@@ -1,5 +1,6 @@
 package br.com.annuum.capsicum.api.controller.request;
 
+import br.com.annuum.capsicum.api.annotation.Phone;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.lang.Nullable;
@@ -33,10 +34,14 @@ public class UserGroupRequest {
     private AddressRequest addressRequest;
 
     @Nullable
+    @Phone(message = "O telefone informado é inválido.")
     private String phone;
 
     @Nullable
-    private Long profilePictureId;
+    private String profilePictureUrl;
+
+    @Nullable
+    private String profilePictureKey;
 
     @Nullable
     private String description;

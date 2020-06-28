@@ -42,7 +42,8 @@ public class SaveMovementService {
 
         final AbstractUser abstractUser = findUserByIdService.find(movementRequest.getUserAuthorId());
 
-        final List<Need> needs = movementRequest.getNeedsRequest().stream()
+        final List<Need> needs = movementRequest.getNeedsRequest()
+            .stream()
             .map(needRequest -> saveNeedService.save(needRequest))
             .collect(Collectors.toList());
 
@@ -58,7 +59,7 @@ public class SaveMovementService {
             .setNeeds(needs)
             .setDateTimeStart(movementRequest.getDateTimeStart())
             .setDateTimeEnd(movementRequest.getDateTimeEnd())
-            .setPictureId(movementRequest.getPictureId())
+            .setPictureUrl(movementRequest.getPictureUrl())
             .setTitle(movementRequest.getTitle())
             .setDescription(movementRequest.getDescription());
 

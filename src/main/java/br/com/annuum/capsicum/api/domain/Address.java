@@ -28,10 +28,10 @@ public class Address {
     private Point geolocation;
 
     @NotNull
-    @ManyToOne
-    private City city;
+    private String cityName;
 
-    private String googlePlaceAddressIdentifier;
+    @NotNull
+    private String federatedUnityAcronym;
 
     private String district;
 
@@ -40,4 +40,5 @@ public class Address {
     private String addressNumber;
 
     private String complement;
+
 }

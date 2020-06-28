@@ -1,4 +1,7 @@
 annuum:
+  image-repo:
+      url: https://annuum-image-api-homolog.herokuapp.com/
+      token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYXBzaWN1dW0tYW5udXVtIiwiaWF0IjoxNTkzMzcwNTkwLCJleHAiOjQwODYzNTYxOTAsImF1ZCI6IiIsInN1YiI6ImNhcHNpY3V1bS1hbm51dW0tYXBwLWhvbW9sb2cifQ.Z9tU8jf4sgnxTB4cedYwblfcNwzIHVQhR7hE3TLHypg
   security:
     cors:
       allowed-origins: "*"
@@ -25,9 +28,9 @@ spring:
     url: jdbc:postgresql://${CAPSICUM_DB_HOST}:5432/${CAPSICUM_DB}?useTimezone=true&serverTimezone=America/Belem&createDatabaseIfNotExist=true
     username: ${secrets.DB_USERNAME}
     password: ${secrets.DB_PASSWORD}
+    initialization-mode: always
     hikari:
       maximum-pool-size: 2
 server:
-  port: 8080
   servlet:
     context-path: "/annuum-api"
