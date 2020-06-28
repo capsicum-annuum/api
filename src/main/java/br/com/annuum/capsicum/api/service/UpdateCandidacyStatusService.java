@@ -38,7 +38,7 @@ public class UpdateCandidacyStatusService {
 
         if (!movement.getUserAuthor().getId().equals(idUserAuthenticated)) {
             throw new AccessControlException(
-                "O usuário autenticado não é o administrador do Movimento.");
+                "O usuário autenticado não é o administrador do movimento.");
         }
 
         if (movement.getMovementStatus().equals(MovementStatus.CANCELLED)) {
@@ -54,13 +54,13 @@ public class UpdateCandidacyStatusService {
         if (movement.getMovementStatus().equals(MovementStatus.ACTIVE)
             && STATUS_ACCEPTABLE_BY_CONCLUDE_MOVEMENT.contains(candidacyStatus)) {
             throw new StatusUpdateNotAllowedException(
-                String.format("Não é possível alterar o status da candidatura para %s enquanto o Movimento não estiver concluído.", candidacyStatus));
+                String.format("Não é possível alterar o status da candidatura para %s enquanto o movimento não estiver concluído.", candidacyStatus));
         }
 
         if (movement.getMovementStatus().equals(MovementStatus.CONCLUDE)
             && !STATUS_ACCEPTABLE_BY_CONCLUDE_MOVEMENT.contains(candidacyStatus)) {
             throw new StatusUpdateNotAllowedException(
-                String.format("Não é possível alterar o status da candidatura para %s com o movimento concluído", candidacyStatus));
+                String.format("Não é possível alterar o status da candidatura para %s para um movimento concluído.", candidacyStatus));
         }
 
         candidacy.getCandidacyStatusControl().setStatusEnum(candidacyStatus);
