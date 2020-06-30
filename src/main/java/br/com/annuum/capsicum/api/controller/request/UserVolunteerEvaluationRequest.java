@@ -10,13 +10,7 @@ import javax.validation.constraints.NotNull;
 public class UserVolunteerEvaluationRequest {
 
     @NotNull
-    private Long userEvaluatorId;
-
-    @NotNull
-    private Long userVolunteerEvaluatedId;
-
-    @NotNull
-    private Long movementId;
+    private Long idCandidacy;
 
     @NotNull
     private Integer note;

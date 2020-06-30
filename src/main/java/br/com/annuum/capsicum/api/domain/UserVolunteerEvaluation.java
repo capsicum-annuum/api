@@ -33,8 +33,8 @@ public class UserVolunteerEvaluation {
     private UserVolunteer userVolunteerEvaluated;
 
     @NotNull
-    @ManyToOne
-    private Movement movement;
+    @OneToOne
+    private Candidacy candidacy;
 
     @NotNull
     @Min(value = 1, message = "A nota mínima deve ser 1")

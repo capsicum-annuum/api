@@ -30,8 +30,8 @@ public class UserGroupEvaluation {
     private UserGroup userGroupEvaluated;
 
     @NotNull
-    @ManyToOne
-    private Movement movement;
+    @OneToOne
+    private Candidacy candidacy;
 
     @NotNull
     @Min(value = 1, message = "A nota mínima deve ser 1")
