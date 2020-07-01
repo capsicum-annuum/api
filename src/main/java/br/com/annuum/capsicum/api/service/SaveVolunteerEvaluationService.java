@@ -1,14 +1,13 @@
 package br.com.annuum.capsicum.api.service;
 
-import br.com.annuum.capsicum.api.controller.request.UserVolunteerEvaluationRequest;
-import br.com.annuum.capsicum.api.domain.AbstractUser;
+import br.com.annuum.capsicum.api.controller.request.VolunteerEvaluationRequest;
 import br.com.annuum.capsicum.api.domain.Candidacy;
 import br.com.annuum.capsicum.api.domain.Movement;
-import br.com.annuum.capsicum.api.domain.UserVolunteerEvaluation;
+import br.com.annuum.capsicum.api.domain.VolunteerEvaluation;
 import br.com.annuum.capsicum.api.domain.enums.CandidacyStatus;
 import br.com.annuum.capsicum.api.domain.enums.MovementStatus;
 import br.com.annuum.capsicum.api.exceptions.AccessControlException;
-import br.com.annuum.capsicum.api.repository.UserVolunteerEvaluationRepository;
+import br.com.annuum.capsicum.api.repository.VolunteerEvaluationRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,13 +16,10 @@ import javax.transaction.Transactional;
 
 @Service
 @Slf4j
-public class SaveUserVolunteerEvaluationService {
+public class SaveVolunteerEvaluationService {
 
     @Autowired
-    private UserVolunteerEvaluationRepository userVolunteerEvaluationRepository;
-
-    @Autowired
-    private FindUserByIdService findUserByIdService;
+    private VolunteerEvaluationRepository volunteerEvaluationRepository;
 
     @Autowired
     private FindMovimentByNeedService findMovimentByNeedService;
@@ -32,14 +28,12 @@ public class SaveUserVolunteerEvaluationService {
     private FindCandidacyByIdService findCandidacyByIdService;
 
     @Transactional
-    public UserVolunteerEvaluation save(final Long idUserAuthenticated, final UserVolunteerEvaluationRequest userVolunteerEvaluationRequest) {
+    public VolunteerEvaluation save(final Long idUserAuthenticated, final VolunteerEvaluationRequest volunteerEvaluationRequest) {
 
-        log.info("Start to create an UserVolunteerEvaluation for: '{}'", userVolunteerEvaluationRequest);
-        final Candidacy candidacy = findCandidacyByIdService.find(userVolunteerEvaluationRequest.getIdCandidacy());
+        log.info("Start to create an VolunteerEvaluation for: '{}'", volunteerEvaluationRequest);
+        final Candidacy candidacy = findCandidacyByIdService.find(volunteerEvaluationRequest.getIdCandidacy());
 
         final Movement movement = findMovimentByNeedService.find(candidacy.getNeed());
-
-        final AbstractUser userEvaluator = findUserByIdService.find(idUserAuthenticated);
 
         if (!movement.getUserAuthor().getId().equals(idUserAuthenticated)) {
             throw new AccessControlException("O usuário autenticado não é o autor do movimento.");
@@ -53,16 +47,14 @@ public class SaveUserVolunteerEvaluationService {
             throw new AccessControlException("Não é possível avaliar um voluntário com status da candidatura diferente de PRESENT.");
         }
 
-        log.info("Building UserVolunteerEvaluation to persist");
-        final UserVolunteerEvaluation userVolunteerEvaluation = new UserVolunteerEvaluation()
-            .setUserVolunteerEvaluated(candidacy.getUserCandidate())
-            .setUserEvaluator(userEvaluator)
+        log.info("Building VolunteerEvaluation to persist");
+        final VolunteerEvaluation volunteerEvaluation = new VolunteerEvaluation()
             .setCandidacy(candidacy)
-            .setNote(userVolunteerEvaluationRequest.getNote())
-            .setFeedback(userVolunteerEvaluationRequest.getFeedback());
+            .setNote(volunteerEvaluationRequest.getNote())
+            .setFeedback(volunteerEvaluationRequest.getFeedback());
 
-        log.info("Creating a new UserVolunteerEvaluation: '{}'", userVolunteerEvaluation);
-        return userVolunteerEvaluationRepository.save(userVolunteerEvaluation);
+        log.info("Creating a new VolunteerEvaluation: '{}'", volunteerEvaluation);
+        return volunteerEvaluationRepository.save(volunteerEvaluation);
     }
 
 }

@@ -7,14 +7,13 @@ import javax.validation.constraints.NotNull;
 
 @Data
 @Accessors(chain = true)
-public class UserGroupEvaluationRequest {
+public class VolunteerEvaluationRequest {
 
     @NotNull
-    private Long candidacyId;
+    private Long idCandidacy;
 
     @NotNull
     private Integer note;
 
     private String feedback;
-
 }

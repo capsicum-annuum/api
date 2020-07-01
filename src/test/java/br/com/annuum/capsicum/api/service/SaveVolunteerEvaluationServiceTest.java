@@ -1,11 +1,11 @@
 package br.com.annuum.capsicum.api.service;
 
-import br.com.annuum.capsicum.api.controller.request.UserVolunteerEvaluationRequest;
+import br.com.annuum.capsicum.api.controller.request.VolunteerEvaluationRequest;
 import br.com.annuum.capsicum.api.domain.*;
 import br.com.annuum.capsicum.api.domain.enums.CandidacyStatus;
 import br.com.annuum.capsicum.api.domain.enums.MovementStatus;
 import br.com.annuum.capsicum.api.exceptions.AccessControlException;
-import br.com.annuum.capsicum.api.repository.UserVolunteerEvaluationRepository;
+import br.com.annuum.capsicum.api.repository.VolunteerEvaluationRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -20,16 +20,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.times;
 
 @ExtendWith(MockitoExtension.class)
-class SaveUserVolunteerEvaluationServiceTest {
+class SaveVolunteerEvaluationServiceTest {
 
     @InjectMocks
-    private SaveUserVolunteerEvaluationService saveUserVolunteerEvaluationService;
+    private SaveVolunteerEvaluationService saveVolunteerEvaluationService;
 
     @Mock
-    private UserVolunteerEvaluationRepository userVolunteerEvaluationRepository;
-
-    @Mock
-    private FindUserByIdService findUserByIdService;
+    private VolunteerEvaluationRepository volunteerEvaluationRepository;
 
     @Mock
     private FindMovimentByNeedService findMovimentByNeedService;
@@ -54,36 +51,32 @@ class SaveUserVolunteerEvaluationServiceTest {
             .setUserAuthor(userEvaluator)
             .setMovementStatus(MovementStatus.CONCLUDE);
 
-        final UserVolunteerEvaluation expectedUserVolunteerEvaluation = new UserVolunteerEvaluation()
-            .setUserVolunteerEvaluated(candidacy.getUserCandidate())
-            .setUserEvaluator(userEvaluator)
+        final VolunteerEvaluation expectedVolunteerEvaluation = new VolunteerEvaluation()
             .setCandidacy(candidacy)
             .setNote(1)
             .setFeedback("someFeedBack");
 
-        final UserVolunteerEvaluationRequest userVolunteerEvaluationRequest = new UserVolunteerEvaluationRequest()
+        final VolunteerEvaluationRequest volunteerEvaluationRequest = new VolunteerEvaluationRequest()
             .setNote(1)
             .setFeedback("someFeedBack")
             .setIdCandidacy(1L);
 
         final Long idUserEvaluator = 1L;
 
-        Mockito.when(findCandidacyByIdService.find(userVolunteerEvaluationRequest.getIdCandidacy()))
+        Mockito.when(findCandidacyByIdService.find(volunteerEvaluationRequest.getIdCandidacy()))
             .thenReturn(candidacy);
         Mockito.when(findMovimentByNeedService.find(candidacy.getNeed()))
             .thenReturn(movement);
-        Mockito.when(findUserByIdService.find(idUserEvaluator))
-            .thenReturn(userEvaluator);
-        Mockito.when(userVolunteerEvaluationRepository.save(expectedUserVolunteerEvaluation))
-            .thenReturn(expectedUserVolunteerEvaluation);
+        Mockito.when(volunteerEvaluationRepository.save(expectedVolunteerEvaluation))
+            .thenReturn(expectedVolunteerEvaluation);
 
         //Act
-        final UserVolunteerEvaluation returnedUserVolunteerEvaluation =
-            saveUserVolunteerEvaluationService.save(idUserEvaluator, userVolunteerEvaluationRequest);
+        final VolunteerEvaluation returnedVolunteerEvaluation =
+            saveVolunteerEvaluationService.save(idUserEvaluator, volunteerEvaluationRequest);
 
         //Assert
-        assertEquals(expectedUserVolunteerEvaluation, returnedUserVolunteerEvaluation);
-        Mockito.verify(userVolunteerEvaluationRepository, times(1)).save(expectedUserVolunteerEvaluation);
+        assertEquals(expectedVolunteerEvaluation, returnedVolunteerEvaluation);
+        Mockito.verify(volunteerEvaluationRepository, times(1)).save(expectedVolunteerEvaluation);
     }
 
     @Test
@@ -103,21 +96,19 @@ class SaveUserVolunteerEvaluationServiceTest {
             .setUserAuthor(userEvaluator)
             .setMovementStatus(MovementStatus.CONCLUDE);
 
-        final UserVolunteerEvaluationRequest userVolunteerEvaluationRequest = new UserVolunteerEvaluationRequest()
+        final VolunteerEvaluationRequest volunteerEvaluationRequest = new VolunteerEvaluationRequest()
             .setNote(1)
             .setFeedback("someFeedBack")
             .setIdCandidacy(1L);
 
         final Long idUserEvaluator = 2L;
 
-        Mockito.when(findCandidacyByIdService.find(userVolunteerEvaluationRequest.getIdCandidacy()))
+        Mockito.when(findCandidacyByIdService.find(volunteerEvaluationRequest.getIdCandidacy()))
             .thenReturn(candidacy);
         Mockito.when(findMovimentByNeedService.find(candidacy.getNeed()))
             .thenReturn(movement);
-        Mockito.when(findUserByIdService.find(idUserEvaluator))
-            .thenReturn(userEvaluator);
 
-        assertThrows(AccessControlException.class, () -> saveUserVolunteerEvaluationService.save(idUserEvaluator, userVolunteerEvaluationRequest));
+        assertThrows(AccessControlException.class, () -> saveVolunteerEvaluationService.save(idUserEvaluator, volunteerEvaluationRequest));
     }
 
     @Test
@@ -134,21 +125,19 @@ class SaveUserVolunteerEvaluationServiceTest {
             .setUserAuthor(userEvaluator)
             .setMovementStatus(MovementStatus.CONCLUDE);
 
-        final UserVolunteerEvaluationRequest userVolunteerEvaluationRequest = new UserVolunteerEvaluationRequest()
+        final VolunteerEvaluationRequest volunteerEvaluationRequest = new VolunteerEvaluationRequest()
             .setNote(1)
             .setFeedback("someFeedBack")
             .setIdCandidacy(1L);
 
         final Long idUserEvaluator = 1L;
 
-        Mockito.when(findCandidacyByIdService.find(userVolunteerEvaluationRequest.getIdCandidacy()))
+        Mockito.when(findCandidacyByIdService.find(volunteerEvaluationRequest.getIdCandidacy()))
             .thenReturn(candidacy);
         Mockito.when(findMovimentByNeedService.find(candidacy.getNeed()))
             .thenReturn(movement);
-        Mockito.when(findUserByIdService.find(idUserEvaluator))
-            .thenReturn(userEvaluator);
 
-        assertThrows(AccessControlException.class, () -> saveUserVolunteerEvaluationService.save(idUserEvaluator, userVolunteerEvaluationRequest));
+        assertThrows(AccessControlException.class, () -> saveVolunteerEvaluationService.save(idUserEvaluator, volunteerEvaluationRequest));
     }
 
     @ParameterizedTest
@@ -168,21 +157,19 @@ class SaveUserVolunteerEvaluationServiceTest {
             .setUserAuthor(userEvaluator)
             .setMovementStatus(MovementStatus.CONCLUDE);
 
-        final UserVolunteerEvaluationRequest userVolunteerEvaluationRequest = new UserVolunteerEvaluationRequest()
+        final VolunteerEvaluationRequest volunteerEvaluationRequest = new VolunteerEvaluationRequest()
             .setNote(1)
             .setFeedback("someFeedBack")
             .setIdCandidacy(1L);
 
         final Long idUserEvaluator = 1L;
 
-        Mockito.when(findCandidacyByIdService.find(userVolunteerEvaluationRequest.getIdCandidacy()))
+        Mockito.when(findCandidacyByIdService.find(volunteerEvaluationRequest.getIdCandidacy()))
             .thenReturn(candidacy);
         Mockito.when(findMovimentByNeedService.find(candidacy.getNeed()))
             .thenReturn(movement);
-        Mockito.when(findUserByIdService.find(idUserEvaluator))
-            .thenReturn(userEvaluator);
 
-        assertThrows(AccessControlException.class, () -> saveUserVolunteerEvaluationService.save(idUserEvaluator, userVolunteerEvaluationRequest));
+        assertThrows(AccessControlException.class, () -> saveVolunteerEvaluationService.save(idUserEvaluator, volunteerEvaluationRequest));
     }
 
 
@@ -203,21 +190,19 @@ class SaveUserVolunteerEvaluationServiceTest {
             .setUserAuthor(userEvaluator)
             .setMovementStatus(MovementStatus.CONCLUDE);
 
-        final UserVolunteerEvaluationRequest userVolunteerEvaluationRequest = new UserVolunteerEvaluationRequest()
+        final VolunteerEvaluationRequest volunteerEvaluationRequest = new VolunteerEvaluationRequest()
             .setNote(1)
             .setFeedback("someFeedBack")
             .setIdCandidacy(1L);
 
         final Long idUserEvaluator = 1L;
 
-        Mockito.when(findCandidacyByIdService.find(userVolunteerEvaluationRequest.getIdCandidacy()))
+        Mockito.when(findCandidacyByIdService.find(volunteerEvaluationRequest.getIdCandidacy()))
             .thenReturn(candidacy);
         Mockito.when(findMovimentByNeedService.find(candidacy.getNeed()))
             .thenReturn(movement);
-        Mockito.when(findUserByIdService.find(idUserEvaluator))
-            .thenReturn(userEvaluator);
 
-        assertThrows(AccessControlException.class, () -> saveUserVolunteerEvaluationService.save(idUserEvaluator, userVolunteerEvaluationRequest));
+        assertThrows(AccessControlException.class, () -> saveVolunteerEvaluationService.save(idUserEvaluator, volunteerEvaluationRequest));
     }
 
     @ParameterizedTest
@@ -238,21 +223,19 @@ class SaveUserVolunteerEvaluationServiceTest {
             .setUserAuthor(userEvaluator)
             .setMovementStatus(movementStatus);
 
-        final UserVolunteerEvaluationRequest userVolunteerEvaluationRequest = new UserVolunteerEvaluationRequest()
+        final VolunteerEvaluationRequest volunteerEvaluationRequest = new VolunteerEvaluationRequest()
             .setNote(1)
             .setFeedback("someFeedBack")
             .setIdCandidacy(1L);
 
         final Long idUserEvaluator = 1L;
 
-        Mockito.when(findCandidacyByIdService.find(userVolunteerEvaluationRequest.getIdCandidacy()))
+        Mockito.when(findCandidacyByIdService.find(volunteerEvaluationRequest.getIdCandidacy()))
             .thenReturn(candidacy);
         Mockito.when(findMovimentByNeedService.find(candidacy.getNeed()))
             .thenReturn(movement);
-        Mockito.when(findUserByIdService.find(idUserEvaluator))
-            .thenReturn(userEvaluator);
 
-        assertThrows(AccessControlException.class, () -> saveUserVolunteerEvaluationService.save(idUserEvaluator, userVolunteerEvaluationRequest));
+        assertThrows(AccessControlException.class, () -> saveVolunteerEvaluationService.save(idUserEvaluator, volunteerEvaluationRequest));
     }
 
 

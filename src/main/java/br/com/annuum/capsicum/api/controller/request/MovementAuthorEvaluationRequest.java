@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 
 @Data
 @Accessors(chain = true)
-public class UserOrganizationEvaluationRequest {
+public class MovementAuthorEvaluationRequest {
 
     @NotNull
     private Long candidacyId;
