@@ -1,4 +1,5 @@
 package br.com.annuum.capsicum.api.annotation;
+
 import br.com.annuum.capsicum.api.validator.PhoneNumberValidator;
 
 import javax.validation.Constraint;
@@ -7,7 +8,7 @@ import java.lang.annotation.*;
 
 @Documented
 @Constraint(validatedBy = PhoneNumberValidator.class)
-@Target( { ElementType.METHOD, ElementType.FIELD })
+@Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Phone {
 

@@ -56,13 +56,13 @@
                         <item value="lombok.Data"/>
                         <item value="lombok.Getter"/>
                         <item
-                                value="org.springframework.boot.autoconfigure.SpringBootApplication"/>
+                            value="org.springframework.boot.autoconfigure.SpringBootApplication"/>
                         <item
-                                value="org.springframework.context.annotation.Configuration"/>
+                            value="org.springframework.context.annotation.Configuration"/>
                         <item
-                                value="org.springframework.web.bind.annotation.ResponseStatus"/>
+                            value="org.springframework.web.bind.annotation.ResponseStatus"/>
                         <item
-                                value="org.springframework.web.bind.annotation.RestController"/>
+                            value="org.springframework.web.bind.annotation.RestController"/>
                     </value>
                 </option>
             </scope>
@@ -75,13 +75,13 @@
                     <item value="lombok.Data"/>
                     <item value="lombok.Getter"/>
                     <item
-                            value="org.springframework.boot.autoconfigure.SpringBootApplication"/>
+                        value="org.springframework.boot.autoconfigure.SpringBootApplication"/>
                     <item
-                            value="org.springframework.context.annotation.Configuration"/>
+                        value="org.springframework.context.annotation.Configuration"/>
                     <item
-                            value="org.springframework.web.bind.annotation.ResponseStatus"/>
+                        value="org.springframework.web.bind.annotation.ResponseStatus"/>
                     <item
-                            value="org.springframework.web.bind.annotation.RestController"/>
+                        value="org.springframework.web.bind.annotation.RestController"/>
                 </value>
             </option>
         </inspection_tool>
@@ -313,7 +313,7 @@
             <option name="ignorableAnnotations">
                 <value>
                     <item
-                            value="org.springframework.boot.autoconfigure.SpringBootApplication"/>
+                        value="org.springframework.boot.autoconfigure.SpringBootApplication"/>
                 </value>
             </option>
         </inspection_tool>
@@ -326,7 +326,7 @@
             <option name="ignorableAnnotations">
                 <value>
                     <item
-                            value="org.springframework.boot.autoconfigure.SpringBootApplication"/>
+                        value="org.springframework.boot.autoconfigure.SpringBootApplication"/>
                 </value>
             </option>
             <option name="ignoreClassesWithOnlyMain" value="false"/>

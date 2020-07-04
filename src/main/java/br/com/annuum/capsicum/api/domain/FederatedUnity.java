@@ -15,7 +15,7 @@ public class FederatedUnity {
     @Id
     private Long id;
 
-    @Column(unique=true)
+    @Column(unique = true)
     private String acronym;
 
     private String name;

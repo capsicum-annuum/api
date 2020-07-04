@@ -4,10 +4,9 @@ import br.com.annuum.capsicum.api.controller.request.MovementAuthorEvaluationReq
 import br.com.annuum.capsicum.api.domain.Candidacy;
 import br.com.annuum.capsicum.api.domain.Movement;
 import br.com.annuum.capsicum.api.domain.MovementAuthorEvaluation;
-import br.com.annuum.capsicum.api.domain.enums.CandidacyStatus;
-import br.com.annuum.capsicum.api.domain.enums.MovementStatus;
 import br.com.annuum.capsicum.api.exceptions.AccessControlException;
 import br.com.annuum.capsicum.api.repository.MovementAuthorEvaluationRepository;
+import br.com.annuum.capsicum.api.validator.SaveEvaluationValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +26,9 @@ public class SaveMovementEvaluationService {
     @Autowired
     private FindCandidacyByIdService findCandidacyByIdService;
 
+    @Autowired
+    private SaveEvaluationValidator saveEvaluationValidator;
+
     @Transactional
     public MovementAuthorEvaluation save(final Long idUserAuthenticated, final MovementAuthorEvaluationRequest movementAuthorEvaluationRequest) {
 
@@ -39,13 +41,7 @@ public class SaveMovementEvaluationService {
             throw new AccessControlException("O usuário autenticado não está autorizado a avaliar este Movimento.");
         }
 
-        if (!candidacy.getCandidacyStatusControl().getStatusEnum().equals(CandidacyStatus.PRESENT)) {
-            throw new AccessControlException("Somente voluntários presentes no Movimento podem avaliar o organizador.");
-        }
-
-        if (!movement.getMovementStatus().equals(MovementStatus.CONCLUDE)) {
-            throw new AccessControlException("Não é possível avaliar a organização enquanto o Movimento não estiver concluído.");
-        }
+        saveEvaluationValidator.validate(movement, candidacy);
 
         log.info("Building MovementAuthorEvaluation to persist");
         final MovementAuthorEvaluation movementAuthorEvaluation = new MovementAuthorEvaluation()
