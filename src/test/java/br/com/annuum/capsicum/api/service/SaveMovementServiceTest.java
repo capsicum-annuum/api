@@ -5,6 +5,7 @@ import br.com.annuum.capsicum.api.controller.request.MovementRequest;
 import br.com.annuum.capsicum.api.controller.request.NeedRequest;
 import br.com.annuum.capsicum.api.controller.response.MovementResponse;
 import br.com.annuum.capsicum.api.domain.*;
+import br.com.annuum.capsicum.api.domain.enums.MovementStatus;
 import br.com.annuum.capsicum.api.domain.enums.NeedStatus;
 import br.com.annuum.capsicum.api.repository.MovementRepository;
 import org.junit.jupiter.api.Test;
@@ -94,7 +95,8 @@ class SaveMovementServiceTest {
             .setDateTimeStart(LocalDateTime.of(2021, 10, 10, 10, 10))
             .setDateTimeEnd(LocalDateTime.of(2021, 10, 11, 10, 10))
             .setDescription("someDescription")
-            .setTitle("someTitle");
+            .setTitle("someTitle")
+            .setMovementStatus(MovementStatus.ACTIVE);
 
         final MovementResponse expectedMovementResponse = new MovementResponse()
             .setDateTimeStart(LocalDateTime.of(2021, 10, 10, 10, 10))

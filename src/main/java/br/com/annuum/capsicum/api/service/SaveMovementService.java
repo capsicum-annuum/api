@@ -3,6 +3,7 @@ package br.com.annuum.capsicum.api.service;
 import br.com.annuum.capsicum.api.controller.request.MovementRequest;
 import br.com.annuum.capsicum.api.controller.response.MovementResponse;
 import br.com.annuum.capsicum.api.domain.*;
+import br.com.annuum.capsicum.api.domain.enums.MovementStatus;
 import br.com.annuum.capsicum.api.repository.MovementRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -61,7 +62,8 @@ public class SaveMovementService {
             .setDateTimeEnd(movementRequest.getDateTimeEnd())
             .setPictureUrl(movementRequest.getPictureUrl())
             .setTitle(movementRequest.getTitle())
-            .setDescription(movementRequest.getDescription());
+            .setDescription(movementRequest.getDescription())
+            .setMovementStatus(MovementStatus.ACTIVE);
 
         log.info("Creating a new Movement: '{}'", movement);
         return modelMapper.map(movementRepository.save(movement), MovementResponse.class);
