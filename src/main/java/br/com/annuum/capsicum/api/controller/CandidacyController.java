@@ -76,7 +76,7 @@ public class CandidacyController {
         updateCandidacyStatusService.update(currentUser.getId(), idCandidacy, CandidacyStatus.ABSENT);
     }
 
-    @PostMapping
+    @GetMapping
     @ResponseStatus(HttpStatus.CREATED)
     @RolesAllowed(Profile.Names.USER)
     public CandidacyListResponse findAllCandidaciesByNeed(@AuthenticationPrincipal final UserPrincipal currentUser, @RequestParam final Long idNeed) {
