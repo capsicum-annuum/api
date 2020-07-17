@@ -13,11 +13,11 @@ public class SaveEvaluationValidator {
     public void validate(Movement movement, Candidacy candidacy) {
 
         if (!movement.getMovementStatus().equals(MovementStatus.CONCLUDE)) {
-            throw new AccessControlException("Não é possível avaliar voluntários enquanto o Movimento não estiver concluído.");
+            throw new AccessControlException("Não é possível gerar avaliações enquanto o Movimento não estiver concluído.");
         }
 
         if (!candidacy.getCandidacyStatusControl().getStatusEnum().equals(CandidacyStatus.PRESENT)) {
-            throw new AccessControlException("Não é possível avaliar um voluntário com status da candidatura diferente de PRESENT.");
+            throw new AccessControlException("O usuário voluntário possui status da candidatura diferente de PRESENT.");
         }
     }
 }

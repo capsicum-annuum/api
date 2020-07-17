@@ -22,7 +22,7 @@ import static org.mockito.Mockito.times;
 class SaveMovementAuthorEvaluationServiceTest {
 
     @InjectMocks
-    private SaveMovementEvaluationService saveMovementEvaluationService;
+    private SaveMovementAuthorEvaluationService saveMovementAuthorEvaluationService;
 
     @Mock
     private MovementAuthorEvaluationRepository movementAuthorEvaluationRepository;
@@ -55,17 +55,17 @@ class SaveMovementAuthorEvaluationServiceTest {
 
         final MovementAuthorEvaluation expectedMovementAuthorEvaluation = new MovementAuthorEvaluation()
             .setCandidacy(candidacy)
-            .setNote(1)
+            .setRate(1)
             .setFeedback("someFeedBack");
 
         final MovementAuthorEvaluationRequest movementAuthorEvaluationRequest = new MovementAuthorEvaluationRequest()
-            .setNote(1)
+            .setRate(1)
             .setFeedback("someFeedBack")
-            .setCandidacyId(1L);
+            .setIdCandidacy(1L);
 
         final Long userEvaluatorId = userEvaluator.getId();
 
-        Mockito.when(findCandidacyByIdService.find(movementAuthorEvaluationRequest.getCandidacyId()))
+        Mockito.when(findCandidacyByIdService.find(movementAuthorEvaluationRequest.getIdCandidacy()))
             .thenReturn(candidacy);
         Mockito.when(findMovimentByNeedService.find(candidacy.getNeed()))
             .thenReturn(movement);
@@ -75,7 +75,7 @@ class SaveMovementAuthorEvaluationServiceTest {
 
         //Act
         final MovementAuthorEvaluation returnedMovementAuthorEvaluation =
-            saveMovementEvaluationService.save(userEvaluatorId, movementAuthorEvaluationRequest);
+            saveMovementAuthorEvaluationService.save(userEvaluatorId, movementAuthorEvaluationRequest);
 
         //Assert
         assertEquals(expectedMovementAuthorEvaluation, returnedMovementAuthorEvaluation);
@@ -101,18 +101,18 @@ class SaveMovementAuthorEvaluationServiceTest {
             .setMovementStatus(MovementStatus.CONCLUDE);
 
         final MovementAuthorEvaluationRequest movementAuthorEvaluationRequest = new MovementAuthorEvaluationRequest()
-            .setNote(1)
+            .setRate(1)
             .setFeedback("someFeedBack")
-            .setCandidacyId(1L);
+            .setIdCandidacy(1L);
 
         final Long userEvaluatorId = 2L;
 
-        Mockito.when(findCandidacyByIdService.find(movementAuthorEvaluationRequest.getCandidacyId()))
+        Mockito.when(findCandidacyByIdService.find(movementAuthorEvaluationRequest.getIdCandidacy()))
             .thenReturn(candidacy);
         Mockito.when(findMovimentByNeedService.find(candidacy.getNeed()))
             .thenReturn(movement);
 
-        assertThrows(AccessControlException.class, () -> saveMovementEvaluationService.save(userEvaluatorId, movementAuthorEvaluationRequest));
+        assertThrows(AccessControlException.class, () -> saveMovementAuthorEvaluationService.save(userEvaluatorId, movementAuthorEvaluationRequest));
     }
 
 }

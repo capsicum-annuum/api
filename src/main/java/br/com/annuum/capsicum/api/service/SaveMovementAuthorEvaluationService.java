@@ -15,7 +15,7 @@ import javax.transaction.Transactional;
 
 @Service
 @Slf4j
-public class SaveMovementEvaluationService {
+public class SaveMovementAuthorEvaluationService {
 
     @Autowired
     private MovementAuthorEvaluationRepository movementAuthorEvaluationRepository;
@@ -33,7 +33,7 @@ public class SaveMovementEvaluationService {
     public MovementAuthorEvaluation save(final Long idUserAuthenticated, final MovementAuthorEvaluationRequest movementAuthorEvaluationRequest) {
 
         log.info("Start to create an MovementAuthorEvaluation for: '{}'", movementAuthorEvaluationRequest);
-        final Candidacy candidacy = findCandidacyByIdService.find(movementAuthorEvaluationRequest.getCandidacyId());
+        final Candidacy candidacy = findCandidacyByIdService.find(movementAuthorEvaluationRequest.getIdCandidacy());
 
         final Movement movement = findMovimentByNeedService.find(candidacy.getNeed());
 
@@ -46,7 +46,7 @@ public class SaveMovementEvaluationService {
         log.info("Building MovementAuthorEvaluation to persist");
         final MovementAuthorEvaluation movementAuthorEvaluation = new MovementAuthorEvaluation()
             .setCandidacy(candidacy)
-            .setNote(movementAuthorEvaluationRequest.getNote())
+            .setRate(movementAuthorEvaluationRequest.getRate())
             .setFeedback(movementAuthorEvaluationRequest.getFeedback());
 
         log.info("Creating a new MovementAuthorEvaluation: '{}'", movementAuthorEvaluation);

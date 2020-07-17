@@ -31,7 +31,7 @@ public class VolunteerEvaluation {
     @NotNull
     @Min(value = 1, message = "A nota mínima deve ser 1")
     @Max(value = 5, message = "A nota máxima deve ser 5")
-    private Integer note;
+    private Integer rate;
 
     @Size(max = 200)
     private String feedback;

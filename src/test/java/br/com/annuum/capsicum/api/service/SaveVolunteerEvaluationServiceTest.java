@@ -55,11 +55,11 @@ class SaveVolunteerEvaluationServiceTest {
 
         final VolunteerEvaluation expectedVolunteerEvaluation = new VolunteerEvaluation()
             .setCandidacy(candidacy)
-            .setNote(1)
+            .setRate(1)
             .setFeedback("someFeedBack");
 
         final VolunteerEvaluationRequest volunteerEvaluationRequest = new VolunteerEvaluationRequest()
-            .setNote(1)
+            .setRate(1)
             .setFeedback("someFeedBack")
             .setIdCandidacy(1L);
 
@@ -100,7 +100,7 @@ class SaveVolunteerEvaluationServiceTest {
             .setMovementStatus(MovementStatus.CONCLUDE);
 
         final VolunteerEvaluationRequest volunteerEvaluationRequest = new VolunteerEvaluationRequest()
-            .setNote(1)
+            .setRate(1)
             .setFeedback("someFeedBack")
             .setIdCandidacy(1L);
 

@@ -46,7 +46,7 @@ public class SaveVolunteerEvaluationService {
         log.info("Building VolunteerEvaluation to persist");
         final VolunteerEvaluation volunteerEvaluation = new VolunteerEvaluation()
             .setCandidacy(candidacy)
-            .setNote(volunteerEvaluationRequest.getNote())
+            .setRate(volunteerEvaluationRequest.getRate())
             .setFeedback(volunteerEvaluationRequest.getFeedback());
 
         log.info("Creating a new VolunteerEvaluation: '{}'", volunteerEvaluation);
