@@ -23,7 +23,7 @@ public class UpdateCandidacyStatusService {
     private FindCandidacyByIdService findCandidacyByIdService;
 
     @Autowired
-    private FindMovimentByNeedService findMovimentByNeedService;
+    private FindMovementByNeedService findMovementByNeedService;
 
     @Autowired
     private CandidacyRepository candidacyRepository;
@@ -47,7 +47,7 @@ public class UpdateCandidacyStatusService {
         log.info("Start to update Candidacy Status with id: '{}'", idCandidacy);
         final Candidacy candidacy = findCandidacyByIdService.find(idCandidacy);
 
-        final Movement movement = findMovimentByNeedService.find(candidacy.getNeed());
+        final Movement movement = findMovementByNeedService.find(candidacy.getNeed());
 
         if (movement.getMovementStatus().equals(MovementStatus.CANCELLED)) {
             throw new StatusUpdateNotAllowedException(
