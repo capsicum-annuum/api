@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface CityRepository extends PagingAndSortingRepository<City, Long> {
 
-    @Query("SELECT new br.com.annuum.capsicum.api.domain.dto.CityDto(c.id, c.name) FROM City c WHERE c.federatedUnity.id = ?1")
+    @Query("SELECT new br.com.annuum.capsicum.api.domain.dto.CityDto(c.id, c.name) FROM City c WHERE c.federatedUnity.id = ?1 ORDER BY c.name")
     List<CityDto> findAllCitiesAsCityDtoByFederatedUnity(Long idFederatedUnity);
 
 }
