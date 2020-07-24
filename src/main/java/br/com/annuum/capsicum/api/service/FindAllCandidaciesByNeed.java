@@ -20,7 +20,7 @@ public class FindAllCandidaciesByNeed {
     private FindNeedByIdService findNeedByIdService;
 
     @Autowired
-    private FindMovimentByNeedService findMovimentByNeedService;
+    private FindMovementByNeedService findMovementByNeedService;
 
     @Autowired
     private CandidacyMapper candidacyMapper;
@@ -29,7 +29,7 @@ public class FindAllCandidaciesByNeed {
         log.info("Searching for all Candidacies with Need id: '{}'", idNeed);
         final Need need = findNeedByIdService.find(idNeed);
 
-        if (!findMovimentByNeedService.find(need).getUserAuthor().getId().equals(idUser)) {
+        if (!findMovementByNeedService.find(need).getUserAuthor().getId().equals(idUser)) {
             throw new AccessControlException(
                 "O usuário autenticado não é o administrador do movimento.");
         }

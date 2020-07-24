@@ -29,7 +29,7 @@ class UpdateCandidacyStatusServiceTest {
     private FindCandidacyByIdService findCandidacyByIdService;
 
     @Mock
-    private FindMovimentByNeedService findMovimentByNeedService;
+    private FindMovementByNeedService findMovementByNeedService;
 
     @Mock
     private CandidacyRepository candidacyRepository;
@@ -48,7 +48,7 @@ class UpdateCandidacyStatusServiceTest {
 
         Mockito.when(findCandidacyByIdService.find(1L))
             .thenReturn(candidacy);
-        Mockito.when(findMovimentByNeedService.find(candidacy.getNeed()))
+        Mockito.when(findMovementByNeedService.find(candidacy.getNeed()))
             .thenReturn(movement);
 
         assertThrows(StatusUpdateNotAllowedException.class, () -> updateCandidacyStatusService.update(1L, 1L, candidacyStatus));
@@ -68,7 +68,7 @@ class UpdateCandidacyStatusServiceTest {
 
         Mockito.when(findCandidacyByIdService.find(1L))
             .thenReturn(candidacy);
-        Mockito.when(findMovimentByNeedService.find(candidacy.getNeed()))
+        Mockito.when(findMovementByNeedService.find(candidacy.getNeed()))
             .thenReturn(movement);
 
         assertThrows(StatusUpdateNotAllowedException.class, () -> updateCandidacyStatusService.update(1L, 1L, candidacyStatus));
@@ -89,7 +89,7 @@ class UpdateCandidacyStatusServiceTest {
 
         Mockito.when(findCandidacyByIdService.find(1L))
             .thenReturn(candidacy);
-        Mockito.when(findMovimentByNeedService.find(candidacy.getNeed()))
+        Mockito.when(findMovementByNeedService.find(candidacy.getNeed()))
             .thenReturn(movement);
 
         assertThrows(StatusUpdateNotAllowedException.class, () -> updateCandidacyStatusService.update(1L, 1L, candidacyStatus));
@@ -109,7 +109,7 @@ class UpdateCandidacyStatusServiceTest {
 
         Mockito.when(findCandidacyByIdService.find(1L))
             .thenReturn(candidacy);
-        Mockito.when(findMovimentByNeedService.find(candidacy.getNeed()))
+        Mockito.when(findMovementByNeedService.find(candidacy.getNeed()))
             .thenReturn(movement);
         Mockito.when(candidacyRepository.save(candidacy))
             .thenReturn(candidacy);
@@ -135,7 +135,7 @@ class UpdateCandidacyStatusServiceTest {
 
         Mockito.when(findCandidacyByIdService.find(1L))
             .thenReturn(candidacy);
-        Mockito.when(findMovimentByNeedService.find(candidacy.getNeed()))
+        Mockito.when(findMovementByNeedService.find(candidacy.getNeed()))
             .thenReturn(movement);
         Mockito.when(candidacyRepository.save(candidacy))
             .thenReturn(candidacy);
@@ -161,7 +161,7 @@ class UpdateCandidacyStatusServiceTest {
 
         Mockito.when(findCandidacyByIdService.find(1L))
             .thenReturn(candidacy);
-        Mockito.when(findMovimentByNeedService.find(candidacy.getNeed()))
+        Mockito.when(findMovementByNeedService.find(candidacy.getNeed()))
             .thenReturn(movement);
         Mockito.when(candidacyRepository.save(candidacy))
             .thenReturn(candidacy);
@@ -186,7 +186,7 @@ class UpdateCandidacyStatusServiceTest {
 
         Mockito.when(findCandidacyByIdService.find(1L))
             .thenReturn(candidacy);
-        Mockito.when(findMovimentByNeedService.find(candidacy.getNeed()))
+        Mockito.when(findMovementByNeedService.find(candidacy.getNeed()))
             .thenReturn(movement);
 
         assertThrows(StatusUpdateNotAllowedException.class, () -> updateCandidacyStatusService.update(1L, 1L, candidacyStatus));
@@ -207,7 +207,7 @@ class UpdateCandidacyStatusServiceTest {
 
         Mockito.when(findCandidacyByIdService.find(1L))
             .thenReturn(candidacy);
-        Mockito.when(findMovimentByNeedService.find(candidacy.getNeed()))
+        Mockito.when(findMovementByNeedService.find(candidacy.getNeed()))
             .thenReturn(movement);
         Mockito.when(candidacyRepository.save(candidacy))
             .thenReturn(candidacy);
@@ -231,7 +231,7 @@ class UpdateCandidacyStatusServiceTest {
 
         Mockito.when(findCandidacyByIdService.find(1L))
             .thenReturn(candidacy);
-        Mockito.when(findMovimentByNeedService.find(candidacy.getNeed()))
+        Mockito.when(findMovementByNeedService.find(candidacy.getNeed()))
             .thenReturn(movement);
         Mockito.when(candidacyRepository.save(candidacy))
             .thenReturn(candidacy);
@@ -256,7 +256,7 @@ class UpdateCandidacyStatusServiceTest {
 
         Mockito.when(findCandidacyByIdService.find(1L))
             .thenReturn(candidacy);
-        Mockito.when(findMovimentByNeedService.find(candidacy.getNeed()))
+        Mockito.when(findMovementByNeedService.find(candidacy.getNeed()))
             .thenReturn(movement);
         Mockito.when(candidacyRepository.save(candidacy))
             .thenReturn(candidacy);
@@ -280,7 +280,7 @@ class UpdateCandidacyStatusServiceTest {
 
         Mockito.when(findCandidacyByIdService.find(1L))
             .thenReturn(candidacy);
-        Mockito.when(findMovimentByNeedService.find(candidacy.getNeed()))
+        Mockito.when(findMovementByNeedService.find(candidacy.getNeed()))
             .thenReturn(movement);
 
         assertThrows(AccessControlException.class, () -> updateCandidacyStatusService.update(1L, 1L, CandidacyStatus.DECLINED));
@@ -301,7 +301,7 @@ class UpdateCandidacyStatusServiceTest {
 
         Mockito.when(findCandidacyByIdService.find(1L))
             .thenReturn(candidacy);
-        Mockito.when(findMovimentByNeedService.find(candidacy.getNeed()))
+        Mockito.when(findMovementByNeedService.find(candidacy.getNeed()))
             .thenReturn(movement);
 
         assertThrows(AccessControlException.class, () -> updateCandidacyStatusService.update(1L, 1L, candidacyStatus));
@@ -322,7 +322,7 @@ class UpdateCandidacyStatusServiceTest {
 
         Mockito.when(findCandidacyByIdService.find(1L))
             .thenReturn(candidacy);
-        Mockito.when(findMovimentByNeedService.find(candidacy.getNeed()))
+        Mockito.when(findMovementByNeedService.find(candidacy.getNeed()))
             .thenReturn(movement);
 
         assertThrows(AccessControlException.class, () -> updateCandidacyStatusService.update(3L, 1L, candidacyStatus));

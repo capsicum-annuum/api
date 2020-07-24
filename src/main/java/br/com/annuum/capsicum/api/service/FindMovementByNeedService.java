@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class FindMovimentByNeedService {
+public class FindMovementByNeedService {
 
     @Autowired
     private MovementRepository movementRepository;
