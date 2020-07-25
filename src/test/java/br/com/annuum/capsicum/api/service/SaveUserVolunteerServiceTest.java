@@ -14,7 +14,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.DayOfWeek;
 import java.util.Collections;
@@ -33,7 +32,7 @@ class SaveUserVolunteerServiceTest {
     private SaveUserVolunteerService saveUserVolunteerService;
 
     @Mock
-    private  UniqueUserService uniqueUserService;
+    private UniqueUserService uniqueUserService;
 
     @Mock
     private FindCauseByIdService findCauseByIdService;

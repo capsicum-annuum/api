@@ -45,7 +45,9 @@ class ClearImageRepoServiceTest {
         final String imageKey = randomAlphanumeric(20);
         final String expectedUrl = "http://foo.bar/" + imageKey;
         final String expectedHeader = "Bearer 2OKjz7najk#";
-        final Supplier action = () -> { throw new RuntimeException(message); };
+        final Supplier action = () -> {
+            throw new RuntimeException(message);
+        };
 
         try {
             service.clear(imageKey, action);
@@ -63,7 +65,9 @@ class ClearImageRepoServiceTest {
         final String imageKey = randomAlphanumeric(20);
         final String expectedUrl = "http://foo.bar/" + imageKey;
         final String expectedHeader = "Bearer 2OKjz7najk#";
-        final Supplier action = () -> { throw new RuntimeException(message); };
+        final Supplier action = () -> {
+            throw new RuntimeException(message);
+        };
 
         doThrow(RuntimeException.class).when(restTemplate).exchange(anyString(), any(HttpMethod.class), any(HttpEntity.class), any(Class.class));
 

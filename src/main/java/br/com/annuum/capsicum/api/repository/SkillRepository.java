@@ -1,7 +1,7 @@
 package br.com.annuum.capsicum.api.repository;
 
-import br.com.annuum.capsicum.api.domain.dto.SkillDto;
 import br.com.annuum.capsicum.api.domain.Skill;
+import br.com.annuum.capsicum.api.domain.dto.SkillDto;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 

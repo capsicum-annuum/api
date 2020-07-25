@@ -27,4 +27,5 @@ public class UserGroupController {
             () -> saveUserGroupService.save(userGroupRequest)
         );
     }
+
 }

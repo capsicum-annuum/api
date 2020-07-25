@@ -3,8 +3,6 @@ package br.com.annuum.capsicum.api.service;
 import br.com.annuum.capsicum.api.component.PointFactory;
 import br.com.annuum.capsicum.api.controller.request.AddressRequest;
 import br.com.annuum.capsicum.api.domain.Address;
-import br.com.annuum.capsicum.api.domain.City;
-import br.com.annuum.capsicum.api.domain.FederatedUnity;
 import br.com.annuum.capsicum.api.repository.AddressRepository;
 import com.vividsolutions.jts.geom.Point;
 import org.junit.jupiter.api.Test;

@@ -1,7 +1,6 @@
 package br.com.annuum.capsicum.api.controller.response;
 
 import br.com.annuum.capsicum.api.domain.dto.CauseDto;
-import br.com.annuum.capsicum.api.domain.dto.SkillDto;
 import lombok.Data;
 import lombok.experimental.Accessors;
 

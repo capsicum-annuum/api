@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 public class SaveUserVolunteerService {
 
     @Autowired
-    private  UniqueUserService uniqueUserService;
+    private UniqueUserService uniqueUserService;
 
     @Autowired
     private FindSkillByIdService findSkillByIdService;

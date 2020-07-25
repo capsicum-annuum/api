@@ -94,7 +94,7 @@ public class PhoneNumberValidator implements ConstraintValidator<Phone, String> 
         }
 
         PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
-        Phonenumber.PhoneNumber phone =  phoneUtil.parse(phoneNumber, DEFAULT_REGION_CODE);
+        Phonenumber.PhoneNumber phone = phoneUtil.parse(phoneNumber, DEFAULT_REGION_CODE);
         return phoneUtil.isValidNumberForRegion(phone, DEFAULT_REGION_CODE);
     }
 

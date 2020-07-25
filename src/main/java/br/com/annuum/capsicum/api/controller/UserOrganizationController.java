@@ -27,4 +27,5 @@ public class UserOrganizationController {
             () -> saveUserOrganizationService.save(userOrganizationRequest)
         );
     }
+
 }

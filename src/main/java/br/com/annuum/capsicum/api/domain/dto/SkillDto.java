@@ -2,7 +2,6 @@ package br.com.annuum.capsicum.api.domain.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.experimental.Accessors;
 
 @Data
 @AllArgsConstructor
