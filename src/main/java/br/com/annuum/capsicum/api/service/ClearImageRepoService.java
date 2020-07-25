@@ -1,5 +1,6 @@
 package br.com.annuum.capsicum.api.service;
 
+import br.com.annuum.capsicum.api.controller.request.PictureRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,6 +11,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 @Service
@@ -25,12 +27,14 @@ public class ClearImageRepoService {
     @Autowired
     private RestTemplate restTemplate;
 
-    public <T> T clear(final String imageKey, final Supplier<T> action) {
+    public <T> T clear(final List<PictureRequest> pictureRequestList, final Supplier<T> action) {
 
         try {
             return action.get();
         } catch (Exception ex) {
-            delete(imageKey);
+            for (PictureRequest pictureRequest : pictureRequestList) {
+                delete(pictureRequest.getProfilePictureKey());
+            }
             throw ex;
         }
 

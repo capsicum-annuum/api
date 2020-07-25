@@ -1,5 +1,7 @@
 package br.com.annuum.capsicum.api.service;
 
+import br.com.annuum.capsicum.api.controller.request.PictureRequest;
+import br.com.annuum.capsicum.api.domain.enums.PictureType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,6 +15,10 @@ import org.springframework.http.HttpMethod;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.function.Supplier;
 
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
@@ -43,17 +49,26 @@ class ClearImageRepoServiceTest {
     public void shouldSuccessfullyDeleteImageWhenErrorThrowingOriginalException() {
         final String message = randomAlphabetic(50);
         final String imageKey = randomAlphanumeric(20);
+        final PictureRequest profilePictureRequest = new PictureRequest()
+            .setPictureType(PictureType.PROFILE)
+            .setProfilePictureKey(imageKey);
+        final PictureRequest backgroundPictureRequest = new PictureRequest()
+            .setPictureType(PictureType.BACKGROUND)
+            .setProfilePictureKey(imageKey);
+        final List<PictureRequest> pictureRequests = Arrays.asList(profilePictureRequest, backgroundPictureRequest);
         final String expectedUrl = "http://foo.bar/" + imageKey;
         final String expectedHeader = "Bearer 2OKjz7najk#";
-        final Supplier action = () -> { throw new RuntimeException(message); };
+        final Supplier action = () -> {
+            throw new RuntimeException(message);
+        };
 
         try {
-            service.clear(imageKey, action);
+            service.clear(pictureRequests, action);
         } catch (Exception ex) {
             assertEquals(message, ex.getMessage());
         }
 
-        verify(restTemplate, times(1)).exchange(eq(expectedUrl), eq(HttpMethod.DELETE), captor.capture(), eq(String.class));
+        verify(restTemplate, times(2)).exchange(eq(expectedUrl), eq(HttpMethod.DELETE), captor.capture(), eq(String.class));
         assertEquals(expectedHeader, captor.getValue().getHeaders().get("Authorization").get(0));
     }
 
@@ -61,29 +76,42 @@ class ClearImageRepoServiceTest {
     public void shouldIgnoreErrorDeletingImageWhenErrorThrowingOriginalException() {
         final String message = randomAlphabetic(50);
         final String imageKey = randomAlphanumeric(20);
+        final PictureRequest profilePictureRequest = new PictureRequest()
+            .setPictureType(PictureType.PROFILE)
+            .setProfilePictureKey(imageKey);
+        final PictureRequest backgroundPictureRequest = new PictureRequest()
+            .setPictureType(PictureType.BACKGROUND)
+            .setProfilePictureKey(imageKey);
+        final List<PictureRequest> pictureRequests = Arrays.asList(profilePictureRequest, backgroundPictureRequest);
         final String expectedUrl = "http://foo.bar/" + imageKey;
         final String expectedHeader = "Bearer 2OKjz7najk#";
-        final Supplier action = () -> { throw new RuntimeException(message); };
+        final Supplier action = () -> {
+            throw new RuntimeException(message);
+        };
 
         doThrow(RuntimeException.class).when(restTemplate).exchange(anyString(), any(HttpMethod.class), any(HttpEntity.class), any(Class.class));
 
         try {
-            service.clear(imageKey, action);
+            service.clear(pictureRequests, action);
         } catch (Exception ex) {
             assertEquals(message, ex.getMessage());
         }
 
-        verify(restTemplate, times(1)).exchange(eq(expectedUrl), eq(HttpMethod.DELETE), captor.capture(), eq(String.class));
+        verify(restTemplate, times(2)).exchange(eq(expectedUrl), eq(HttpMethod.DELETE), captor.capture(), eq(String.class));
         assertEquals(expectedHeader, captor.getValue().getHeaders().get("Authorization").get(0));
     }
 
     @Test
     public void shouldDoNothinWhenNoErrorsOccursRunningAction() {
-        final String suppliedValue = randomAlphanumeric(20);
         final String imageKey = randomAlphanumeric(20);
+        final PictureRequest pictureRequest = new PictureRequest()
+            .setPictureType(PictureType.PROFILE)
+            .setProfilePictureKey(imageKey);
+        final List<PictureRequest> pictureRequests = Collections.singletonList(pictureRequest);
+        final String suppliedValue = randomAlphanumeric(20);
         final Supplier<String> action = () -> suppliedValue;
 
-        final String actualValue = service.clear(imageKey, action);
+        final String actualValue = service.clear(pictureRequests, action);
         assertEquals(suppliedValue, actualValue);
         verifyNoInteractions(restTemplate);
     }

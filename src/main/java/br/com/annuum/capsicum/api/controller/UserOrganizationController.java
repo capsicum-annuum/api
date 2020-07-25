@@ -23,7 +23,7 @@ public class UserOrganizationController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UserOrganizationResponse saveUserOrganization(@RequestBody @Valid final UserOrganizationRequest userOrganizationRequest) {
-        return clearImageRepoService.clear(userOrganizationRequest.getProfilePictureKey(),
+        return clearImageRepoService.clear(userOrganizationRequest.getPictureRequests(),
             () -> saveUserOrganizationService.save(userOrganizationRequest)
         );
     }

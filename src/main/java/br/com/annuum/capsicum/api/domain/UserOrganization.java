@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.br.CNPJ;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -42,6 +43,9 @@ public class UserOrganization extends AbstractUser {
     @Size(max = 1000)
     private String mission;
 
+    @OneToMany
+    private List<Picture> pictures;
+
     @Size(max = 100)
     private String webSiteUrl;
 
@@ -53,12 +57,6 @@ public class UserOrganization extends AbstractUser {
 
     @Size(max = 100)
     private String twitterUrl;
-
-    private String profilePictureId;
-
-    private String profilePictureKey;
-
-    private String backgroundPictureId;
 
     @Override
     public Profile getProfile() {
