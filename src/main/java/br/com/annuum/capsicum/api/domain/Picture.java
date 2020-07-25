@@ -19,10 +19,10 @@ public class Picture {
     private Long id;
 
     @NotEmpty
-    private String profilePictureUrl;
+    private String pictureUrl;
 
     @NotEmpty
-    private String profilePictureKey;
+    private String pictureKey;
 
     @Enumerated(EnumType.STRING)
     private PictureRelevance pictureRelevance;

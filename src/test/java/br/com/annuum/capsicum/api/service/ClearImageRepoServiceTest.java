@@ -50,10 +50,10 @@ class ClearImageRepoServiceTest {
         final String imageKey = randomAlphanumeric(20);
         final PictureRequest profilePictureRequest = new PictureRequest()
             .setPictureRelevance(PictureRelevance.PRIMARY)
-            .setProfilePictureKey(imageKey);
+            .setPictureKey(imageKey);
         final PictureRequest backgroundPictureRequest = new PictureRequest()
             .setPictureRelevance(PictureRelevance.SECONDARY)
-            .setProfilePictureKey(imageKey);
+            .setPictureKey(imageKey);
         final List<PictureRequest> pictureRequests = Arrays.asList(profilePictureRequest, backgroundPictureRequest);
         final String expectedUrl = "http://foo.bar/" + imageKey;
         final String expectedHeader = "Bearer 2OKjz7najk#";
@@ -77,10 +77,10 @@ class ClearImageRepoServiceTest {
         final String imageKey = randomAlphanumeric(20);
         final PictureRequest profilePictureRequest = new PictureRequest()
             .setPictureRelevance(PictureRelevance.PRIMARY)
-            .setProfilePictureKey(imageKey);
+            .setPictureKey(imageKey);
         final PictureRequest backgroundPictureRequest = new PictureRequest()
             .setPictureRelevance(PictureRelevance.SECONDARY)
-            .setProfilePictureKey(imageKey);
+            .setPictureKey(imageKey);
         final List<PictureRequest> pictureRequests = Arrays.asList(profilePictureRequest, backgroundPictureRequest);
         final String expectedUrl = "http://foo.bar/" + imageKey;
         final String expectedHeader = "Bearer 2OKjz7najk#";
@@ -105,7 +105,7 @@ class ClearImageRepoServiceTest {
         final String imageKey = randomAlphanumeric(20);
         final PictureRequest pictureRequest = new PictureRequest()
             .setPictureRelevance(PictureRelevance.PRIMARY)
-            .setProfilePictureKey(imageKey);
+            .setPictureKey(imageKey);
         final List<PictureRequest> pictureRequests = Collections.singletonList(pictureRequest);
         final String suppliedValue = randomAlphanumeric(20);
         final Supplier<String> action = () -> suppliedValue;
