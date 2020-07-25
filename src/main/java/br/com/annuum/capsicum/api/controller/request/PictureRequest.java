@@ -11,13 +11,13 @@ import javax.validation.constraints.NotNull;
 @Accessors(chain = true)
 public class PictureRequest {
 
-    @NotEmpty
+    @NotEmpty(message = "A url da imagem não poder ser vazia.")
     private String profilePictureUrl;
 
-    @NotEmpty
+    @NotEmpty(message = "A key da imagem não pode ser vazia.")
     private String profilePictureKey;
 
-    @NotNull
+    @NotNull(message = "A relevância da imagem não pode ser nula.")
     private PictureRelevance pictureRelevance;
 
 }
