@@ -1,9 +1,9 @@
 package br.com.annuum.capsicum.api.controller;
 
-import br.com.annuum.capsicum.api.controller.request.MovementAuthorEvaluationRequest;
+import br.com.annuum.capsicum.api.controller.request.MovementEvaluationRequest;
 import br.com.annuum.capsicum.api.controller.request.VolunteerEvaluationRequest;
 import br.com.annuum.capsicum.api.security.UserPrincipal;
-import br.com.annuum.capsicum.api.service.SaveMovementAuthorEvaluationService;
+import br.com.annuum.capsicum.api.service.SaveMovementEvaluationService;
 import br.com.annuum.capsicum.api.service.SaveVolunteerEvaluationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,13 +20,13 @@ public class EvaluationController {
     private SaveVolunteerEvaluationService saveVolunteerEvaluationService;
 
     @Autowired
-    private SaveMovementAuthorEvaluationService saveMovementAuthorEvaluationService;
+    private SaveMovementEvaluationService saveMovementEvaluationService;
 
-    @PostMapping("/movement-author")
+    @PostMapping("/movement")
     @ResponseStatus(HttpStatus.CREATED)
-    public void saveMovementAuthorEvaluation(@AuthenticationPrincipal final UserPrincipal currentUser,
-                                       @Valid @RequestBody final MovementAuthorEvaluationRequest movementAuthorEvaluationRequest) {
-        saveMovementAuthorEvaluationService.save(currentUser.getId(), movementAuthorEvaluationRequest);
+    public void saveMovementEvaluation(@AuthenticationPrincipal final UserPrincipal currentUser,
+                                       @Valid @RequestBody final MovementEvaluationRequest movementEvaluationRequest) {
+        saveMovementEvaluationService.save(currentUser.getId(), movementEvaluationRequest);
     }
 
     @PostMapping("/volunteer")

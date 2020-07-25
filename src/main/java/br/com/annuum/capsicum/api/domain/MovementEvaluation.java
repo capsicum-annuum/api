@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Accessors(chain = true)
 @Entity
 @SequenceGenerator(name = "user_organization_evaluation_sequence", sequenceName = "user_organization_evaluation_sequence", allocationSize = 1)
-public class MovementAuthorEvaluation {
+public class MovementEvaluation {
 
     @Id
     @GeneratedValue(generator = "user_organization_evaluation_sequence", strategy = GenerationType.SEQUENCE)

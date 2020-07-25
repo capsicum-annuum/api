@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 
 @Data
 @Accessors(chain = true)
-public class MovementAuthorEvaluationRequest {
+public class MovementEvaluationRequest {
 
     @NotNull
     private Long idCandidacy;
