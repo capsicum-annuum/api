@@ -10,7 +10,6 @@ import javax.validation.constraints.NotEmpty;
 
 @Data
 @Accessors(chain = true)
-@EntityListeners(NeedListener.class)
 @Entity
 @SequenceGenerator(name = "picture_sequence", sequenceName = "picture_sequence", allocationSize = 1)
 public class Picture {
