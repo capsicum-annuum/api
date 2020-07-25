@@ -1,7 +1,7 @@
 package br.com.annuum.capsicum.api.service;
 
 import br.com.annuum.capsicum.api.controller.request.PictureRequest;
-import br.com.annuum.capsicum.api.domain.enums.PictureType;
+import br.com.annuum.capsicum.api.domain.enums.PictureRelevance;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,7 +15,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -50,10 +49,10 @@ class ClearImageRepoServiceTest {
         final String message = randomAlphabetic(50);
         final String imageKey = randomAlphanumeric(20);
         final PictureRequest profilePictureRequest = new PictureRequest()
-            .setPictureType(PictureType.PROFILE)
+            .setPictureRelevance(PictureRelevance.PRIMARY)
             .setProfilePictureKey(imageKey);
         final PictureRequest backgroundPictureRequest = new PictureRequest()
-            .setPictureType(PictureType.BACKGROUND)
+            .setPictureRelevance(PictureRelevance.SECONDARY)
             .setProfilePictureKey(imageKey);
         final List<PictureRequest> pictureRequests = Arrays.asList(profilePictureRequest, backgroundPictureRequest);
         final String expectedUrl = "http://foo.bar/" + imageKey;
@@ -77,10 +76,10 @@ class ClearImageRepoServiceTest {
         final String message = randomAlphabetic(50);
         final String imageKey = randomAlphanumeric(20);
         final PictureRequest profilePictureRequest = new PictureRequest()
-            .setPictureType(PictureType.PROFILE)
+            .setPictureRelevance(PictureRelevance.PRIMARY)
             .setProfilePictureKey(imageKey);
         final PictureRequest backgroundPictureRequest = new PictureRequest()
-            .setPictureType(PictureType.BACKGROUND)
+            .setPictureRelevance(PictureRelevance.SECONDARY)
             .setProfilePictureKey(imageKey);
         final List<PictureRequest> pictureRequests = Arrays.asList(profilePictureRequest, backgroundPictureRequest);
         final String expectedUrl = "http://foo.bar/" + imageKey;
@@ -102,10 +101,10 @@ class ClearImageRepoServiceTest {
     }
 
     @Test
-    public void shouldDoNothinWhenNoErrorsOccursRunningAction() {
+    public void shouldDoNothingWhenNoErrorsOccursRunningAction() {
         final String imageKey = randomAlphanumeric(20);
         final PictureRequest pictureRequest = new PictureRequest()
-            .setPictureType(PictureType.PROFILE)
+            .setPictureRelevance(PictureRelevance.PRIMARY)
             .setProfilePictureKey(imageKey);
         final List<PictureRequest> pictureRequests = Collections.singletonList(pictureRequest);
         final String suppliedValue = randomAlphanumeric(20);

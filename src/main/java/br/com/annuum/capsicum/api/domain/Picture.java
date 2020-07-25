@@ -1,6 +1,6 @@
 package br.com.annuum.capsicum.api.domain;
 
-import br.com.annuum.capsicum.api.domain.enums.PictureType;
+import br.com.annuum.capsicum.api.domain.enums.PictureRelevance;
 import br.com.annuum.capsicum.api.listener.NeedListener;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -26,5 +26,5 @@ public class Picture {
     private String profilePictureKey;
 
     @Enumerated(EnumType.STRING)
-    private PictureType pictureType;
+    private PictureRelevance pictureRelevance;
 }

@@ -1,11 +1,9 @@
 package br.com.annuum.capsicum.api.controller.request;
 
-import br.com.annuum.capsicum.api.domain.enums.PictureType;
+import br.com.annuum.capsicum.api.domain.enums.PictureRelevance;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -20,6 +18,6 @@ public class PictureRequest {
     private String profilePictureKey;
 
     @NotNull
-    private PictureType pictureType;
+    private PictureRelevance pictureRelevance;
 
 }
