@@ -21,7 +21,7 @@ public class SaveVolunteerEvaluationService {
     private VolunteerEvaluationRepository volunteerEvaluationRepository;
 
     @Autowired
-    private FindMovimentByNeedService findMovimentByNeedService;
+    private FindMovementByNeedService findMovementByNeedService;
 
     @Autowired
     private FindCandidacyByIdService findCandidacyByIdService;
@@ -35,7 +35,7 @@ public class SaveVolunteerEvaluationService {
         log.info("Start to create an VolunteerEvaluation for: '{}'", volunteerEvaluationRequest);
         final Candidacy candidacy = findCandidacyByIdService.find(volunteerEvaluationRequest.getIdCandidacy());
 
-        final Movement movement = findMovimentByNeedService.find(candidacy.getNeed());
+        final Movement movement = findMovementByNeedService.find(candidacy.getNeed());
 
         if (!movement.getUserAuthor().getId().equals(idUserAuthenticated)) {
             throw new AccessControlException("O usuário autenticado não é o autor do movimento.");

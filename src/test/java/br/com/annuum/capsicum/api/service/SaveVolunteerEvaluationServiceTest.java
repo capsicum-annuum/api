@@ -28,7 +28,7 @@ class SaveVolunteerEvaluationServiceTest {
     private VolunteerEvaluationRepository volunteerEvaluationRepository;
 
     @Mock
-    private FindMovimentByNeedService findMovimentByNeedService;
+    private FindMovementByNeedService findMovementByNeedService;
 
     @Mock
     private FindCandidacyByIdService findCandidacyByIdService;
@@ -67,7 +67,7 @@ class SaveVolunteerEvaluationServiceTest {
 
         Mockito.when(findCandidacyByIdService.find(volunteerEvaluationRequest.getIdCandidacy()))
             .thenReturn(candidacy);
-        Mockito.when(findMovimentByNeedService.find(candidacy.getNeed()))
+        Mockito.when(findMovementByNeedService.find(candidacy.getNeed()))
             .thenReturn(movement);
         Mockito.when(volunteerEvaluationRepository.save(expectedVolunteerEvaluation))
             .thenReturn(expectedVolunteerEvaluation);
@@ -108,7 +108,7 @@ class SaveVolunteerEvaluationServiceTest {
 
         Mockito.when(findCandidacyByIdService.find(volunteerEvaluationRequest.getIdCandidacy()))
             .thenReturn(candidacy);
-        Mockito.when(findMovimentByNeedService.find(candidacy.getNeed()))
+        Mockito.when(findMovementByNeedService.find(candidacy.getNeed()))
             .thenReturn(movement);
 
         assertThrows(AccessControlException.class, () -> saveVolunteerEvaluationService.save(idUserEvaluator, volunteerEvaluationRequest));

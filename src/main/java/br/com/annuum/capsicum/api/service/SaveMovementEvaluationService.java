@@ -21,7 +21,7 @@ public class SaveMovementEvaluationService {
     private MovementEvaluationRepository movementEvaluationRepository;
 
     @Autowired
-    private FindMovimentByNeedService findMovimentByNeedService;
+    private FindMovementByNeedService findMovementByNeedService;
 
     @Autowired
     private FindCandidacyByIdService findCandidacyByIdService;
@@ -35,7 +35,7 @@ public class SaveMovementEvaluationService {
         log.info("Start to create an MovementEvaluation for: '{}'", movementEvaluationRequest);
         final Candidacy candidacy = findCandidacyByIdService.find(movementEvaluationRequest.getIdCandidacy());
 
-        final Movement movement = findMovimentByNeedService.find(candidacy.getNeed());
+        final Movement movement = findMovementByNeedService.find(candidacy.getNeed());
 
         if (!candidacy.getUserCandidate().getId().equals(idUserAuthenticated)) {
             throw new AccessControlException("O usuário autenticado não está autorizado a avaliar este Movimento.");
