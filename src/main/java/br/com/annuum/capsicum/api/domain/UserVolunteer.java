@@ -48,7 +48,7 @@ public class UserVolunteer extends AbstractUser {
     @Size(max = 1000)
     private String description;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Picture> pictures;
 
     @Size(max = 100)

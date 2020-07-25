@@ -6,10 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.hibernate.validator.constraints.br.CNPJ;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -43,7 +40,7 @@ public class UserOrganization extends AbstractUser {
     @Size(max = 1000)
     private String mission;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Picture> pictures;
 
     @Size(max = 100)

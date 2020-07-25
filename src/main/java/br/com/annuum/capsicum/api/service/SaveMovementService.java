@@ -14,6 +14,8 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.util.Objects.nonNull;
+
 @Service
 @Slf4j
 public class SaveMovementService {
@@ -60,10 +62,16 @@ public class SaveMovementService {
             .setNeeds(needs)
             .setDateTimeStart(movementRequest.getDateTimeStart())
             .setDateTimeEnd(movementRequest.getDateTimeEnd())
-            .setPictureUrl(movementRequest.getPictureUrl())
             .setTitle(movementRequest.getTitle())
             .setDescription(movementRequest.getDescription())
             .setMovementStatus(MovementStatus.ACTIVE);
+
+        if (nonNull(movementRequest.getPictureRequests())) {
+            movement.setPictures(movementRequest.getPictureRequests()
+                .stream()
+                .map(pictureRequest -> modelMapper.map(pictureRequest, Picture.class))
+                .collect(Collectors.toList()));
+        }
 
         log.info("Creating a new Movement: '{}'", movement);
         return modelMapper.map(movementRepository.save(movement), MovementResponse.class);

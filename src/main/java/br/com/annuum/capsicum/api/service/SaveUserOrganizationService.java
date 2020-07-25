@@ -4,6 +4,7 @@ import br.com.annuum.capsicum.api.controller.request.UserOrganizationRequest;
 import br.com.annuum.capsicum.api.controller.response.UserOrganizationResponse;
 import br.com.annuum.capsicum.api.domain.Address;
 import br.com.annuum.capsicum.api.domain.Cause;
+import br.com.annuum.capsicum.api.domain.Picture;
 import br.com.annuum.capsicum.api.domain.UserOrganization;
 import br.com.annuum.capsicum.api.repository.UserOrganizationRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static java.util.Objects.nonNull;
 
 @Service
 @Slf4j
@@ -45,6 +48,13 @@ public class SaveUserOrganizationService {
         final UserOrganization userOrganization = modelMapper.map(userOrganizationRequest, UserOrganization.class)
             .setAddress(address)
             .setCauseThatSupport(causesThatSupport);
+
+        if (nonNull(userOrganizationRequest.getPictureRequests())) {
+            userOrganization.setPictures(userOrganizationRequest.getPictureRequests()
+                .stream()
+                .map(pictureRequest -> modelMapper.map(pictureRequest, Picture.class))
+                .collect(Collectors.toList()));
+        }
 
         log.info("Creating a new UserOrganization: '{}'", userOrganization);
         return modelMapper.map(userOrganizationRepository.save(userOrganization), UserOrganizationResponse.class);
