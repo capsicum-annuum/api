@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class RetrieveCityResponseByIdService {
+public class GetCityLocationByIdService {
 
     @Autowired
     private FindCityByIdService findCityByIdService;

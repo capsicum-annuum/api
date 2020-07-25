@@ -5,7 +5,7 @@ import br.com.annuum.capsicum.api.controller.response.CityResponse;
 import br.com.annuum.capsicum.api.controller.response.FederatedUnitiesListResponse;
 import br.com.annuum.capsicum.api.service.FindAllCitiesByFederatedUnityService;
 import br.com.annuum.capsicum.api.service.FindAllFederatedUnitiesService;
-import br.com.annuum.capsicum.api.service.RetrieveCityResponseByIdService;
+import br.com.annuum.capsicum.api.service.GetCityLocationByIdService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +21,7 @@ public class LocalityController {
     private FindAllCitiesByFederatedUnityService findAllCitiesByFederatedUnityService;
 
     @Autowired
-    private RetrieveCityResponseByIdService retrieveCityResponseByIdService;
+    private GetCityLocationByIdService getCityLocationByIdService;
 
     @GetMapping("/federated-unity")
     @ResponseStatus(HttpStatus.OK)
@@ -37,8 +37,8 @@ public class LocalityController {
 
     @GetMapping("/city/{idCity}")
     @ResponseStatus(HttpStatus.OK)
-    public CityResponse retrieveCityResponseById(@PathVariable Long idCity) {
-        return retrieveCityResponseByIdService.find(idCity);
+    public CityResponse getCityLocationById(@PathVariable Long idCity) {
+        return getCityLocationByIdService.find(idCity);
     }
 
 }
