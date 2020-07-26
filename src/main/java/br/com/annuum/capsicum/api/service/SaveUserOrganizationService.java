@@ -6,6 +6,7 @@ import br.com.annuum.capsicum.api.domain.Address;
 import br.com.annuum.capsicum.api.domain.Cause;
 import br.com.annuum.capsicum.api.domain.Picture;
 import br.com.annuum.capsicum.api.domain.UserOrganization;
+import br.com.annuum.capsicum.api.mapper.PictureMapper;
 import br.com.annuum.capsicum.api.repository.UserOrganizationRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -34,6 +35,9 @@ public class SaveUserOrganizationService {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private PictureMapper pictureMapper;
+
     @Transactional
     public UserOrganizationResponse save(final UserOrganizationRequest userOrganizationRequest) {
 
@@ -50,10 +54,7 @@ public class SaveUserOrganizationService {
             .setCauseThatSupport(causesThatSupport);
 
         if (nonNull(userOrganizationRequest.getPictureRequests())) {
-            userOrganization.setPictures(userOrganizationRequest.getPictureRequests()
-                .stream()
-                .map(pictureRequest -> modelMapper.map(pictureRequest, Picture.class))
-                .collect(Collectors.toList()));
+            userOrganization.setPictures(pictureMapper.map(userOrganizationRequest.getPictureRequests()));
         }
 
         log.info("Creating a new UserOrganization: '{}'", userOrganization);

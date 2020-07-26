@@ -5,6 +5,7 @@ import br.com.annuum.capsicum.api.controller.request.UserVolunteerRequest;
 import br.com.annuum.capsicum.api.controller.response.UserVolunteerResponse;
 import br.com.annuum.capsicum.api.domain.*;
 import br.com.annuum.capsicum.api.mapper.AvailabilityMapper;
+import br.com.annuum.capsicum.api.mapper.PictureMapper;
 import br.com.annuum.capsicum.api.repository.UserVolunteerRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -42,6 +43,9 @@ public class SaveUserVolunteerService {
     @Autowired
     private AvailabilityMapper availabilityMapper;
 
+    @Autowired
+    private PictureMapper pictureMapper;
+
     @Transactional
     public UserVolunteerResponse save(final UserVolunteerRequest userVolunteerRequest) {
         log.info("Start to create an UserVolunteer for: '{}'", userVolunteerRequest);
@@ -70,10 +74,7 @@ public class SaveUserVolunteerService {
             .setAvailability(availabilityMapper.map(userVolunteerRequest.getAvailability()));
 
         if (nonNull(userVolunteerRequest.getPictureRequests())) {
-            userVolunteer.setPictures(userVolunteerRequest.getPictureRequests()
-                .stream()
-                .map(pictureRequest -> modelMapper.map(pictureRequest, Picture.class))
-                .collect(Collectors.toList()));
+            userVolunteer.setPictures(pictureMapper.map(userVolunteerRequest.getPictureRequests()));
         }
 
         log.info("Creating a new UserVolunteer: '{}'", userVolunteer);

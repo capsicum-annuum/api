@@ -6,6 +6,7 @@ import br.com.annuum.capsicum.api.domain.Address;
 import br.com.annuum.capsicum.api.domain.Cause;
 import br.com.annuum.capsicum.api.domain.Picture;
 import br.com.annuum.capsicum.api.domain.UserGroup;
+import br.com.annuum.capsicum.api.mapper.PictureMapper;
 import br.com.annuum.capsicum.api.repository.UserGroupRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -34,6 +35,9 @@ public class SaveUserGroupService {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private PictureMapper pictureMapper;
+
     @Transactional
     public UserGroupResponse save(final UserGroupRequest userGroupRequest) {
 
@@ -50,10 +54,7 @@ public class SaveUserGroupService {
             .setCauseThatSupport(causesThatSupport);
 
         if (nonNull(userGroupRequest.getPictureRequests())) {
-            userGroup.setPictures(userGroupRequest.getPictureRequests()
-                .stream()
-                .map(pictureRequest -> modelMapper.map(pictureRequest, Picture.class))
-                .collect(Collectors.toList()));
+            userGroup.setPictures(pictureMapper.map(userGroupRequest.getPictureRequests()));
         }
 
         log.info("Creating a new UserGroup: '{}'", userGroup);
