@@ -4,7 +4,9 @@ import br.com.annuum.capsicum.api.controller.request.UserGroupRequest;
 import br.com.annuum.capsicum.api.controller.response.UserGroupResponse;
 import br.com.annuum.capsicum.api.domain.Address;
 import br.com.annuum.capsicum.api.domain.Cause;
+import br.com.annuum.capsicum.api.domain.Picture;
 import br.com.annuum.capsicum.api.domain.UserGroup;
+import br.com.annuum.capsicum.api.mapper.PictureMapper;
 import br.com.annuum.capsicum.api.repository.UserGroupRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -14,6 +16,8 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static java.util.Objects.nonNull;
 
 @Service
 @Slf4j
@@ -31,6 +35,9 @@ public class SaveUserGroupService {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private PictureMapper pictureMapper;
+
     @Transactional
     public UserGroupResponse save(final UserGroupRequest userGroupRequest) {
 
@@ -45,6 +52,10 @@ public class SaveUserGroupService {
         final UserGroup userGroup = modelMapper.map(userGroupRequest, UserGroup.class)
             .setAddress(address)
             .setCauseThatSupport(causesThatSupport);
+
+        if (nonNull(userGroupRequest.getPictureRequests())) {
+            userGroup.setPictures(pictureMapper.map(userGroupRequest.getPictureRequests()));
+        }
 
         log.info("Creating a new UserGroup: '{}'", userGroup);
         return modelMapper.map(userGroupRepository.save(userGroup), UserGroupResponse.class);

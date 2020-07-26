@@ -46,7 +46,8 @@ public class Movement implements EventPeriod {
     @Future
     private LocalDateTime dateTimeEnd;
 
-    private String pictureUrl;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Picture> pictures;
 
     @ManyToMany
     private List<Need> needs;

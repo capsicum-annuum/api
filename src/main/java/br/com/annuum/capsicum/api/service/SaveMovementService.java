@@ -4,6 +4,7 @@ import br.com.annuum.capsicum.api.controller.request.MovementRequest;
 import br.com.annuum.capsicum.api.controller.response.MovementResponse;
 import br.com.annuum.capsicum.api.domain.*;
 import br.com.annuum.capsicum.api.domain.enums.MovementStatus;
+import br.com.annuum.capsicum.api.mapper.PictureMapper;
 import br.com.annuum.capsicum.api.repository.MovementRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static java.util.Objects.nonNull;
 
 @Service
 @Slf4j
@@ -35,6 +38,9 @@ public class SaveMovementService {
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private PictureMapper pictureMapper;
 
     @Transactional
     public MovementResponse save(final MovementRequest movementRequest) {
@@ -60,10 +66,13 @@ public class SaveMovementService {
             .setNeeds(needs)
             .setDateTimeStart(movementRequest.getDateTimeStart())
             .setDateTimeEnd(movementRequest.getDateTimeEnd())
-            .setPictureUrl(movementRequest.getPictureUrl())
             .setTitle(movementRequest.getTitle())
             .setDescription(movementRequest.getDescription())
             .setMovementStatus(MovementStatus.ACTIVE);
+
+        if (nonNull(movementRequest.getPictureRequests())) {
+            movement.setPictures(pictureMapper.map(movementRequest.getPictureRequests()));
+        }
 
         log.info("Creating a new Movement: '{}'", movement);
         return modelMapper.map(movementRepository.save(movement), MovementResponse.class);

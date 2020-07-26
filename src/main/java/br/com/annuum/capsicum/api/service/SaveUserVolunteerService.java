@@ -3,11 +3,9 @@ package br.com.annuum.capsicum.api.service;
 import br.com.annuum.capsicum.api.controller.request.UniqueUserInformationRequest;
 import br.com.annuum.capsicum.api.controller.request.UserVolunteerRequest;
 import br.com.annuum.capsicum.api.controller.response.UserVolunteerResponse;
-import br.com.annuum.capsicum.api.domain.Address;
-import br.com.annuum.capsicum.api.domain.Cause;
-import br.com.annuum.capsicum.api.domain.Skill;
-import br.com.annuum.capsicum.api.domain.UserVolunteer;
+import br.com.annuum.capsicum.api.domain.*;
 import br.com.annuum.capsicum.api.mapper.AvailabilityMapper;
+import br.com.annuum.capsicum.api.mapper.PictureMapper;
 import br.com.annuum.capsicum.api.repository.UserVolunteerRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -17,6 +15,8 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static java.util.Objects.nonNull;
 
 @Service
 @Slf4j
@@ -42,6 +42,9 @@ public class SaveUserVolunteerService {
 
     @Autowired
     private AvailabilityMapper availabilityMapper;
+
+    @Autowired
+    private PictureMapper pictureMapper;
 
     @Transactional
     public UserVolunteerResponse save(final UserVolunteerRequest userVolunteerRequest) {
@@ -69,6 +72,10 @@ public class SaveUserVolunteerService {
             .setCauseThatSupport(causesThatSupport)
             .setUserSkills(userSkills)
             .setAvailability(availabilityMapper.map(userVolunteerRequest.getAvailability()));
+
+        if (nonNull(userVolunteerRequest.getPictureRequests())) {
+            userVolunteer.setPictures(pictureMapper.map(userVolunteerRequest.getPictureRequests()));
+        }
 
         log.info("Creating a new UserVolunteer: '{}'", userVolunteer);
         return modelMapper.map(userVolunteerRepository.save(userVolunteer), UserVolunteerResponse.class);

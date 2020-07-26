@@ -23,7 +23,7 @@ public class UserVolunteerController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UserVolunteerResponse saveUserVolunteer(@Valid @RequestBody final UserVolunteerRequest userVolunteerRequest) {
-        return clearImageRepoService.clear(userVolunteerRequest.getProfilePictureKey(),
+        return clearImageRepoService.clear(userVolunteerRequest.getPictureRequests(),
             () -> saveUserVolunteerService.save(userVolunteerRequest)
         );
     }

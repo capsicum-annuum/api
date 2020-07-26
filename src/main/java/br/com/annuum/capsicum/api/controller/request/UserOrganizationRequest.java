@@ -46,13 +46,7 @@ public class UserOrganizationRequest {
     private String phone;
 
     @Nullable
-    private String profilePictureUrl;
-
-    @Nullable
-    private String profilePictureKey;
-
-    @Nullable
-    private String backgroundPictureUrl;
+    private List<PictureRequest> pictureRequests;
 
     @Nullable
     private String webSiteUrl;

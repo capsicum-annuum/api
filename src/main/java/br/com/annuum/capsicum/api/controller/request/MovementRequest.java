@@ -34,7 +34,7 @@ public class MovementRequest implements EventPeriod {
     private LocalDateTime dateTimeEnd;
 
     @Nullable
-    private String pictureUrl;
+    private List<PictureRequest> pictureRequests;
 
     @NotEmpty(message = "A lista de Necessidades não pode estar vazia.")
     private List<NeedRequest> needsRequest;

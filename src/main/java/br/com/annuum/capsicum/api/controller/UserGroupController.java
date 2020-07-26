@@ -23,7 +23,7 @@ public class UserGroupController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UserGroupResponse saveUserGroup(@RequestBody @Valid final UserGroupRequest userGroupRequest) {
-        return clearImageRepoService.clear(userGroupRequest.getProfilePictureKey(),
+        return clearImageRepoService.clear(userGroupRequest.getPictureRequests(),
             () -> saveUserGroupService.save(userGroupRequest)
         );
     }

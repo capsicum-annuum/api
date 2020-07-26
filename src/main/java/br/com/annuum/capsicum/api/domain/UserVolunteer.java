@@ -48,6 +48,9 @@ public class UserVolunteer extends AbstractUser {
     @Size(max = 1000)
     private String description;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Picture> pictures;
+
     @Size(max = 100)
     private String facebookUrl;
 
@@ -56,10 +59,6 @@ public class UserVolunteer extends AbstractUser {
 
     @Size(max = 100)
     private String twitterUrl;
-
-    private String profilePictureUrl;
-
-    private String profilePictureKey;
 
     @Override
     public Profile getProfile() {

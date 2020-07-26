@@ -45,10 +45,7 @@ public class UserVolunteerRequest {
     private String phone;
 
     @Nullable
-    private String profilePictureUrl;
-
-    @Nullable
-    private String profilePictureKey;
+    private List<PictureRequest> pictureRequests;
 
     @Nullable
     private String facebookUrl;
