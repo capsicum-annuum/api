@@ -43,11 +43,11 @@ public class SaveMovementService {
     private PictureMapper pictureMapper;
 
     @Transactional
-    public MovementResponse save(final MovementRequest movementRequest) {
+    public MovementResponse save(final Long idUserAuthenticated, final MovementRequest movementRequest) {
         log.info("Start to create a Movement for: '{}'", movementRequest);
         final Address address = saveAddressService.save(movementRequest.getAddressRequest());
 
-        final AbstractUser abstractUser = findUserByIdService.find(movementRequest.getUserAuthorId());
+        final AbstractUser abstractUser = findUserByIdService.find(idUserAuthenticated);
 
         final List<Need> needs = movementRequest.getNeedsRequest()
             .stream()

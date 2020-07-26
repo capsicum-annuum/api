@@ -77,8 +77,9 @@ class SaveMovementServiceTest {
 
         final List<NeedRequest> needRequests = Collections.singletonList(needRequest);
 
+        final Long idUserAuthenticated = 1L;
+
         final MovementRequest movementRequest = new MovementRequest()
-            .setUserAuthorId(1L)
             .setAddressRequest(Mockito.mock(AddressRequest.class))
             .setNeedsRequest(needRequests)
             .setCauseThatSupport(Collections.singletonList(1L))
@@ -106,7 +107,7 @@ class SaveMovementServiceTest {
 
         Mockito.when(saveAddressService.save(movementRequest.getAddressRequest()))
             .thenReturn(address);
-        Mockito.when(findUserByIdService.find(movementRequest.getUserAuthorId()))
+        Mockito.when(findUserByIdService.find(idUserAuthenticated))
             .thenReturn(userGroup);
         Mockito.when(saveNeedService.save(needRequest))
             .thenReturn(need);
@@ -118,7 +119,7 @@ class SaveMovementServiceTest {
             .thenReturn(expectedMovementResponse);
 
         //Act
-        final MovementResponse returnedMovementResponse = saveMovementService.save(movementRequest);
+        final MovementResponse returnedMovementResponse = saveMovementService.save(idUserAuthenticated, movementRequest);
 
         //Assert
         assertEquals(expectedMovementResponse, returnedMovementResponse);
