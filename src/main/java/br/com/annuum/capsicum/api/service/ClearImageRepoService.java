@@ -32,9 +32,7 @@ public class ClearImageRepoService {
         try {
             return action.get();
         } catch (Exception ex) {
-            for (PictureRequest pictureRequest : pictureRequestList) {
-                delete(pictureRequest.getPictureKey());
-            }
+            pictureRequestList.forEach(pictureRequest -> delete(pictureRequest.getPictureKey()));
             throw ex;
         }
 
