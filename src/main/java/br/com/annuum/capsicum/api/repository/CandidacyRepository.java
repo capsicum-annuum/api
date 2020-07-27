@@ -10,4 +10,5 @@ public interface CandidacyRepository extends CrudRepository<Candidacy, Long> {
 
     List<Candidacy> findAllByNeed(Need need);
 
+    boolean existsByNeedIdAndUserCandidateId(Long idNeed, Long idCandidate);
 }
