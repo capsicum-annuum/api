@@ -7,6 +7,7 @@ import br.com.annuum.capsicum.api.domain.enums.NeedStatus;
 import br.com.annuum.capsicum.api.exceptions.AccessControlException;
 import br.com.annuum.capsicum.api.exceptions.DuplicateElementException;
 import br.com.annuum.capsicum.api.repository.CandidacyRepository;
+import br.com.annuum.capsicum.api.validator.VolunteerEvaluationDebitsValidator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -41,6 +42,9 @@ class SaveCandidacyServiceTest {
 
     @Mock
     private FindMovementByNeedService findMovementByNeedService;
+
+    @Mock
+    private VolunteerEvaluationDebitsValidator volunteerEvaluationDebitsValidator;
 
     @Test
     public void mustSaveAndReturnNewCandidacy_withSuccess() {
@@ -90,6 +94,7 @@ class SaveCandidacyServiceTest {
 
         Mockito.when(findUserVolunteerByIdService.find(idUser))
             .thenReturn(userVolunteer);
+        Mockito.doNothing().when(volunteerEvaluationDebitsValidator).validate(idUser);
         Mockito.when(findNeedByIdService.find(idNeed))
             .thenReturn(need);
         Mockito.when(findMovementByNeedService.find(need))
@@ -149,6 +154,7 @@ class SaveCandidacyServiceTest {
 
         Mockito.when(findUserVolunteerByIdService.find(idUser))
             .thenReturn(userVolunteer);
+        Mockito.doNothing().when(volunteerEvaluationDebitsValidator).validate(idUser);
         Mockito.when(findNeedByIdService.find(idNeed))
             .thenReturn(need);
         Mockito.when(findMovementByNeedService.find(need))
@@ -200,6 +206,7 @@ class SaveCandidacyServiceTest {
 
         Mockito.when(findUserVolunteerByIdService.find(idUser))
             .thenReturn(userVolunteer);
+        Mockito.doNothing().when(volunteerEvaluationDebitsValidator).validate(idUser);
         Mockito.when(findNeedByIdService.find(idNeed))
             .thenReturn(need);
         Mockito.when(findMovementByNeedService.find(need))

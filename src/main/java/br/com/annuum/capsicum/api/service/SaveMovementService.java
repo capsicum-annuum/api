@@ -6,6 +6,7 @@ import br.com.annuum.capsicum.api.domain.*;
 import br.com.annuum.capsicum.api.domain.enums.MovementStatus;
 import br.com.annuum.capsicum.api.mapper.PictureMapper;
 import br.com.annuum.capsicum.api.repository.MovementRepository;
+import br.com.annuum.capsicum.api.validator.MovementAuthorEvaluationDebitsValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,12 +43,18 @@ public class SaveMovementService {
     @Autowired
     private PictureMapper pictureMapper;
 
+    @Autowired
+    private MovementAuthorEvaluationDebitsValidator movementAuthorEvaluationDebitsValidator;
+
     @Transactional
     public MovementResponse save(final Long idUserAuthenticated, final MovementRequest movementRequest) {
+
         log.info("Start to create a Movement for: '{}'", movementRequest);
         final Address address = saveAddressService.save(movementRequest.getAddressRequest());
 
         final AbstractUser abstractUser = findUserByIdService.find(idUserAuthenticated);
+
+        movementAuthorEvaluationDebitsValidator.validate(idUserAuthenticated);
 
         final List<Need> needs = movementRequest.getNeedsRequest()
             .stream()

@@ -8,6 +8,7 @@ import br.com.annuum.capsicum.api.domain.*;
 import br.com.annuum.capsicum.api.domain.enums.MovementStatus;
 import br.com.annuum.capsicum.api.domain.enums.NeedStatus;
 import br.com.annuum.capsicum.api.repository.MovementRepository;
+import br.com.annuum.capsicum.api.validator.MovementAuthorEvaluationDebitsValidator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -46,6 +47,9 @@ class SaveMovementServiceTest {
 
     @Mock
     private ModelMapper modelMapper;
+
+    @Mock
+    private MovementAuthorEvaluationDebitsValidator movementAuthorEvaluationDebitsValidator;
 
     @Test
     public void mustSaveAndReturnNewMovement_withSuccess() {
@@ -107,6 +111,7 @@ class SaveMovementServiceTest {
 
         Mockito.when(saveAddressService.save(movementRequest.getAddressRequest()))
             .thenReturn(address);
+        Mockito.doNothing().when(movementAuthorEvaluationDebitsValidator).validate(idUserAuthenticated);
         Mockito.when(findUserByIdService.find(idUserAuthenticated))
             .thenReturn(userGroup);
         Mockito.when(saveNeedService.save(needRequest))
