@@ -8,6 +8,7 @@ import br.com.annuum.capsicum.api.domain.enums.MovementStatus;
 import br.com.annuum.capsicum.api.exceptions.AccessControlException;
 import br.com.annuum.capsicum.api.exceptions.DuplicateElementException;
 import br.com.annuum.capsicum.api.repository.CandidacyRepository;
+import br.com.annuum.capsicum.api.validator.VolunteerEvaluationDebitsValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,11 +31,16 @@ public class SaveCandidacyService {
     @Autowired
     private FindMovementByNeedService findMovementByNeedService;
 
+    @Autowired
+    private VolunteerEvaluationDebitsValidator volunteerEvaluationDebitsValidator;
+
     @Transactional
     public Candidacy save(final Long idUserAuthenticated, final Long idNeed) {
 
         log.info("Start to create an Candidacy");
         final UserVolunteer userVolunteer = findUserVolunteerByIdService.find(idUserAuthenticated);
+
+        volunteerEvaluationDebitsValidator.validate(idUserAuthenticated);
 
         final Need need = findNeedByIdService.find(idNeed);
 

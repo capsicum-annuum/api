@@ -5,6 +5,7 @@ import br.com.annuum.capsicum.api.domain.*;
 import br.com.annuum.capsicum.api.domain.enums.CandidacyStatus;
 import br.com.annuum.capsicum.api.domain.enums.MovementStatus;
 import br.com.annuum.capsicum.api.exceptions.AccessControlException;
+import br.com.annuum.capsicum.api.exceptions.DuplicateElementException;
 import br.com.annuum.capsicum.api.repository.MovementEvaluationRepository;
 import br.com.annuum.capsicum.api.validator.SaveEvaluationValidator;
 import org.junit.jupiter.api.Test;
@@ -69,6 +70,8 @@ class SaveMovementEvaluationServiceTest {
             .thenReturn(candidacy);
         Mockito.when(findMovementByNeedService.find(candidacy.getNeed()))
             .thenReturn(movement);
+        Mockito.when(movementEvaluationRepository.existsByCandidacyId(candidacy.getId()))
+            .thenReturn(Boolean.FALSE);
         Mockito.when(movementEvaluationRepository.save(expectedMovementEvaluation))
             .thenReturn(expectedMovementEvaluation);
         Mockito.doNothing().when(saveEvaluationValidator).validate(movement, candidacy);
@@ -113,6 +116,41 @@ class SaveMovementEvaluationServiceTest {
             .thenReturn(movement);
 
         assertThrows(AccessControlException.class, () -> saveMovementEvaluationService.save(userEvaluatorId, movementEvaluationRequest));
+    }
+
+    @Test
+    public void mustSaveNewUserVolunteerEvaluation_withSuccess() {
+        // Arrange
+        final UserVolunteer userEvaluator = new UserVolunteer();
+        userEvaluator.setId(1L);
+
+        Candidacy candidacy = new Candidacy()
+            .setUserCandidate(userEvaluator)
+            .setCandidacyStatusControl(new CandidacyStatusControl());
+        candidacy.getCandidacyStatusControl().setStatusEnum(CandidacyStatus.APPROVED);
+        candidacy.getCandidacyStatusControl().setStatusEnum(CandidacyStatus.PRESENT);
+
+        final UserOrganization userEvaluated = Mockito.mock(UserOrganization.class);
+
+        final Movement movement = new Movement()
+            .setUserAuthor(userEvaluated)
+            .setMovementStatus(MovementStatus.CONCLUDE);
+
+        final MovementEvaluationRequest movementEvaluationRequest = new MovementEvaluationRequest()
+            .setRate(1)
+            .setFeedback("someFeedBack")
+            .setIdCandidacy(1L);
+
+        final Long userEvaluatorId = 1L;
+
+        Mockito.when(findCandidacyByIdService.find(movementEvaluationRequest.getIdCandidacy()))
+            .thenReturn(candidacy);
+        Mockito.when(findMovementByNeedService.find(candidacy.getNeed()))
+            .thenReturn(movement);
+        Mockito.when(movementEvaluationRepository.existsByCandidacyId(candidacy.getId()))
+            .thenReturn(Boolean.TRUE);
+
+        assertThrows(DuplicateElementException.class, () -> saveMovementEvaluationService.save(userEvaluatorId, movementEvaluationRequest));
     }
 
 }
