@@ -108,6 +108,7 @@ class SaveCandidacyServiceTest {
 
         assertEquals(expectedCandidacy, returnedCandidacy);
         Mockito.verify(candidacyRepository, times(1)).save(expectedCandidacy);
+        Mockito.verify(volunteerEvaluationDebitsValidator, times(1)).validate(idUser);
     }
 
     @ParameterizedTest

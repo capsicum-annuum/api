@@ -1,7 +1,8 @@
 package br.com.annuum.capsicum.api.validator;
 
-import br.com.annuum.capsicum.api.exceptions.EvaluationDebitsException;
+import br.com.annuum.capsicum.api.exceptions.PendingEvaluationException;
 import br.com.annuum.capsicum.api.repository.CandidacyRepository;
+import br.com.annuum.capsicum.api.service.FindMovementByNeedService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,11 +12,17 @@ public class VolunteerEvaluationDebitsValidator {
     @Autowired
     private CandidacyRepository candidacyRepository;
 
+    @Autowired
+    private FindMovementByNeedService findMovementByNeedService;
+
     public void validate(Long idVolunteer) {
-        if (!candidacyRepository
-            .findCandidaciesWithEvaluationDebitsOfVolunteer(idVolunteer)
-            .isEmpty()) {
-            throw new EvaluationDebitsException("O usuário possui avaliações pendentes.");
-        }
+        candidacyRepository.findCandidaciesWithEvaluationDebitsOfVolunteer(idVolunteer)
+            .stream()
+            .findFirst()
+            .ifPresent(candidacy -> {
+                throw new PendingEvaluationException(
+                    String.format("O usuário possui avaliações pendentes para o movimento de id %s",
+                        findMovementByNeedService.find(candidacy.getNeed()).getId()));
+            });
     }
 }

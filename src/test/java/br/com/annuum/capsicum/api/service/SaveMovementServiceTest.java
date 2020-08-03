@@ -128,6 +128,7 @@ class SaveMovementServiceTest {
 
         //Assert
         assertEquals(expectedMovementResponse, returnedMovementResponse);
+        Mockito.verify(movementAuthorEvaluationDebitsValidator, times(1)).validate(idUserAuthenticated);
         Mockito.verify(movementRepository, times(1)).save(expectedMovement);
 
     }
