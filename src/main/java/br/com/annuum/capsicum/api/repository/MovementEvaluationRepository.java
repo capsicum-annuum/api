@@ -5,4 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface MovementEvaluationRepository extends CrudRepository<MovementEvaluation, Long> {
 
+    Boolean existsByCandidacyId(Long candidacyId);
 }

@@ -5,6 +5,7 @@ import br.com.annuum.capsicum.api.domain.Candidacy;
 import br.com.annuum.capsicum.api.domain.Movement;
 import br.com.annuum.capsicum.api.domain.MovementEvaluation;
 import br.com.annuum.capsicum.api.exceptions.AccessControlException;
+import br.com.annuum.capsicum.api.exceptions.DuplicateElementException;
 import br.com.annuum.capsicum.api.repository.MovementEvaluationRepository;
 import br.com.annuum.capsicum.api.validator.SaveEvaluationValidator;
 import lombok.extern.slf4j.Slf4j;
@@ -39,6 +40,10 @@ public class SaveMovementEvaluationService {
 
         if (!candidacy.getUserCandidate().getId().equals(idUserAuthenticated)) {
             throw new AccessControlException("O usuário autenticado não está autorizado a avaliar este Movimento.");
+        }
+
+        if(movementEvaluationRepository.existsByCandidacyId(candidacy.getId())){
+            throw new DuplicateElementException("Já existe uma avaliação do usuário para este movimento.");
         }
 
         saveEvaluationValidator.validate(movement, candidacy);

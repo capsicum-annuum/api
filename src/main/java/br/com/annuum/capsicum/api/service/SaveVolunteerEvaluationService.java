@@ -5,6 +5,7 @@ import br.com.annuum.capsicum.api.domain.Candidacy;
 import br.com.annuum.capsicum.api.domain.Movement;
 import br.com.annuum.capsicum.api.domain.VolunteerEvaluation;
 import br.com.annuum.capsicum.api.exceptions.AccessControlException;
+import br.com.annuum.capsicum.api.exceptions.DuplicateElementException;
 import br.com.annuum.capsicum.api.repository.VolunteerEvaluationRepository;
 import br.com.annuum.capsicum.api.validator.SaveEvaluationValidator;
 import lombok.extern.slf4j.Slf4j;
@@ -39,6 +40,10 @@ public class SaveVolunteerEvaluationService {
 
         if (!movement.getUserAuthor().getId().equals(idUserAuthenticated)) {
             throw new AccessControlException("O usuário autenticado não é o autor do movimento.");
+        }
+
+        if (volunteerEvaluationRepository.existsByCandidacyId(candidacy.getId())) {
+            throw new DuplicateElementException("Já existe uma avaliação do usuário para este voluntário. ");
         }
 
         saveEvaluationValidator.validate(movement, candidacy);

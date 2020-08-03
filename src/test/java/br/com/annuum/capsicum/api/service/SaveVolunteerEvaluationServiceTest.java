@@ -5,6 +5,7 @@ import br.com.annuum.capsicum.api.domain.*;
 import br.com.annuum.capsicum.api.domain.enums.CandidacyStatus;
 import br.com.annuum.capsicum.api.domain.enums.MovementStatus;
 import br.com.annuum.capsicum.api.exceptions.AccessControlException;
+import br.com.annuum.capsicum.api.exceptions.DuplicateElementException;
 import br.com.annuum.capsicum.api.repository.VolunteerEvaluationRepository;
 import br.com.annuum.capsicum.api.validator.SaveEvaluationValidator;
 import org.junit.jupiter.api.Test;
@@ -67,6 +68,8 @@ class SaveVolunteerEvaluationServiceTest {
 
         Mockito.when(findCandidacyByIdService.find(volunteerEvaluationRequest.getIdCandidacy()))
             .thenReturn(candidacy);
+        Mockito.when(volunteerEvaluationRepository.existsByCandidacyId(candidacy.getId()))
+            .thenReturn(Boolean.FALSE);
         Mockito.when(findMovementByNeedService.find(candidacy.getNeed()))
             .thenReturn(movement);
         Mockito.when(volunteerEvaluationRepository.save(expectedVolunteerEvaluation))
@@ -112,6 +115,40 @@ class SaveVolunteerEvaluationServiceTest {
             .thenReturn(movement);
 
         assertThrows(AccessControlException.class, () -> saveVolunteerEvaluationService.save(idUserEvaluator, volunteerEvaluationRequest));
+    }
+
+    @Test
+    public void mustReturnExceptionWhenDuplicatedEvaluation() {
+        // Arrange
+        Candidacy candidacy = new Candidacy()
+            .setUserCandidate(Mockito.mock(UserVolunteer.class))
+            .setCandidacyStatusControl(new CandidacyStatusControl());
+
+        candidacy.getCandidacyStatusControl().setStatusEnum(CandidacyStatus.APPROVED);
+        candidacy.getCandidacyStatusControl().setStatusEnum(CandidacyStatus.PRESENT);
+
+        final UserGroup userEvaluator = new UserGroup();
+        userEvaluator.setId(1L);
+
+        final Movement movement = new Movement()
+            .setUserAuthor(userEvaluator)
+            .setMovementStatus(MovementStatus.CONCLUDE);
+
+        final VolunteerEvaluationRequest volunteerEvaluationRequest = new VolunteerEvaluationRequest()
+            .setRate(1)
+            .setFeedback("someFeedBack")
+            .setIdCandidacy(1L);
+
+        final Long idUserEvaluator = 1L;
+
+        Mockito.when(findCandidacyByIdService.find(volunteerEvaluationRequest.getIdCandidacy()))
+            .thenReturn(candidacy);
+        Mockito.when(findMovementByNeedService.find(candidacy.getNeed()))
+            .thenReturn(movement);
+        Mockito.when(volunteerEvaluationRepository.existsByCandidacyId(candidacy.getId()))
+            .thenReturn(Boolean.TRUE);
+
+        assertThrows(DuplicateElementException.class, () -> saveVolunteerEvaluationService.save(idUserEvaluator, volunteerEvaluationRequest));
     }
 
 }
