@@ -15,11 +15,11 @@ public class MovementDetailsResponse {
 
     private String author;
 
-    private String authorImageUrl;
+    private String authorPictureUrl;
 
     private String title;
 
-    private String imageUrl;
+    private List<PictureResponse> pictures;
 
     private String description;
 

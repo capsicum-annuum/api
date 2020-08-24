@@ -3,6 +3,7 @@ package br.com.annuum.capsicum.api.mapper;
 import br.com.annuum.capsicum.api.controller.response.MovementSimpleResponse;
 import br.com.annuum.capsicum.api.domain.Cause;
 import br.com.annuum.capsicum.api.domain.Movement;
+import br.com.annuum.capsicum.api.domain.enums.PictureRelevance;
 import org.springframework.stereotype.Component;
 
 import static java.util.stream.Collectors.toList;
@@ -17,8 +18,8 @@ public class MovementSimpleResponseMapper implements Mapper<Movement, MovementSi
             .setTitle(movement.getTitle())
             .setDescription(movement.getDescription())
             .setAuthor(movement.getUserAuthor().getName())
-            .setAuthorImageUrl(movement.getUserAuthor().getProfilePictureUrl())
-            .setImageUrl(movement.getPictureUrl())
+            .setAuthorPictureUrl(movement.getUserAuthor().getPictureByRelevance(PictureRelevance.PRIMARY).getPictureUrl())
+            .setPictureUrl(movement.getPictureByRelevance(PictureRelevance.PRIMARY).getPictureUrl())
             .setStart(movement.getDateTimeStart())
             .setEnd(movement.getDateTimeEnd())
             .setCityName(movement.getAddress().getCityName())

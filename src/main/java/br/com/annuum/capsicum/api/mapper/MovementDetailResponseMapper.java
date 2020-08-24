@@ -1,18 +1,12 @@
 package br.com.annuum.capsicum.api.mapper;
 
-import br.com.annuum.capsicum.api.controller.request.AvailabilityRequest;
 import br.com.annuum.capsicum.api.controller.response.MovementDetailsResponse;
-import br.com.annuum.capsicum.api.domain.Availability;
 import br.com.annuum.capsicum.api.domain.Cause;
-import br.com.annuum.capsicum.api.domain.DayShiftAvailability;
 import br.com.annuum.capsicum.api.domain.Movement;
-import org.modelmapper.ModelMapper;
+import br.com.annuum.capsicum.api.domain.enums.PictureRelevance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.stream.Collectors;
-
-import static java.util.Objects.nonNull;
 import static java.util.stream.Collectors.toList;
 
 @Component
@@ -21,6 +15,9 @@ public class MovementDetailResponseMapper implements Mapper<Movement, MovementDe
     @Autowired
     private NeedDetailResponseMapper needMapper;
 
+    @Autowired
+    private PictureResponseMapper pictureResponseMapper;
+
     @Override
     public MovementDetailsResponse map(Movement movement) {
         return new MovementDetailsResponse()
@@ -28,8 +25,8 @@ public class MovementDetailResponseMapper implements Mapper<Movement, MovementDe
             .setTitle(movement.getTitle())
             .setDescription(movement.getDescription())
             .setAuthor(movement.getUserAuthor().getName())
-            .setAuthorImageUrl(movement.getUserAuthor().getProfilePictureUrl())
-            .setImageUrl(movement.getPictureUrl())
+            .setAuthorPictureUrl(movement.getUserAuthor().getPictureByRelevance(PictureRelevance.PRIMARY).getPictureUrl())
+            .setPictures(pictureResponseMapper.map(movement.getPictures()))
             .setStart(movement.getDateTimeStart())
             .setEnd(movement.getDateTimeEnd())
             .setCityName(movement.getAddress().getCityName())

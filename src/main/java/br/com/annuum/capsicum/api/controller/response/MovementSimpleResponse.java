@@ -15,11 +15,11 @@ public class MovementSimpleResponse {
 
     private String author;
 
-    private String authorImageUrl;
+    private String authorPictureUrl;
 
     private String title;
 
-    private String imageUrl;
+    private String pictureUrl;
 
     private String description;
 

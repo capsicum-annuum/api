@@ -1,6 +1,7 @@
 package br.com.annuum.capsicum.api.domain;
 
 import br.com.annuum.capsicum.api.domain.enums.MovementStatus;
+import br.com.annuum.capsicum.api.domain.enums.PictureRelevance;
 import br.com.annuum.capsicum.api.listener.MovementListener;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -16,7 +17,7 @@ import java.util.List;
 @EntityListeners(MovementListener.class)
 @Entity
 @SequenceGenerator(name = "movement_sequence", sequenceName = "movement_sequence", allocationSize = 1)
-public class Movement implements EventPeriod {
+public class Movement implements EventPeriod, HasPictures {
 
     @Id
     @GeneratedValue(generator = "movement_sequence", strategy = GenerationType.SEQUENCE)
@@ -63,5 +64,13 @@ public class Movement implements EventPeriod {
 
     @CreatedDate
     private LocalDateTime createdAt;
+
+    @Override
+    public Picture getPictureByRelevance(PictureRelevance pictureRelevance) {
+        return pictures.stream()
+            .filter(picture -> picture.getPictureRelevance().equals(pictureRelevance))
+            .findFirst()
+            .orElse(null);
+    }
 
 }

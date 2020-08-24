@@ -1,6 +1,7 @@
 package br.com.annuum.capsicum.api.domain;
 
 import br.com.annuum.capsicum.api.converter.AvailabilityConverter;
+import br.com.annuum.capsicum.api.domain.enums.PictureRelevance;
 import br.com.annuum.capsicum.api.domain.enums.Profile;
 import br.com.annuum.capsicum.api.listener.UserVolunteerListener;
 import lombok.AllArgsConstructor;
@@ -63,6 +64,14 @@ public class UserVolunteer extends AbstractUser {
     @Override
     public Profile getProfile() {
         return VOLUNTEER;
+    }
+
+    @Override
+    public Picture getPictureByRelevance(PictureRelevance pictureRelevance) {
+        return pictures.stream()
+            .filter(picture -> picture.getPictureRelevance().equals(pictureRelevance))
+            .findFirst()
+            .orElse(null);
     }
 
 }
