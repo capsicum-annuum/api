@@ -5,8 +5,10 @@ import br.com.annuum.capsicum.api.controller.request.MovementRequest;
 import br.com.annuum.capsicum.api.controller.request.NeedRequest;
 import br.com.annuum.capsicum.api.controller.response.MovementResponse;
 import br.com.annuum.capsicum.api.domain.*;
+import br.com.annuum.capsicum.api.domain.enums.MovementStatus;
 import br.com.annuum.capsicum.api.domain.enums.NeedStatus;
 import br.com.annuum.capsicum.api.repository.MovementRepository;
+import br.com.annuum.capsicum.api.validator.MovementAuthorEvaluationDebitsValidator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -46,6 +48,9 @@ class SaveMovementServiceTest {
     @Mock
     private ModelMapper modelMapper;
 
+    @Mock
+    private MovementAuthorEvaluationDebitsValidator movementAuthorEvaluationDebitsValidator;
+
     @Test
     public void mustSaveAndReturnNewMovement_withSuccess() {
         // Arrange
@@ -76,8 +81,9 @@ class SaveMovementServiceTest {
 
         final List<NeedRequest> needRequests = Collections.singletonList(needRequest);
 
+        final Long idUserAuthenticated = 1L;
+
         final MovementRequest movementRequest = new MovementRequest()
-            .setUserAuthorId(1L)
             .setAddressRequest(Mockito.mock(AddressRequest.class))
             .setNeedsRequest(needRequests)
             .setCauseThatSupport(Collections.singletonList(1L))
@@ -94,7 +100,8 @@ class SaveMovementServiceTest {
             .setDateTimeStart(LocalDateTime.of(2021, 10, 10, 10, 10))
             .setDateTimeEnd(LocalDateTime.of(2021, 10, 11, 10, 10))
             .setDescription("someDescription")
-            .setTitle("someTitle");
+            .setTitle("someTitle")
+            .setMovementStatus(MovementStatus.ACTIVE);
 
         final MovementResponse expectedMovementResponse = new MovementResponse()
             .setDateTimeStart(LocalDateTime.of(2021, 10, 10, 10, 10))
@@ -104,7 +111,8 @@ class SaveMovementServiceTest {
 
         Mockito.when(saveAddressService.save(movementRequest.getAddressRequest()))
             .thenReturn(address);
-        Mockito.when(findUserByIdService.find(movementRequest.getUserAuthorId()))
+        Mockito.doNothing().when(movementAuthorEvaluationDebitsValidator).validate(idUserAuthenticated);
+        Mockito.when(findUserByIdService.find(idUserAuthenticated))
             .thenReturn(userGroup);
         Mockito.when(saveNeedService.save(needRequest))
             .thenReturn(need);
@@ -116,10 +124,11 @@ class SaveMovementServiceTest {
             .thenReturn(expectedMovementResponse);
 
         //Act
-        final MovementResponse returnedMovementResponse = saveMovementService.save(movementRequest);
+        final MovementResponse returnedMovementResponse = saveMovementService.save(idUserAuthenticated, movementRequest);
 
         //Assert
         assertEquals(expectedMovementResponse, returnedMovementResponse);
+        Mockito.verify(movementAuthorEvaluationDebitsValidator, times(1)).validate(idUserAuthenticated);
         Mockito.verify(movementRepository, times(1)).save(expectedMovement);
 
     }

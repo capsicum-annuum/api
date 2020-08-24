@@ -9,7 +9,7 @@ import lombok.Getter;
 public enum DayShift {
 
     MORNING(1, "Manhã"),
-    AFTERMOON(2, "Tarde"),
+    AFTERNOON(2, "Tarde"),
     NIGHT(3, "Noite");
 
     private int value;

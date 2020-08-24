@@ -38,11 +38,18 @@ public class UserGroupRequest {
     private String phone;
 
     @Nullable
-    private String profilePictureUrl;
-
-    @Nullable
-    private String profilePictureKey;
+    private List<PictureRequest> pictureRequests;
 
     @Nullable
     private String description;
+
+    @Nullable
+    private String facebookUrl;
+
+    @Nullable
+    private String instagramUrl;
+
+    @Nullable
+    private String twitterUrl;
+
 }

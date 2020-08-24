@@ -1,4 +1,7 @@
 annuum:
+  image-repo:
+    url: https://annuum-image-api.herokuapp.com/
+    token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYXBzaWN1dW0tYW5udXVtIiwiaWF0IjoxNTkyMTE1NDQxLCJleHAiOjQwODUxMDEwNDEsImF1ZCI6IiIsInN1YiI6ImNhcHNpY3V1bS1hbm51dW0tYXBwIn0.fXA5gtfHWnji05Hi06j2idEzZ_tSm_7yjsRJGc4MTaw
   security:
     cors:
       allowed-origins: "*"
@@ -10,7 +13,7 @@ spring:
     url: jdbc:postgresql://${CAPSICUM_DB_HOST}:5432/${CAPSICUM_DB}?useTimezone=true&serverTimezone=America/Belem&createDatabaseIfNotExist=true
     username: ${secrets.DB_USERNAME}
     password: ${secrets.DB_PASSWORD}
-    initialization-mode: always
+    initialization-mode: never
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate

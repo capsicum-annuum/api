@@ -100,7 +100,7 @@ class AvailabilityConverterTest {
                     .setDayShift(MORNING),
                 new DayShiftAvailability()
                     .setDayOfWeek(SATURDAY)
-                    .setDayShift(AFTERMOON),
+                    .setDayShift(AFTERNOON),
                 new DayShiftAvailability()
                     .setDayOfWeek(SATURDAY)
                     .setDayShift(NIGHT),
@@ -109,7 +109,7 @@ class AvailabilityConverterTest {
                     .setDayShift(MORNING),
                 new DayShiftAvailability()
                     .setDayOfWeek(SUNDAY)
-                    .setDayShift(AFTERMOON),
+                    .setDayShift(AFTERNOON),
                 new DayShiftAvailability()
                     .setDayOfWeek(SUNDAY)
                     .setDayShift(NIGHT)
@@ -130,7 +130,7 @@ class AvailabilityConverterTest {
                     .setDayShift(MORNING),
                 new DayShiftAvailability()
                     .setDayOfWeek(MONDAY)
-                    .setDayShift(AFTERMOON),
+                    .setDayShift(AFTERNOON),
                 new DayShiftAvailability()
                     .setDayOfWeek(MONDAY)
                     .setDayShift(NIGHT),
@@ -139,7 +139,7 @@ class AvailabilityConverterTest {
                     .setDayShift(MORNING),
                 new DayShiftAvailability()
                     .setDayOfWeek(TUESDAY)
-                    .setDayShift(AFTERMOON),
+                    .setDayShift(AFTERNOON),
                 new DayShiftAvailability()
                     .setDayOfWeek(TUESDAY)
                     .setDayShift(NIGHT),
@@ -148,7 +148,7 @@ class AvailabilityConverterTest {
                     .setDayShift(MORNING),
                 new DayShiftAvailability()
                     .setDayOfWeek(WEDNESDAY)
-                    .setDayShift(AFTERMOON),
+                    .setDayShift(AFTERNOON),
                 new DayShiftAvailability()
                     .setDayOfWeek(WEDNESDAY)
                     .setDayShift(NIGHT),
@@ -157,7 +157,7 @@ class AvailabilityConverterTest {
                     .setDayShift(MORNING),
                 new DayShiftAvailability()
                     .setDayOfWeek(THURSDAY)
-                    .setDayShift(AFTERMOON),
+                    .setDayShift(AFTERNOON),
                 new DayShiftAvailability()
                     .setDayOfWeek(THURSDAY)
                     .setDayShift(NIGHT),
@@ -166,7 +166,7 @@ class AvailabilityConverterTest {
                     .setDayShift(MORNING),
                 new DayShiftAvailability()
                     .setDayOfWeek(FRIDAY)
-                    .setDayShift(AFTERMOON),
+                    .setDayShift(AFTERNOON),
                 new DayShiftAvailability()
                     .setDayOfWeek(FRIDAY)
                     .setDayShift(NIGHT)
@@ -267,7 +267,7 @@ class AvailabilityConverterTest {
         assertTrue(availability.getDayShiftAvailabilities().contains(
             new DayShiftAvailability()
                 .setDayOfWeek(SATURDAY)
-                .setDayShift(AFTERMOON)));
+                .setDayShift(AFTERNOON)));
         assertTrue(availability.getDayShiftAvailabilities().contains(
             new DayShiftAvailability()
                 .setDayOfWeek(SATURDAY)
@@ -279,7 +279,7 @@ class AvailabilityConverterTest {
         assertTrue(availability.getDayShiftAvailabilities().contains(
             new DayShiftAvailability()
                 .setDayOfWeek(SUNDAY)
-                .setDayShift(AFTERMOON)));
+                .setDayShift(AFTERNOON)));
         assertTrue(availability.getDayShiftAvailabilities().contains(
             new DayShiftAvailability()
                 .setDayOfWeek(SUNDAY)
@@ -300,7 +300,7 @@ class AvailabilityConverterTest {
         assertTrue(availability.getDayShiftAvailabilities().contains(
             new DayShiftAvailability()
                 .setDayOfWeek(MONDAY)
-                .setDayShift(AFTERMOON)));
+                .setDayShift(AFTERNOON)));
         assertTrue(availability.getDayShiftAvailabilities().contains(
             new DayShiftAvailability()
                 .setDayOfWeek(MONDAY)
@@ -312,7 +312,7 @@ class AvailabilityConverterTest {
         assertTrue(availability.getDayShiftAvailabilities().contains(
             new DayShiftAvailability()
                 .setDayOfWeek(TUESDAY)
-                .setDayShift(AFTERMOON)));
+                .setDayShift(AFTERNOON)));
         assertTrue(availability.getDayShiftAvailabilities().contains(
             new DayShiftAvailability()
                 .setDayOfWeek(TUESDAY)
@@ -324,7 +324,7 @@ class AvailabilityConverterTest {
         assertTrue(availability.getDayShiftAvailabilities().contains(
             new DayShiftAvailability()
                 .setDayOfWeek(WEDNESDAY)
-                .setDayShift(AFTERMOON)));
+                .setDayShift(AFTERNOON)));
         assertTrue(availability.getDayShiftAvailabilities().contains(
             new DayShiftAvailability()
                 .setDayOfWeek(WEDNESDAY)
@@ -336,7 +336,7 @@ class AvailabilityConverterTest {
         assertTrue(availability.getDayShiftAvailabilities().contains(
             new DayShiftAvailability()
                 .setDayOfWeek(THURSDAY)
-                .setDayShift(AFTERMOON)));
+                .setDayShift(AFTERNOON)));
         assertTrue(availability.getDayShiftAvailabilities().contains(
             new DayShiftAvailability()
                 .setDayOfWeek(THURSDAY)
@@ -348,7 +348,7 @@ class AvailabilityConverterTest {
         assertTrue(availability.getDayShiftAvailabilities().contains(
             new DayShiftAvailability()
                 .setDayOfWeek(FRIDAY)
-                .setDayShift(AFTERMOON)));
+                .setDayShift(AFTERNOON)));
         assertTrue(availability.getDayShiftAvailabilities().contains(
             new DayShiftAvailability()
                 .setDayOfWeek(FRIDAY)

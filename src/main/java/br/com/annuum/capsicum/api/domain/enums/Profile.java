@@ -30,7 +30,7 @@ public enum Profile {
         return String.join(", ", roles);
     }
 
-    public class Names {
+    public static class Names {
         public static final String USER = "USER";
         public static final String GROUP = "GROUP";
         public static final String ORGANIZATION = "ORGANIZATION";

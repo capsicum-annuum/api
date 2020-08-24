@@ -5,9 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -37,6 +35,9 @@ public class UserGroup extends AbstractUser {
     @Size(max = 1000)
     private String mission;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Picture> pictures;
+
     @Size(max = 100)
     private String webSiteUrl;
 
@@ -48,12 +49,6 @@ public class UserGroup extends AbstractUser {
 
     @Size(max = 100)
     private String twitterUrl;
-
-    private String profilePictureUrl;
-
-    private String profilePictureKey;
-
-    private String backgroundPictureUrl;
 
     @Override
     public Profile getProfile() {

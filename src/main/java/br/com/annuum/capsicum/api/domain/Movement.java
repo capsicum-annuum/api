@@ -1,5 +1,6 @@
 package br.com.annuum.capsicum.api.domain;
 
+import br.com.annuum.capsicum.api.domain.enums.MovementStatus;
 import br.com.annuum.capsicum.api.listener.MovementListener;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -45,7 +46,8 @@ public class Movement implements EventPeriod {
     @Future
     private LocalDateTime dateTimeEnd;
 
-    private String pictureUrl;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Picture> pictures;
 
     @ManyToMany
     private List<Need> needs;
@@ -54,6 +56,10 @@ public class Movement implements EventPeriod {
     private List<Cause> causeThatSupport;
 
     private String causeMatchCode;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private MovementStatus movementStatus;
 
     @CreatedDate
     private LocalDateTime createdAt;

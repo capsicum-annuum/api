@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface FederatedUnityRepository extends PagingAndSortingRepository<FederatedUnity, Long> {
 
-    List<FederatedUnity> findAll();
+    List<FederatedUnity> findAllByOrderByName();
 
 }

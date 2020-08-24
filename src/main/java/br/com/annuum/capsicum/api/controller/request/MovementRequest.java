@@ -13,9 +13,6 @@ import java.util.List;
 @Accessors(chain = true)
 public class MovementRequest implements EventPeriod {
 
-    @NotNull(message = "O id do usuário autor não pode ser nulo.")
-    private Long userAuthorId;
-
     @NotBlank(message = "O título não pode estar vazia.")
     private String title;
 
@@ -34,7 +31,7 @@ public class MovementRequest implements EventPeriod {
     private LocalDateTime dateTimeEnd;
 
     @Nullable
-    private String pictureUrl;
+    private List<PictureRequest> pictureRequests;
 
     @NotEmpty(message = "A lista de Necessidades não pode estar vazia.")
     private List<NeedRequest> needsRequest;

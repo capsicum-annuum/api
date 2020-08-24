@@ -3,7 +3,10 @@ package br.com.annuum.capsicum.api.service;
 import br.com.annuum.capsicum.api.controller.request.MovementRequest;
 import br.com.annuum.capsicum.api.controller.response.MovementResponse;
 import br.com.annuum.capsicum.api.domain.*;
+import br.com.annuum.capsicum.api.domain.enums.MovementStatus;
+import br.com.annuum.capsicum.api.mapper.PictureMapper;
 import br.com.annuum.capsicum.api.repository.MovementRepository;
+import br.com.annuum.capsicum.api.validator.MovementAuthorEvaluationDebitsValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,8 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static java.util.Objects.nonNull;
 
 @Service
 @Slf4j
@@ -35,12 +40,21 @@ public class SaveMovementService {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private PictureMapper pictureMapper;
+
+    @Autowired
+    private MovementAuthorEvaluationDebitsValidator movementAuthorEvaluationDebitsValidator;
+
     @Transactional
-    public MovementResponse save(final MovementRequest movementRequest) {
+    public MovementResponse save(final Long idUserAuthenticated, final MovementRequest movementRequest) {
+
         log.info("Start to create a Movement for: '{}'", movementRequest);
         final Address address = saveAddressService.save(movementRequest.getAddressRequest());
 
-        final AbstractUser abstractUser = findUserByIdService.find(movementRequest.getUserAuthorId());
+        final AbstractUser abstractUser = findUserByIdService.find(idUserAuthenticated);
+
+        movementAuthorEvaluationDebitsValidator.validate(idUserAuthenticated);
 
         final List<Need> needs = movementRequest.getNeedsRequest()
             .stream()
@@ -59,9 +73,13 @@ public class SaveMovementService {
             .setNeeds(needs)
             .setDateTimeStart(movementRequest.getDateTimeStart())
             .setDateTimeEnd(movementRequest.getDateTimeEnd())
-            .setPictureUrl(movementRequest.getPictureUrl())
             .setTitle(movementRequest.getTitle())
-            .setDescription(movementRequest.getDescription());
+            .setDescription(movementRequest.getDescription())
+            .setMovementStatus(MovementStatus.ACTIVE);
+
+        if (nonNull(movementRequest.getPictureRequests())) {
+            movement.setPictures(pictureMapper.map(movementRequest.getPictureRequests()));
+        }
 
         log.info("Creating a new Movement: '{}'", movement);
         return modelMapper.map(movementRepository.save(movement), MovementResponse.class);

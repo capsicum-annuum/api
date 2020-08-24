@@ -1,7 +1,8 @@
 package br.com.annuum.capsicum.api.domain;
 
 import br.com.annuum.capsicum.api.domain.enums.CandidacyStatus;
-import br.com.annuum.capsicum.api.exceptions.StatusTransitionException;
+import br.com.annuum.capsicum.api.exceptions.StatusOrderViolationException;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.runner.RunWith;
@@ -24,7 +25,7 @@ class CandidacyStatusControlTest {
     @EnumSource(value = CandidacyStatus.class, names = {"ABSENT", "PRESENT"})
     void shouldReturnExceptionWhenSettingNotAvailableNextOptionsOfCandidacyStatusCandidate(CandidacyStatus candidacyStatus) {
         CandidacyStatusControl candidacyStatusControl = new CandidacyStatusControl();
-        assertThrows(StatusTransitionException.class, () -> candidacyStatusControl.setStatusEnum(candidacyStatus));
+        assertThrows(StatusOrderViolationException.class, () -> candidacyStatusControl.setStatusEnum(candidacyStatus));
     }
 
     @ParameterizedTest
@@ -40,7 +41,7 @@ class CandidacyStatusControlTest {
     void shouldReturnExceptionWhenSettingNotAvailableNextOptionsOfCandidacyStatusRejected(CandidacyStatus candidacyStatus) {
         CandidacyStatusControl candidacyStatusControl = new CandidacyStatusControl();
         candidacyStatusControl.setStatusEnum(CandidacyStatus.REJECTED);
-        assertThrows(StatusTransitionException.class, () -> candidacyStatusControl.setStatusEnum(candidacyStatus));
+        assertThrows(StatusOrderViolationException.class, () -> candidacyStatusControl.setStatusEnum(candidacyStatus));
     }
 
     @ParameterizedTest
@@ -51,12 +52,11 @@ class CandidacyStatusControlTest {
         assertDoesNotThrow(() -> candidacyStatusControl.setStatusEnum(candidacyStatus));
     }
 
-    @ParameterizedTest
-    @EnumSource(value = CandidacyStatus.class, names = {"CANDIDATE", "APPROVED"})
-    void shouldSetAvailableNextOptionsOfCandidacyStatusDeclined(CandidacyStatus candidacyStatus) {
+    @Test
+    void shouldSetToCandidateWhenCandidacyStatusIsDeclined() {
         CandidacyStatusControl candidacyStatusControl = new CandidacyStatusControl();
         candidacyStatusControl.setStatusEnum(CandidacyStatus.DECLINED);
-        assertDoesNotThrow(() -> candidacyStatusControl.setStatusEnum(candidacyStatus));
+        assertDoesNotThrow(() -> candidacyStatusControl.setStatusEnum(CandidacyStatus.CANDIDATE));
     }
 
     @ParameterizedTest
@@ -64,7 +64,7 @@ class CandidacyStatusControlTest {
     void shouldReturnExceptionWhenSettingNotAvailableNextOptionsOfCandidacyStatusDeclined(CandidacyStatus candidacyStatus) {
         CandidacyStatusControl candidacyStatusControl = new CandidacyStatusControl();
         candidacyStatusControl.setStatusEnum(CandidacyStatus.DECLINED);
-        assertThrows(StatusTransitionException.class, () -> candidacyStatusControl.setStatusEnum(candidacyStatus));
+        assertThrows(StatusOrderViolationException.class, () -> candidacyStatusControl.setStatusEnum(candidacyStatus));
     }
 
     @ParameterizedTest
@@ -82,7 +82,7 @@ class CandidacyStatusControlTest {
         CandidacyStatusControl candidacyStatusControl = new CandidacyStatusControl();
         candidacyStatusControl.setStatusEnum(CandidacyStatus.APPROVED);
         candidacyStatusControl.setStatusEnum(CandidacyStatus.ABSENT);
-        assertThrows(StatusTransitionException.class, () -> candidacyStatusControl.setStatusEnum(candidacyStatus));
+        assertThrows(StatusOrderViolationException.class, () -> candidacyStatusControl.setStatusEnum(candidacyStatus));
     }
 
     @ParameterizedTest
@@ -100,7 +100,7 @@ class CandidacyStatusControlTest {
         CandidacyStatusControl candidacyStatusControl = new CandidacyStatusControl();
         candidacyStatusControl.setStatusEnum(CandidacyStatus.APPROVED);
         candidacyStatusControl.setStatusEnum(CandidacyStatus.PRESENT);
-        assertThrows(StatusTransitionException.class, () -> candidacyStatusControl.setStatusEnum(candidacyStatus));
+        assertThrows(StatusOrderViolationException.class, () -> candidacyStatusControl.setStatusEnum(candidacyStatus));
     }
 
 }
