@@ -1,5 +1,6 @@
 package br.com.annuum.capsicum.api.domain;
 
+import br.com.annuum.capsicum.api.domain.enums.PictureRelevance;
 import br.com.annuum.capsicum.api.domain.enums.Profile;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -59,4 +60,13 @@ public class UserOrganization extends AbstractUser {
     public Profile getProfile() {
         return ORGANIZATION;
     }
+
+    @Override
+    public Picture getPictureByRelevance(PictureRelevance pictureRelevance) {
+        return pictures.stream()
+            .filter(picture -> picture.getPictureRelevance().equals(pictureRelevance))
+            .findFirst()
+            .orElse(null);
+    }
+
 }

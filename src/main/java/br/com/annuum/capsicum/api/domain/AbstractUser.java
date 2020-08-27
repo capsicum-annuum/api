@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence", allocationSize = 1)
-public abstract class AbstractUser implements User {
+public abstract class AbstractUser implements User, HasPictures {
 
     @Id
     @GeneratedValue(generator = "user_sequence", strategy = GenerationType.SEQUENCE)
@@ -45,4 +45,5 @@ public abstract class AbstractUser implements User {
 
     @CreatedDate
     private LocalDateTime createdAt;
+
 }

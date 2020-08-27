@@ -1,5 +1,6 @@
 package br.com.annuum.capsicum.api.domain;
 
+import br.com.annuum.capsicum.api.domain.enums.PictureRelevance;
 import br.com.annuum.capsicum.api.domain.enums.Profile;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -11,6 +12,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
+import java.util.Objects;
 
 import static br.com.annuum.capsicum.api.domain.enums.Profile.GROUP;
 
@@ -54,4 +56,13 @@ public class UserGroup extends AbstractUser {
     public Profile getProfile() {
         return GROUP;
     }
+
+    @Override
+    public Picture getPictureByRelevance(PictureRelevance pictureRelevance) {
+        return pictures.stream()
+            .filter(picture -> picture.getPictureRelevance().equals(pictureRelevance))
+            .findFirst()
+            .orElse(null);
+    }
+
 }
