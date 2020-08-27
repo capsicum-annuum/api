@@ -47,10 +47,10 @@ public class UserVolunteerListener implements PreInsertEventListener, PreUpdateE
 
         if (entity instanceof UserVolunteer) {
             log.info("AttributeEncodeListener :: onSave :: HasEncodedSkills");
-            final String skillMatchCode = attributeMachCodeMapper.mapFromList(((UserVolunteer) entity).getUserSkills());
+            final Integer skillMatchCode = attributeMachCodeMapper.map(((UserVolunteer) entity).getUserSkills());
 
             log.info("AttributeEncodeListener :: onSave :: HasEncodedCauses");
-            final String causeMatchCode = attributeMachCodeMapper.mapFromList(((UserVolunteer) entity).getCauseThatSupport());
+            final Integer causeMatchCode = attributeMachCodeMapper.map(((UserVolunteer) entity).getCauseThatSupport());
 
             setValue(persister, currentState, entity, new String[]{"skillMatchCode", "causeMatchCode"}, new Object[]{skillMatchCode, causeMatchCode});
         }

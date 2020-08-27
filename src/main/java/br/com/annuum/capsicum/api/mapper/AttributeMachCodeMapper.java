@@ -4,20 +4,17 @@ import br.com.annuum.capsicum.api.domain.Encodable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Component
 public class AttributeMachCodeMapper {
 
-    public String map(Integer binaryIdentifier) {
-        return Integer.toBinaryString(binaryIdentifier);
-    }
-
-    public String mapFromList(final List<? extends Encodable> attributes) {
-        StringBuilder builder = new StringBuilder();
+    public Integer map(final List<? extends Encodable> attributes) {
+        AtomicReference<Integer> matchCode = new AtomicReference<>(0);
         attributes.forEach(encodable -> {
-            builder.append(Integer.toBinaryString(encodable.getBinaryIdentifier()));
+            matchCode.updateAndGet(v -> v + encodable.getBinaryIdentifier());
         });
-        return builder.toString();
+        return matchCode.get();
     }
 
 }

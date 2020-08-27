@@ -41,23 +41,23 @@ public class UserVolunteerListenerTest {
             .setId(1L)
             .setName("skill")
             .setBinaryIdentifier(2);
-        final String expectedSkillBinaryCode = "10";
+        final Integer expectedSkillBinaryCode = 2;
         final Cause cause = new Cause()
             .setId(1L)
             .setDescription("cause")
             .setBinaryIdentifier(2);
-        final String expectedCauseBinaryCode = "10";
+        final Integer expectedCauseBinaryCode = 2;
         final UserVolunteer entity = new UserVolunteer()
             .setUserSkills(Collections.singletonList(skill))
             .setCauseThatSupport(Collections.singletonList(cause));
         final Long id = 0L;
         final String[] propertyNames = new String[]{"skillMatchCode", "causeMatchCode"};
-        final Object[] state = new String[]{"", ""};
+        final Object[] state = new Integer[]{0, 0};
         final PreInsertEvent event = new PreInsertEvent(entity, id, state, persister, null);
 
-        when(attributeMachCodeMapper.mapFromList(entity.getUserSkills()))
+        when(attributeMachCodeMapper.map(entity.getUserSkills()))
             .thenReturn(expectedSkillBinaryCode);
-        when(attributeMachCodeMapper.mapFromList(entity.getCauseThatSupport()))
+        when(attributeMachCodeMapper.map(entity.getCauseThatSupport()))
             .thenReturn(expectedCauseBinaryCode);
         when(persister.getEntityMetamodel())
             .thenReturn(metamodel);

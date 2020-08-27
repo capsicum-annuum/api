@@ -34,13 +34,13 @@ public class UserVolunteer extends AbstractUser {
     @ManyToMany
     private List<Cause> causeThatSupport;
 
-    private String causeMatchCode;
+    private Integer causeMatchCode;
 
     @NotNull
     @ManyToMany
     private List<Skill> userSkills;
 
-    private String skillMatchCode;
+    private Integer skillMatchCode;
 
     @NotNull
     @Convert(converter = AvailabilityConverter.class)

@@ -16,4 +16,4 @@ spring:
     initialization-mode: never
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: create

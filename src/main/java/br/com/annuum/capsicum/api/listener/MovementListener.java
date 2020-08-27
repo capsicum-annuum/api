@@ -47,7 +47,7 @@ public class MovementListener implements PreInsertEventListener, PreUpdateEventL
 
         if (entity instanceof Movement) {
             log.info("MovementListener :: onSave :: HasEncodedCauses");
-            final String causeMatchCode = attributeMachCodeMapper.mapFromList(((Movement) entity).getCauseThatSupport());
+            final Integer causeMatchCode = attributeMachCodeMapper.map(((Movement) entity).getCauseThatSupport());
 
             setValue(persister, currentState, entity, new String[]{"causeMatchCode"}, new Object[]{causeMatchCode});
         }

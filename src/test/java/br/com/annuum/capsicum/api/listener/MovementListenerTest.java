@@ -41,20 +41,18 @@ public class MovementListenerTest {
             .setId(1L)
             .setName("skill")
             .setBinaryIdentifier(2);
-        final String skillBinaryIdentifier = "10";
         final Cause cause = new Cause()
             .setId(1L)
             .setDescription("cause")
             .setBinaryIdentifier(2);
-        final String expectedCauseBinaryCode = "10";
+        final Integer expectedCauseBinaryCode = 2;
         final UserVolunteer userVolunteer = new UserVolunteer()
             .setUserSkills(Collections.singletonList(skill))
             .setCauseThatSupport(Collections.singletonList(cause));
         final Need need = new Need()
             .setNeedStatus(NeedStatus.ACTIVE)
             .setId(1L)
-            .setSkill(skill)
-            .setSkillMatchCode(skillBinaryIdentifier);
+            .setSkill(skill);
         final Movement entity = new Movement()
             .setAddress(Mockito.mock(Address.class))
             .setCauseThatSupport(Collections.singletonList(cause))
@@ -62,10 +60,10 @@ public class MovementListenerTest {
             .setUserAuthor(userVolunteer);
         final Long id = 0L;
         final String[] propertyNames = new String[]{"causeMatchCode"};
-        final Object[] state = new String[]{""};
+        final Object[] state = new Integer[]{0};
         final PreInsertEvent event = new PreInsertEvent(entity, id, state, persister, null);
 
-        when(attributeMachCodeMapper.mapFromList(entity.getCauseThatSupport()))
+        when(attributeMachCodeMapper.map(entity.getCauseThatSupport()))
             .thenReturn(expectedCauseBinaryCode);
         when(persister.getEntityMetamodel())
             .thenReturn(metamodel);

@@ -56,7 +56,7 @@ public class Movement implements EventPeriod, HasPictures {
     @ManyToMany
     private List<Cause> causeThatSupport;
 
-    private String causeMatchCode;
+    private Integer causeMatchCode;
 
     @NotNull
     @Enumerated(EnumType.STRING)
