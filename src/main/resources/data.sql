@@ -1,7 +1,6 @@
 INSERT INTO cause(id, description, binary_identifier) VALUES
 (nextval('cause_sequence'), 'Saúde', 2),
 (nextval('cause_sequence'), 'Esporte', 4),
-(nextval('cause_sequence'), 'Jovens', 6),
 (nextval('cause_sequence'), 'Idosos', 8),
 (nextval('cause_sequence'), 'Criança', 16),
 (nextval('cause_sequence'), 'Proteção Animal', 32),
@@ -10,12 +9,12 @@ INSERT INTO cause(id, description, binary_identifier) VALUES
 (nextval('cause_sequence'), 'Cidadania', 256),
 (nextval('cause_sequence'), 'Combate à Pobreza', 512),
 (nextval('cause_sequence'), 'Meio Ambiente', 1024),
-(nextval('cause_sequence'), 'Educação', 2048);
+(nextval('cause_sequence'), 'Educação', 2048),
+(nextval('cause_sequence'), 'Jovens', 4096);
 
 INSERT INTO skill(id, description, binary_identifier) VALUES
 (nextval('skill_sequence'), 'Artes/Trabalho Manual', 2),
 (nextval('skill_sequence'), 'Comunicação', 4),
-(nextval('skill_sequence'), 'Idiomas', 6),
 (nextval('skill_sequence'), 'Dança/Música', 8),
 (nextval('skill_sequence'), 'Saúde', 16),
 (nextval('skill_sequence'), 'Educação', 32),
@@ -27,7 +26,8 @@ INSERT INTO skill(id, description, binary_identifier) VALUES
 (nextval('skill_sequence'), 'Esportes', 2048),
 (nextval('skill_sequence'), 'Cozinha', 4096),
 (nextval('skill_sequence'), 'Motorista', 8192),
-(nextval('skill_sequence'), 'Doador', 16384);
+(nextval('skill_sequence'), 'Doador', 16384),
+(nextval('skill_sequence'), 'Idiomas', 32768);
 
 
 INSERT INTO federated_unity(id, acronym, name, latitude, longitude) VALUES

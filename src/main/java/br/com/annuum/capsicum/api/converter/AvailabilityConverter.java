@@ -4,6 +4,7 @@ import br.com.annuum.capsicum.api.domain.Availability;
 import br.com.annuum.capsicum.api.domain.DayShiftAvailability;
 import br.com.annuum.capsicum.api.domain.enums.DayShift;
 import one.util.streamex.EntryStream;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.AttributeConverter;
@@ -17,19 +18,19 @@ import static org.apache.commons.lang3.StringUtils.EMPTY;
 import static org.springframework.util.CollectionUtils.isEmpty;
 
 @Component
-public class AvailabilityConverter implements AttributeConverter<Availability, String> {
+public class AvailabilityConverter implements AttributeConverter<Availability, Integer> {
 
     private static final char AVAILABLE = '1';
     private static final char NOT_AVAILABLE = '0';
 
     @Override
-    public String convertToDatabaseColumn(Availability attribute) {
+    public Integer convertToDatabaseColumn(Availability attribute) {
         // creates "000000000000000000000" considering 7 days of week and 3 day shifts
         final String emptyValue = Character.toString(NOT_AVAILABLE).repeat(DayOfWeek.values().length * DayShift.values().length);
 
-        // return only zeros if availability not provided
+        // return zero if availability not provided
         if (isNull(attribute) || isEmpty(attribute.getDayShiftAvailabilities())) {
-            return emptyValue;
+            return 0;
         }
 
         final StringBuilder builder = new StringBuilder(emptyValue);
@@ -39,12 +40,12 @@ public class AvailabilityConverter implements AttributeConverter<Availability, S
             .forEach(availability ->
                 builder.setCharAt(calculateIndex(availability), AVAILABLE));
 
-        return builder.toString();
+        return Integer.parseInt(builder.toString(), 2);
     }
 
     @Override
-    public Availability convertToEntityAttribute(String dbData) {
-        final String data = isNull(dbData) ? EMPTY : dbData;
+    public Availability convertToEntityAttribute(Integer dbData) {
+        final String data = isNull(dbData) ? EMPTY : StringUtils.leftPad(Integer.toBinaryString(dbData), 21, '0');
         final List<DayShiftAvailability> values = EntryStream.of(asList(data.split(EMPTY)))
             .filterValues(this::isAvailable)
             .map(this::toDayShiftAvailability)

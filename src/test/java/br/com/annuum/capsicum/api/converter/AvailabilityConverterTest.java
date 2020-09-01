@@ -23,9 +23,9 @@ class AvailabilityConverterTest {
     @Test
     public void shouldConvertToDatabaseColumnWithEmptyAvailabilityWhenNull() {
 
-        final String column = target.convertToDatabaseColumn(null);
+        final Integer column = target.convertToDatabaseColumn(null);
 
-        assertEquals("000000000000000000000", column);
+        assertEquals(0, column);
     }
 
     @Test
@@ -34,9 +34,9 @@ class AvailabilityConverterTest {
         final Availability attribute = new Availability()
             .setDayShiftAvailabilities(new ArrayList<>());
 
-        final String column = target.convertToDatabaseColumn(attribute);
+        final Integer column = target.convertToDatabaseColumn(attribute);
 
-        assertEquals("000000000000000000000", column);
+        assertEquals(0, column);
     }
 
     @Test
@@ -52,9 +52,9 @@ class AvailabilityConverterTest {
                     .setDayShift(NIGHT)
             ));
 
-        final String column = target.convertToDatabaseColumn(attribute);
+        final Integer column = target.convertToDatabaseColumn(attribute);
 
-        assertEquals("100000000000000000001", column);
+        assertEquals(1048577, column);
     }
 
     @Test
@@ -85,9 +85,9 @@ class AvailabilityConverterTest {
                     .setDayShift(MORNING)
             ));
 
-        final String column = target.convertToDatabaseColumn(attribute);
+        final Integer column = target.convertToDatabaseColumn(attribute);
 
-        assertEquals("100100100100100100100", column);
+        assertEquals(1198372, column);
     }
 
     @Test
@@ -115,9 +115,9 @@ class AvailabilityConverterTest {
                     .setDayShift(NIGHT)
             ));
 
-        final String column = target.convertToDatabaseColumn(attribute);
+        final Integer column = target.convertToDatabaseColumn(attribute);
 
-        assertEquals("000000000000000111111", column);
+        assertEquals(63, column);
     }
 
     @Test
@@ -172,9 +172,9 @@ class AvailabilityConverterTest {
                     .setDayShift(NIGHT)
             ));
 
-        final String column = target.convertToDatabaseColumn(attribute);
+        final Integer column = target.convertToDatabaseColumn(attribute);
 
-        assertEquals("111111111111111000000", column);
+        assertEquals(2097088, column);
     }
 
     //  ---------------------
@@ -192,7 +192,7 @@ class AvailabilityConverterTest {
     @Test
     public void shouldConvertToEntityWithEmptyAvailabilityWhenEmptyDayShiftAvailability() {
 
-        final String column = "000000000000000000000";
+        final Integer column = 0;
 
         final Availability availability = target.convertToEntityAttribute(column);
 
@@ -202,7 +202,7 @@ class AvailabilityConverterTest {
     @Test
     public void shouldConvertToEntityWithFirstAndLastDayShiftAvailableIndicatingMondayMorningAndSundayNight() {
 
-        final String column = "100000000000000000001";
+        final Integer column = 1048577;
 
         final Availability availability = target.convertToEntityAttribute(column);
 
@@ -219,7 +219,7 @@ class AvailabilityConverterTest {
     @Test
     public void shouldConvertToEntityWithEveryMorningsAvailable() {
 
-        final String column = "100100100100100100100";
+        final Integer column = 1198372;
 
         final Availability availability = target.convertToEntityAttribute(column);
 
@@ -256,7 +256,7 @@ class AvailabilityConverterTest {
     @Test
     public void shouldConvertToEntityWithAvailabilityOnlyOnWeekends() {
 
-        final String column = "000000000000000111111";
+        final Integer column = 63;
 
         final Availability availability = target.convertToEntityAttribute(column);
 
@@ -289,7 +289,7 @@ class AvailabilityConverterTest {
     @Test
     public void shouldConvertToEntityWithAvailabilityOnlyOnWeekDays() {
 
-        final String column = "111111111111111000000";
+        final Integer column = 2097088;
 
         final Availability availability = target.convertToEntityAttribute(column);
 
